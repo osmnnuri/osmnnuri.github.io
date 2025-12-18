@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kişisel Portfolyo | Osman Nuri Yaşar</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo"> ONY </div>
+        <ul class="nav-links">
+            <li><a href="#about">Hakkımda</a></li>
+            <li><a href="#education">Eğitim</a></li>
+            <li><a href="#projects">Projelerim</a></li>
+            <li><a href="#contact" class="nav-btn">İletişim</a></li>
+        </ul>
+    </nav>
+
+    <section id="about" class="full-page">
+        <main class="hero-container">
+            <div class="profile-wrapper">
+                <img src="benim_fotom.jpeg" alt="Osman Nuri Yaşar" class="profile-pic">
+                
+                <div class="skills-container">
+                    <div class="skills-group">
+                        <p>Diller</p>
+                        <span class="skill-badge">Python</span>
+                        <span class="skill-badge">C</span>
+                        <span class="skill-badge">Kotlin</span>
+                    </div>
+                    <div class="skills-group">
+                        <p>Araçlar</p>
+                        <span class="skill-badge">Android Studio</span>
+                        <span class="skill-badge">VS Code</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-content">
+                <h1 class="name">Osman Nuri YAŞAR</h1>
+                <h5 class="job-title">Bilgisayar Mühendisi</h5>
+                <div class="about-section">
+                    <h3>Hakkımda</h3>
+                    <p> Merhabalar, ben <strong> Osman Nuri YAŞAR.</strong> İnönü Üniversitesi Bilgisayar Mühendisliği öğrencisiyim. <strong> Uygulama Geliştirme (Kotlin & Java),
+                        C Programlama Dili, modern web geliştirme teknolojileri (HTML & CSS)</strong> alanlarında çalışmaktayım. Güncel teknolojileri yakından takip ederek kendimi sürekli geliştirmekte ve yeni projelerle pratiğimi güçlendirmekteyim.
+                        Yaptığım çalışmaları ve projeleri <strong>Github, LinkedIn ve bu platform </strong> aracılığıyla sizlerle paylaşmaktan mutluluk duyarım.  
+                    </p>
+                </div>
+            </div>
+        </main>
+    </section>
+
+    <section id="education" class="full-page">
+        <h2 class="section-title">Faaliyetler & Eğitim</h2>
+        <div class="activity-container">
+            <div class="activity-card academic">
+                <div class="card-header">
+                    <span class="date">2024 - 2028</span>
+                    <h4>İnönü Üniversitesi</h4>
+                </div>
+                <p>Bilgisayar Mühendisliği Lisans Eğitimi - 2. Sınıf</p>
+                <div class="card-tags">
+                    <span>#Eğitim</span> <span>#Üniversite</span> <span>#İnönüÜniversitesi</span>
+                </div>
+            </div>
+
+            <div class="activity-card">
+                <div class="card-header">
+                    <span class="date">2024</span>
+                    <h4>Android Eğitim Uygulaması</h4>
+                </div>
+                <p>Kotlin ve local Database kullanarak ekibimle geliştirdiğim, eğitim metotları ile desteklenmiş hedef kitleye uygun oyunlaştırılmış aktivitelerle eğitim sunan bir mobil uygulama projesi geliştirildi ve Üniversite bünyesinde düzenlenen INUFEST Teknoloji Festivalinde sunuldu.</p>
+                <div class="card-tags">
+                    <span>#Kotlin</span> <span>#AndroidStudio</span> <span>#UI/UX</span> <span>#TakımÇalışması</span> <span>#INUFEST</span> <span>#Database</span>
+                </div>
+            </div>
+
+            <div class="activity-card">
+                <div class="card-header">
+                    <span class="date">2024</span>
+                    <h4>Siber Güvenlik Topluluk Faaliyetleri</h4>
+                </div>
+                <p>Üniversite bünyesinde oluşturulmuş "Siber Güvenlik Topluluğu" Ar-Ge Ekibine katıldım.</p>
+                <div class="card-tags">
+                    <span>#C</span> <span>#SiberGüvenlik</span> <span>#İnönüÜniversitesi</span> <span>#ToplulukFaaliyetleri</span> <span>#Ar-Ge</span>
+                </div>
+            </div>
+
+            <div class="activity-card academic">
+                <div class="card-header">
+                    <span class="date">2024</span>
+                    <h4>Kafe Uygulaması</h4>
+                </div>
+                <p>Bir kafede kullanılması üzerine bir garson-müşteri paneli uygulaması (web tabanlı) geliştirildi.</p>
+                <div class="card-tags">
+                    <span>#HTML</span> <span>#Cafe</span> <span>#Cursor</span> 
+                </div>
+            </div>
+
+            <div class="activity-card academic">
+                <div class="card-header">
+                    <span class="date">2025</span>
+                    <h4>Bireysel Çalışmalar</h4>
+                </div>
+                <p>2. Sınıf boyunca çeşitli programlama alanlarında çalışmalar yürütüp online eğitimlere (BTK Akademi) katıldım. Birçok basit Android Uygulama geliştirdim.</p>
+                <div class="card-tags">
+                    <span>#Kotlin</span> <span>#Java</span> <span>#BTKAkademi</span>
+                </div> 
+            </div>
+        </div> 
+    </section>
+
+    <section id="projects" class="full-page">
+        <h2 class="section-title">Projelerim</h2>
+
+        <div class="activity-container">
+            <div class="activity-card project-card" onclick="openProject('izeka')">
+                <div class="card-header">
+                    <span class="date"> 2024 </span>
+                    <h4>IZeka Mobil Eğitim Uygulaması</h4>
+                </div>
+                <p>Detayları görmek için tıklayınız...</p>
+                <div class="card-tags">
+                    <span>#Kotlin</span> <span>#AndroidStudio</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="activity-container">
+            <div class="activity-card project-card" onclick="openProject('cafe')">
+                <div class="card-header">
+                    <span class="date"> 2024 </span>
+                    <h4>Kafe Garson-Müşteri Arayüzü</h4>
+                </div>
+                <p>Detayları görmek için tıklayınız...</p>
+                <div class="card-tags">
+                    <span>#HTML</span> <span>#Cursor</span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="activity-container">
+            <div class="activity-card project-card" onclick="openProject('YemekKitabi')">
+                <div class="card-header">
+                    <span class="date"> 2025 </span>
+                    <h4>Yemek Kitabı Android Mobil Uygulaması</h4>
+                </div>
+                <p>Detayları görmek için tıklayınız...</p>
+                <div class="card-tags">
+                    <span>#Kotlin</span> <span>#AndroidStudio</span> <span>#Room</span> <span>#LocalDatabase</span>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <section id="contact" class="full-page">
+        <h2 class="section-title">İletişim</h2>
+        <div class="social-icons">
+            <a href="https://github.com/osmnnuri" target="_blank" class="icon-link">
+                <img src="icons8-github-50.png" alt="GitHub">
+            </a>
+            <a href="https://www.linkedin.com/in/osman-nuri-yaşar-59901a324/" target="_blank" class="icon-link">
+                <img src="icons8-linkedin-50.png" alt="LinkedIn">
+            </a>
+            <a href="mailto:osmannuriyasar57@gmail.com" class="icon-link">
+                <img src="icons8-gmail-50.png" alt="Gmail">
+            </a>
+        </div>
+    </section>
+
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>© 2025 Osman Nuri Yaşar | Tüm Hakları Saklıdır.</p>
+    </footer>
+
+    <script src="index.js"></script>
+</body>
+</html>

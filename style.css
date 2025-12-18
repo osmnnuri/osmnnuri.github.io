@@ -23,7 +23,7 @@ body::before {
     font-family: 'Consolas', 'Courier New', monospace;
     font-size: 16px;
     line-height: 1.8;
-    color: rgba(120, 0, 120, 0.04);
+    color: rgba(17, 214, 214, 0.04); /* Yeni Renk Şeffaf */
     z-index: -1;
     pointer-events: none;
     width: 100%;
@@ -41,29 +41,29 @@ body::before {
     padding: 20px 80px;
     background-color: rgba(26, 29, 29, 0.98); 
     z-index: 1000;
-    border-bottom: 2px solid rgba(120, 0, 120, 0.5); 
+    border-bottom: 2px solid rgba(17, 214, 214, 0.5); /* Yeni Renk Şeffaf */
     box-sizing: border-box;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
-.logo { font-size: 1.5rem; font-weight: bold; color: #780078; }
+.logo { font-size: 1.5rem; font-weight: bold; color: #11d6d6; }
 
 .nav-links { list-style: none; display: flex; gap: 30px; margin: 0; padding: 0; }
 
 .nav-links a { text-decoration: none; color: white; transition: 0.3s; font-weight: 500; }
 
-.nav-links a:hover { color: #780078; text-shadow: 0 0 8px #780078; }
+.nav-links a:hover { color: #11d6d6; text-shadow: 0 0 8px #11d6d6; }
 
 .nav-links .nav-btn {
-    border: 2px solid #780078;
+    border: 2px solid #11d6d6;
     padding: 8px 20px;
     border-radius: 5px;
     background-color: transparent !important;
 }
 
 .nav-links .nav-btn:hover {
-    background-color: #780078 !important;
-    box-shadow: 0 0 15px #780078;
+    background-color: #11d6d6 !important;
+    box-shadow: 0 0 15px #11d6d6;
     color: white !important;
 }
 
@@ -81,7 +81,7 @@ body::before {
     box-sizing: border-box;
 }
 
-.section-title { color: #780078; font-size: 2.5rem; margin-bottom: 40px; text-align: center; }
+.section-title { color: #11d6d6; font-size: 2.5rem; margin-bottom: 40px; text-align: center; }
 
 /* --- 4. HAKKIMDA ALANI --- */
 .hero-container { display: flex; flex-direction: row; align-items: flex-start; gap: 60px; max-width: 1100px; }
@@ -91,33 +91,39 @@ body::before {
     height: 280px;
     border-radius: 50%;
     object-fit: cover;
-    border: 5px solid #780078;
-    box-shadow: 0 0 30px rgba(120, 0, 120, 0.5);
+    border: 5px solid #11d6d6;
+    box-shadow: 0 0 30px rgba(17, 214, 214, 0.4); /* Yeni Renk Şeffaf */
 }
 
-.name { color: #780078; font-size: 3rem; margin: 0; }
+.name { color: #11d6d6; font-size: 3rem; margin: 0; }
 .job-title { color: grey; margin: 5px 0; font-weight: normal; }
 
 .about-section p { line-height: 1.8; color: #e0e0e0; margin-bottom: 15px; font-size: 1.05rem; text-align: justify; }
 
-.about-section strong { color: #780078; font-weight: 600; }
+.about-section strong { color: #11d6d6; font-weight: 600; }
 
 /* --- 5. YETKİNLİKLER & SOSYAL MEDYA --- */
 .skill-badge {
     display: inline-block;
-    border: 1px solid #780078;
-    background: rgba(120, 0, 120, 0.1);
+    border: 1px solid #11d6d6;
+    background: rgba(17, 214, 214, 0.08); /* Yeni Renk Şeffaf */
     padding: 5px 12px;
     border-radius: 15px;
     font-size: 0.8rem;
     margin: 5px;
+    transition: 0.3s;
+}
+
+.skill-badge:hover {
+    background: #11d6d6;
+    color: white;
 }
 
 .social-icons { display: flex; gap: 30px; justify-content: center; margin-top: 30px; }
 
 .icon-link img { width: 45px; height: 45px; filter: grayscale(100%); transition: 0.3s; }
 
-.icon-link:hover img { filter: grayscale(0%) drop-shadow(0 0 8px #780078); transform: scale(1.1); }
+.icon-link:hover img { filter: grayscale(0%) drop-shadow(0 0 8px #11d6d6); transform: scale(1.1); }
 
 /* --- 6. FAALİYET KARTLARI (GRID) --- */
 .activity-container {
@@ -130,8 +136,8 @@ body::before {
 }
 
 .activity-card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(120, 0, 120, 0.2);
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(17, 214, 214, 0.15); /* Yeni Renk Şeffaf */
     padding: 25px;
     border-radius: 12px;
     transition: 0.4s ease;
@@ -140,12 +146,12 @@ body::before {
     min-height: 200px;
 }
 
-.activity-card:hover { transform: translateY(-10px); border-color: #780078; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); }
+.activity-card:hover { transform: translateY(-10px); border-color: #11d6d6; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); }
 
 .project-card { cursor: pointer; }
 
 .card-tags span {
-    font-size: 0.7rem; color: #780078; background: rgba(120, 0, 120, 0.1);
+    font-size: 0.7rem; color: #11d6d6; background: rgba(17, 214, 214, 0.08);
     padding: 4px 10px; border-radius: 4px; margin-right: 5px; margin-top: 5px; display: inline-block;
 }
 
@@ -156,26 +162,51 @@ body::before {
 }
 
 .modal-content {
-    background-color: #1a1d1d; margin: 5% auto; padding: 30px; border: 1px solid #780078;
-    width: 70%; max-width: 800px; border-radius: 15px; position: relative; color: white;
+    background-color: #1a1d1d; 
+    margin: 5% auto; 
+    padding: 30px; 
+    border: 1px solid #11d6d6;
+    width: 70%; 
+    max-width: 800px; 
+    border-radius: 15px; 
+    position: relative; 
+    color: white;
+    max-height: 85vh;
+    overflow-y: auto;
 }
 
-.close-button { position: absolute; right: 20px; top: 10px; color: #780078; font-size: 35px; cursor: pointer; }
+.close-button { position: absolute; right: 20px; top: 10px; color: #11d6d6; font-size: 35px; cursor: pointer; }
 
-/* Modal içindeki görsellerin genel ayarı */
 #modal-body img {
-    width: 100%;           /* Resim modalın genişliğini kaplasın */
-    max-height: 400px;     /* Resmin boyu çok uzamasın (isteğe göre değiştirebilirsin) */
-    object-fit: contain;   /* Resmi bozmadan çerçeveye sığdırır */
-    border-radius: 8px;    /* Köşeleri yumuşatır */
-    margin-bottom: 20px;   /* Resim ile altındaki metin arasına boşluk koyar */
-    display: block;        /* Resmin blok eleman gibi davranmasını sağlar */
+    width: 100%;
+    max-height: 400px;
+    object-fit: contain;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: block;
 }
 
-/* Modal içeriğinin kaydırılabilir olması (İçerik çoksa modal içinde scroll çıkar) */
-.modal-content {
-    max-height: 85vh;      /* Modal ekranın %85'inden fazla olmasın */
-    overflow-y: auto;      /* İçerik sığmazsa dikeyde kaydırma çubuğu çıksın */
-    /* ... mevcut diğer kodların ... */
+/* --- 8. FOOTER & SCROLLBAR --- */
+.footer { 
+    padding: 40px 20px; 
+    text-align: center; 
+    border-top: 1px solid rgba(17, 214, 214, 0.15); 
+    background-color: #242929; 
+    color: grey; 
+    font-size: 0.9rem; 
 }
-.footer { padding: 40px 20px; text-align: center; border-top: 1px solid rgba(120, 0, 120, 0.2); background-color: #242929; color: grey; font-size: 0.9rem; }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #1a1d1d;
+}
+::-webkit-scrollbar-thumb {
+    background: #11d6d6;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #0dbdbd;
+}

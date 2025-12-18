@@ -44,7 +44,7 @@ const projectData = {
     `
     },
 
-    'Kelime': {
+    'wordgame': {
     title: 'Kelime Oyunu Mobil Uygulaması',
     content: ` 
         <img src="kelimeoyunu.png" alt="Kelime Oyunu">

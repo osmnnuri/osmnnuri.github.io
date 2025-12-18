@@ -35,7 +35,20 @@ const projectData = {
     title: 'Yemek Kitabı Android Mobil Uygulaması',
     content: `
         <img src="yemekkitabi.png" alt="Yemek Kitabı">
-        <p><strong>Yemek Kitabı<strong> İstediğiniz yemekleri tarif/malzeme, isim ve görsel olarak kaydederek cihazınızda not edebilirsiniz.</p>
+        <p><strong>Yemek Kitabı<strong> İstediğiniz yemekleri tarif/malzeme, isim ve görsel olarak kaydederek cihazınızda not edebileceğiniz temel bir kotlin yazılım çalışmasıdır.</p>
+        <h3>Kullanılan Teknolojiler:</3>
+        <ul>
+            <li>Kotlin</li>
+            <li>Local Database & Room Yapısı</li>
+        </ul>
+    `
+    },
+
+    'Kelime': {
+    title: 'Kelime Oyunu Mobil Uygulaması',
+    content: ` 
+        <img src="kelimeoyunu.png" alt="Kelime Oyunu">
+        <p><strong>Kelime Oyunu<strong> çeşitli kategorilerde ki kelimeleri tahmin etmeye çalıştığınız temel bir kotlin yazılım çalışmasıdır.</p>
         <h3>Kullanılan Teknolojiler:</3>
         <ul>
             <li>Kotlin</li>

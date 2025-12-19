@@ -23,7 +23,7 @@ const projectData = {
         <img src="musteri_paneli.png" alt="Restoran Menüsü">
         <p><strong>Menü Yönetimi:</strong> Ürünleri tercihinize göre düzenleyebilir(Malzeme ekleyip çıkarabilir), siparişinizi verebilir ve hesabı masanıza isteyebilirsiniz..</p>
         
-        <h3>Kullanılan Teknolojiler</h3>
+        <p>Kullanılan Teknolojiler</p>
         <ul>
             <li>HTML5 & CSS3</li>
             <li>Cursor AI Destekli Geliştirme</li>
@@ -36,7 +36,7 @@ const projectData = {
     content: `
         <img src="yemekkitabi.png" alt="Yemek Kitabı">
         <p><strong>Yemek Kitabı<strong> İstediğiniz yemekleri tarif/malzeme, isim ve görsel olarak kaydederek cihazınızda not edebileceğiniz temel bir kotlin yazılım çalışmasıdır.</p>
-        <h3>Kullanılan Teknolojiler:</3>
+        <p>Kullanılan Teknolojiler:</p>
         <ul>
             <li>Kotlin</li>
             <li>Local Database & Room Yapısı</li>
@@ -49,7 +49,7 @@ const projectData = {
     content: ` 
         <img src="kelimeoyunu.png" alt="Kelime Oyunu">
         <p><strong>Kelime Oyunu<strong> çeşitli kategorilerde ki kelimeleri tahmin etmeye çalıştığınız temel bir kotlin yazılım çalışmasıdır.</p>
-        <h3>Kullanılan Teknolojiler:</3>
+        <p>Kullanılan Teknolojiler:</p>
         <ul>
             <li>Kotlin</li>
             <li>Local Database & Room Yapısı</li>

@@ -60,8 +60,10 @@ const projectData = {
     'BlackJack': {
     title: 'BlackJack Android Mobil Uygulaması',
     content: `
-        <img src="blackjackmain.png" alt="BlackJack Giriş Ekranı">
-        <img src="blackjackmasa.png" alt="BlackJack Oyun Masası"
+        <div class="image-row"
+            <img src="blackjackmain.png" alt="BlackJack Giriş Ekranı">
+            <img src="blackjackmasa.png" alt="BlackJack Oyun Masası"
+        </div>
         <p><strong>BlackJack<strong> klasik blackjack mantığını mobil cihazlarınıza taşıyan temel bir android yazılımdır.</p>
         <p>Kullanılan Teknolojiler:</p>
         <ul>

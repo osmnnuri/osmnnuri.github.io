@@ -210,3 +210,19 @@ body::before {
 ::-webkit-scrollbar-thumb:hover {
     background: #0dbdbd;
 }
+
+/* Modal içinde yan yana görseller */
+.image-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.image-row img {
+    flex: 1;
+    min-width: 250px;
+    max-height: 400px;
+    object-fit: contain;
+    border-radius: 8px;
+}

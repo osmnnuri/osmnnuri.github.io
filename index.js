@@ -55,6 +55,20 @@ const projectData = {
             <li>Local Database & Room Yapısı</li>
         </ul>
     `
+    },
+
+    'BlackJack': {
+    title: 'BlackJack Android Mobil Uygulaması',
+    content: `
+        <img src="blackjackmain.png" alt="BlackJack Giriş Ekranı">
+        <img src="blackjackmasa.png" alt="BlackJack Oyun Masası"
+        <p><strong>BlackJack<strong> klasik blackjack mantığını mobil cihazlarınıza taşıyan temel bir android yazılımdır.</p>
+        <p>Kullanılan Teknolojiler:</p>
+        <ul>
+            <li>Kotlin</li>
+            <li>Android Studio</li>
+        </ul>
+    `
     }
 };
 

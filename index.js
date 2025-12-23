@@ -60,7 +60,7 @@ const projectData = {
     'BlackJack': {
     title: 'BlackJack Android Mobil Uygulaması',
     content: `
-        <div class="image-row"
+        <div class="image-row">
             <img src="blackjackmain.png" alt="BlackJack Giriş Ekranı">
             <img src="blackjackmasa.png" alt="BlackJack Oyun Masası"
         </div>

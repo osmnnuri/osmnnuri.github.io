@@ -76,10 +76,10 @@ const projectData = {
     'notehub': {
     title: 'NoteHub Android Mobil Uygulaması',
     content: ` 
-        <img src="notehubmain" alt="Note Hub">
+        <img src="notehubmain.png" alt="Note Hub">
         <p><strong>NoteHub</strong> istediğiniz aktivitelerinizi planlarınızı ve programlarınıznı vs. başlık-detay (title - content) olarak kaydetmenize izin veren bir kotlin çalışmasıdır.</p>
-        <img src="notehubdelete" alt="Note Hub Görev Silme">
-        <p>Ayrıca,<strong>NoteHub</strong>'da görevleri sola kaydırarak eklenmiş görevleri silebilirsiniz.</p>
+        <img src="notehubdelete.png" alt="Note Hub Görev Silme">
+        <p>Ayrıca, <strong>NoteHub</strong>'da görevleri sola kaydırarak eklenmiş görevleri silebilirsiniz.</p>
         <p>Kullanılan Teknolojiler:</p>
         <ul>
             <li>Kotlin</li>

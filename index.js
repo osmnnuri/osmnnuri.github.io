@@ -62,13 +62,30 @@ const projectData = {
     content: `
         <div class="image-row">
             <img src="blackjackmain.png" alt="BlackJack Giriş Ekranı">
-            <img src="blackjackmasa.png" alt="BlackJack Oyun Masası"
+            <img src="blackjackmasa.png" alt="BlackJack Oyun Masası">
         </div>
         <p><strong>BlackJack</strong> klasik blackjack mantığını mobil cihazlarınıza taşıyan temel bir android yazılımdır.</p>
         <p>Kullanılan Teknolojiler:</p>
         <ul>
             <li>Kotlin</li>
             <li>Android Studio</li>
+        </ul>
+    `
+    },
+
+    'notehub': {
+    title: 'NoteHub Android Mobil Uygulaması',
+    content: ` 
+        <img src="notehubmain" alt="Note Hub">
+        <p><strong>NoteHub</strong> istediğiniz aktivitelerinizi planlarınızı ve programlarınıznı vs. başlık-detay (title - content) olarak kaydetmenize izin veren bir kotlin çalışmasıdır.</p>
+        <img src="notehubdelete" alt="Note Hub Görev Silme">
+        <p>Ayrıca,<strong>NoteHub</strong>'da görevleri sola kaydırarak eklenmiş görevleri silebilirsiniz.</p>
+        <p>Kullanılan Teknolojiler:</p>
+        <ul>
+            <li>Kotlin</li>
+            <li>Local Database & Room Yapısı</li>
+            <li>RecyclerView</li>
+            <li>AI ile Görsel Oluşturma</li>
         </ul>
     `
     }

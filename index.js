@@ -88,7 +88,28 @@ const projectData = {
             <li>AI ile Görsel Oluşturma</li>
         </ul>
     `
-    }
+    },
+    
+    'cardwars': {
+    title: 'Kart Savaşları Mobil Oyunu',
+    content: ` 
+        <img src="cardwars_menu.png" alt="Kart Savaşları Menü">
+        <p><strong>Kart Savaşları</strong> çevrimiçi/çevrimdışı olarak mücadele edebileceğiniz strateji üzerine kurulu sıra tabanlı bir mobil oyun çalışmasıdır.</p>
+        <img src="cardwars_game.png" alt="kart Savaşları Oyun Ekranı">
+        <p>Ayrıca, <strong>Kart Savaşları</strong>'nda arenaya çıktığınızda size 3 kart verilir ve bu kartları kullanarak çeşitli stratejilerle rakibinizi alt etmeye çalışırsınız. Kartlar kullanıcı kullandıkça değişir ve temel kartların (saldırı, savunma) yanı sıra özel etkilere sahip kartlarda bulunur.
+        Uygulama şuan (05.02.2026) demo sürümündedir(v1.0) ve uygulama zamanla geliştirilmeye devam edecektir.</p>
+        <p>Kullanılan Teknolojiler:</p>
+        <ul>
+            <li>Kotlin</li>
+            <li>Local Database & Room Yapısı</li>
+            <li>ViewBinding</li>
+            <li>AI ile Görsel Oluşturma</li>
+            <li>AI ile Hata Ayıklama</li>
+            <li>Katman Mimarisi</li>
+            <li>Fragment</li>
+            <li>Navigation</li>
+        </ul>
+    `
 };
 
 function openProject(id) {

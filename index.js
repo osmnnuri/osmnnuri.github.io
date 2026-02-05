@@ -97,7 +97,7 @@ const projectData = {
             <p><strong>Kart Savaşları</strong> çevrimiçi/çevrimdışı olarak mücadele edebileceğiniz strateji üzerine kurulu sıra tabanlı bir mobil oyun çalışmasıdır.</p>
             <img src="cardwars_game.png" alt="Kart Savaşları Oyun Ekranı">
             <p>
-                Ayrıca, <strong>Kart Savaşları</strong>'nda arenaya çıktığınızda size 3 kart verilir ve bu kartları kullanarak çeşitli stratejilerle rakibinizi alt etmeye çalışırsınız.
+                <strong>Kart Savaşları</strong>'nda arenaya çıktığınızda size 3 kart verilir ve bu kartları kullanarak çeşitli stratejilerle rakibinizi alt etmeye çalışırsınız.
                 Kartlar kullanıcı kullandıkça değişir ve temel kartların (saldırı, savunma) yanı sıra özel etkilere sahip kartlarda bulunur.
                 Uygulama şuan (05.02.2026) demo sürümündedir(v1.0) ve uygulama zamanla geliştirilmeye devam edecektir.
             </p>

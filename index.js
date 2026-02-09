@@ -113,6 +113,26 @@ const projectData = {
                 <li>Navigation</li>
             </ul>
         `
+    },
+    'MangaApp': {
+        title: 'TrendManga Android Mobil Uygulaması',
+        content: `
+            <div class="image-row">
+                <img src="mangaapp1.png" alt="MangaApp1">
+                <img src="mangaapp2.png" alt="MangaApp2">
+                <img src="mangaapp3.png" alt="MangaApp3">
+            </div>
+            <p><strong>TrendManga</strong> Dünya genelinde yayınlanan mangaları isim ve puanlarıyla listeleyen bir android yazılım çalışmasıdır.
+            Bu projeyle birlikte modern "Compose" yapısı hakkında genel bir çalışma yapmış bulunmaktayım. Bu gibi projelerle güncel gelişmeleri ve teknolojileri kullanarak kendimi geliştirmeye devam edeceğim.</p>
+            <p>Kullanılan Teknolojiler:</p>
+            <ul>
+                <li>Kotlin</li>
+                <li>Android Studio</li>
+                <li>Compose</li>
+                <li>API</li>
+                <li>Room, Local DB</li>
+            </ul>
+        `
     }
 };
 

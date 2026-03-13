@@ -146,7 +146,7 @@ const projectData = {
             Bu uygulamada amaç; Çalışmaları düzenli ve sistematik olarak ilerletmek, ilerlemeleri arşiv halinde kaydedip bir kayıt tutmak ve kullanıcıların çalışmaları üzerinde 
             daha kontrol sahibi olmalarını sağlamaktır. Bu projeyle birlikte modern "Compose" teknolojisi hakkında daha fazla pratik yaparak yapay zekayı da projelerimde daha etkili kullanma yollarını öğrenmiş oldum.</p>
 
-            <img src? "görseller/devTrack_archive.png" alt="devtrack4">
+            <img src="görseller/devTrack_archive.png" alt="devtrack4">
 
             <p>Görsellerde görüldüğü üzere uygulama içerisinde eklenen projeler belirlenen görevlerin tamamlanmasına bağlı olarak ilerleme kaydeder ve ilerleme %100'e ulaştığında 
             kullanıcı projeyi "Tamamlandı" olarak işaretleyerek arşive gönderebilir. Arşivlenen projelerde tekrar ekleme yapılarak projelerin sürekli olarak geliştirilebilmesine olanak tanır.</p>

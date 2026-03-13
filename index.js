@@ -133,6 +133,33 @@ const projectData = {
                 <li>Room, Local DB</li>
             </ul>
         `
+    },
+        'DevTrack': {
+        title: 'DevTrack Android Mobil Uygulaması',
+        content: `
+            <div class="image-row">
+                <img src="görseller/devTrack_mainScreen.png" alt="devtrack1">
+                <img src="görseller/devTrack_addPorject.png" alt="devtrack2">
+                <img src="görseller/devTrack_projectdetail.png" alt="devtrack3">
+            </div>
+            <p><strong>DevTrack</strong> geliştiriciler için tasarlanmış olmasıyla birlikte genel kullanıcı kitlesine hitap edebilmiş bir planlayıcı uygulamasıdır. 
+            Bu uygulamada amaç; Çalışmaları düzenli ve sistematik olarak ilerletmek, ilerlemeleri arşiv halinde kaydedip bir kayıt tutmak ve kullanıcıların çalışmaları üzerinde 
+            daha kontrol sahibi olmalarını sağlamaktır. Bu projeyle birlikte modern "Compose" teknolojisi hakkında daha fazla pratik yaparak yapay zekayı da projelerimde daha etkili kullanma yollarını öğrenmiş oldum.</p>
+
+            <img src? "görseller/devTrack_archive.png" alt="devtrack4">
+
+            <p>Görsellerde görüldüğü üzere uygulama içerisinde eklenen projeler belirlenen görevlerin tamamlanmasına bağlı olarak ilerleme kaydeder ve ilerleme %100'e ulaştığında 
+            kullanıcı projeyi "Tamamlandı" olarak işaretleyerek arşive gönderebilir. Arşivlenen projelerde tekrar ekleme yapılarak projelerin sürekli olarak geliştirilebilmesine olanak tanır.</p>
+            <p>Kullanılan Teknolojiler:</p>
+            <ul>
+                <li>Kotlin</li>
+                <li>Android Studio</li>
+                <li>Compose</li>
+                <li>AI</li>
+                <li>Room, Local DB</li>
+                <li>Firebase</li>
+            </ul>
+        `
     }
 };
 

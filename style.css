@@ -227,3 +227,296 @@ body::before {
 ::-webkit-scrollbar-thumb:hover {
     background: #0dbdbd;
 }
+/* --- 9. HAMBURGER MENÜ (Mobil Navigasyon) --- */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1100;
+    padding: 0;
+}
+
+.hamburger span {
+    display: block;
+    width: 26px;
+    height: 3px;
+    background-color: #11d6d6;
+    border-radius: 3px;
+    transition: transform 0.35s ease, opacity 0.25s ease;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+.nav-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.nav-overlay.active {
+    display: block;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* --- 10. RESPONSIVE TASARIM (TABLET & MOBİL) --- */
+
+/* Kod silüetini küçük ekranlarda gizle, performans ve okunabilirlik için */
+@media (max-width: 900px) {
+    body::before {
+        display: none;
+    }
+}
+
+/* Tablet ve küçük dizüstü boyutları */
+@media (max-width: 900px) {
+    .navbar {
+        padding: 15px 25px;
+    }
+
+    .hero-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 35px;
+    }
+
+    .profile-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .about-section p {
+        text-align: left;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .activity-container {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+    }
+
+    .modal-content {
+        width: 85%;
+        margin: 8% auto;
+        padding: 25px;
+    }
+}
+
+/* Mobil telefon boyutları */
+@media (max-width: 640px) {
+    html {
+        scroll-snap-type: none; /* Mobilde snap-scroll rahatsız edebilir, kapatıyoruz */
+    }
+
+    .full-page {
+        padding: 100px 16px 60px;
+        min-height: auto;
+    }
+
+    /* --- Navbar & Hamburger --- */
+    .navbar {
+        padding: 14px 20px;
+    }
+
+    .logo {
+        font-size: 1.3rem;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        width: min(75vw, 300px);
+        background-color: #1a1d1d;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 0;
+        padding: 100px 30px 30px;
+        box-sizing: border-box;
+        transform: translateX(100%);
+        transition: transform 0.35s ease;
+        z-index: 1050;
+        border-left: 2px solid rgba(17, 214, 214, 0.5);
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .nav-links.active {
+        transform: translateX(0);
+    }
+
+    .nav-links li {
+        width: 100%;
+        margin-bottom: 25px;
+    }
+
+    .nav-links a {
+        display: block;
+        font-size: 1.1rem;
+    }
+
+    .nav-links .nav-btn {
+        display: inline-block;
+        width: auto;
+    }
+
+    /* --- Hakkımda --- */
+    .profile-pic {
+        width: 170px;
+        height: 170px;
+        border-width: 3px;
+    }
+
+    .skills-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .skills-group {
+        text-align: center;
+    }
+
+    .name {
+        font-size: 2rem;
+    }
+
+    .job-title {
+        font-size: 0.95rem;
+    }
+
+    .about-section h3 {
+        text-align: center;
+    }
+
+    .about-section p {
+        font-size: 0.95rem;
+        line-height: 1.7;
+    }
+
+    /* --- Bölüm Başlıkları --- */
+    .section-title {
+        font-size: 1.6rem;
+        margin-bottom: 25px;
+    }
+
+    /* --- Kartlar (Faaliyet & Proje) --- */
+    .activity-container {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .activity-card {
+        padding: 18px;
+        min-height: auto;
+    }
+
+    .card-header h4 {
+        font-size: 1rem;
+    }
+
+    .card-tags span {
+        font-size: 0.65rem;
+        padding: 3px 8px;
+    }
+
+    /* --- Sosyal Medya --- */
+    .social-icons {
+        gap: 20px;
+    }
+
+    .icon-link img {
+        width: 38px;
+        height: 38px;
+    }
+
+    /* --- Modal --- */
+    .modal-content {
+        width: 92%;
+        margin: 12% auto;
+        padding: 18px;
+        max-height: 80vh;
+    }
+
+    .modal-content h2 {
+        font-size: 1.2rem;
+    }
+
+    .close-button {
+        right: 14px;
+        top: 6px;
+        font-size: 30px;
+    }
+
+    .image-row {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .image-row img {
+        min-width: 100%;
+        max-height: 250px;
+    }
+
+    #modal-body > img {
+        max-height: 250px;
+    }
+
+    .footer {
+        padding: 25px 15px;
+        font-size: 0.8rem;
+    }
+}
+
+/* Çok küçük ekranlar (eski/küçük telefonlar) */
+@media (max-width: 380px) {
+    .profile-pic {
+        width: 140px;
+        height: 140px;
+    }
+
+    .name {
+        font-size: 1.7rem;
+    }
+
+    .skill-badge {
+        font-size: 0.72rem;
+        padding: 4px 10px;
+    }
+}

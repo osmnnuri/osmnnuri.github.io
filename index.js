@@ -189,3 +189,46 @@ window.onclick = (event) => {
     const modal = document.getElementById("projectModal");
     if (event.target == modal) closeModal();
 };
+
+// --- Hamburger Menü (Mobil Navigasyon) ---
+const hamburger = document.getElementById("hamburger");
+const navLinks = document.getElementById("navLinks");
+const navOverlay = document.getElementById("navOverlay");
+
+function openMenu() {
+    hamburger.classList.add("active");
+    navLinks.classList.add("active");
+    navOverlay.classList.add("active");
+    hamburger.setAttribute("aria-expanded", "true");
+    document.body.style.overflow = "hidden";
+}
+
+function closeMenu() {
+    hamburger.classList.remove("active");
+    navLinks.classList.remove("active");
+    navOverlay.classList.remove("active");
+    hamburger.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "auto";
+}
+
+if (hamburger && navLinks && navOverlay) {
+    hamburger.addEventListener("click", () => {
+        const isOpen = navLinks.classList.contains("active");
+        isOpen ? closeMenu() : openMenu();
+    });
+
+    // Bir linke tıklandığında menüyü otomatik kapat
+    navLinks.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", closeMenu);
+    });
+
+    // Menü dışına (overlay'e) tıklandığında kapat
+    navOverlay.addEventListener("click", closeMenu);
+
+    // Ekran boyutu masaüstüne dönerse menüyü sıfırla
+    window.addEventListener("resize", () => {
+        if (window.innerWidth > 640) {
+            closeMenu();
+        }
+    });
+}

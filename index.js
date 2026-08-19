@@ -162,51 +162,51 @@ const projectData = {
         `
     },
         'Yasarlar24': {
-        title: 'Yaşarlar 24 Manitou Kiralama WEB Sitesi',
-        content: `
-            <div class="image-row">
-                <img src="görseller/devTrack_mainScreen.png" alt="devtrack1">
-                <img src="görseller/devTrack_addPorject.png" alt="devtrack2">
-                <img src="görseller/devTrack_projectdetail.png" alt="devtrack3">
-            </div>
-            <p>
+    title: 'Yaşarlar 24 Manitou Kiralama WEB Sitesi',
+    content: `
+        <img src="görseller/yasarlar24anasayfa.png" alt="Yaşarlar 24 Ana Sayfa">
+
+        <p>
             <strong>YAŞARLAR 24 Manitou Kiralama</strong>, İstanbul Anadolu Yakası'nda
             operatörlü Manitou hizmeti sunan gerçek bir işletme için geliştirilmiş
             <strong>modern ve mobil uyumlu bir kurumsal web sitesidir.</strong>
-            </p>
-            <img src="görseller/yasarlar24anasayfa.png" alt="yasarlar24AnaSayfa">
-            <p>
-                Projede işletmenin hizmetlerini, çalışma bölgelerini ve fiyatlandırma
-                bilgilerini ziyaretçilere <strong>sade, anlaşılır ve profesyonel</strong>
-                bir şekilde sunmak amaçlanmıştır. Web sitesinde
-                <strong>hizmet tanıtımı, bölge bazlı fiyat bilgileri, çalışma galerisi,
-                müşteri yorumları ve hızlı iletişim</strong> gibi özellikler bulunmaktadır.
-            </p>
-            <div class="image-row">
-                <img src="görseller/yasarlar24yorumlar.png" alt="yasarlar24Yorumlar">
-                <img src="görseller/yasarlar24iletisim.png" alt="yasarlar24Iletisim">
-            </div>
+        </p>
 
-            <p>
-                Bu proje sayesinde gerçek bir işletmenin dijital ortamda
-                <strong>daha profesyonel şekilde temsil edilmesini</strong> sağlarken;
-                <strong>responsive web tasarımı, SEO optimizasyonu, Firebase Hosting,
-                domain yönetimi ve Google Search Console</strong> gibi konularda
-                pratik deneyim kazandım.
-            </p>
-            <p>Kullanılan Teknolojiler:</p>
-            <ul>
-                <li>HTML ve CSS</li>
-                <li>Visual Studio Code</li>
-                <li>SSL</li>
-                <li>AI</li>
-                <li>Firebase Hosting</li>
-                <li>Firebase</li>
-                <li>Responsive</li>
-                <li>JavaScript</li>
-            </ul>
-        `
-    }
+        <p>
+            Projede işletmenin hizmetlerini, çalışma bölgelerini ve fiyatlandırma
+            bilgilerini ziyaretçilere <strong>sade, anlaşılır ve profesyonel</strong>
+            bir şekilde sunmak amaçlanmıştır. Web sitesinde
+            <strong>hizmet tanıtımı, bölge bazlı fiyat bilgileri, çalışma galerisi,
+            müşteri yorumları ve hızlı iletişim</strong> gibi özellikler bulunmaktadır.
+        </p>
+
+        <div class="image-row">
+            <img src="görseller/yasarlar24yorumlar.png" alt="Yaşarlar 24 Yorumlar">
+            <img src="görseller/yasarlar24iletisim.png" alt="Yaşarlar 24 İletişim">
+        </div>
+
+        <p>
+            Bu proje sayesinde gerçek bir işletmenin dijital ortamda
+            <strong>daha profesyonel şekilde temsil edilmesini</strong> sağlarken;
+            <strong>responsive web tasarımı, SEO optimizasyonu, Firebase Hosting,
+            domain yönetimi ve Google Search Console</strong> gibi konularda
+            pratik deneyim kazandım.
+        </p>
+
+        <p>Kullanılan Teknolojiler:</p>
+
+        <ul>
+            <li>HTML ve CSS</li>
+            <li>Visual Studio Code</li>
+            <li>SSL</li>
+            <li>AI</li>
+            <li>Firebase Hosting</li>
+            <li>Firebase</li>
+            <li>Responsive</li>
+            <li>JavaScript</li>
+        </ul>
+    `
+}
 };
 
 function openProject(id) {

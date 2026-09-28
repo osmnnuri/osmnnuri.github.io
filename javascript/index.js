@@ -2,7 +2,7 @@ const projectData = {
     'izeka': {
         title: 'IZeka Mobil Eğitim Uygulaması',
         content: `
-            <img src="görseller/proje_kapak.png" alt="IZeka Görsel">
+            <img src="görseller/IZeka/proje_kapak.png" alt="IZeka Görsel">
             <p><strong>IZeka</strong>, ekibimle birlikte geliştirdiğim oyunlaştırılmış bir eğitim platformudur.</p>
             <p>Bu projede kullanılan teknolojiler:</p>
             <ul>
@@ -17,10 +17,10 @@ const projectData = {
     'cafe': {
         title: 'Müşteri - Garson Sipariş Arayüzü',
         content: `
-            <img src="görseller/garson_paneli.png" alt="Garson Paneli">
+            <img src="görseller/Kafe/garson_paneli.png" alt="Garson Paneli">
             <p><strong>Garson Paneli:</strong> Masaların durumunu ve siparişleri anlık takip edebilirsiniz.</p>
             
-            <img src="görseller/musteri_paneli.png" alt="Restoran Menüsü">
+            <img src="görseller/Kafe/musteri_paneli.png" alt="Restoran Menüsü">
             <p><strong>Menü Yönetimi:</strong> Ürünleri tercihinize göre düzenleyebilir(Malzeme ekleyip çıkarabilir), siparişinizi verebilir ve hesabı masanıza isteyebilirsiniz.</p>
             
             <p>Kullanılan Teknolojiler</p>
@@ -34,7 +34,7 @@ const projectData = {
     'YemekKitabi': {
         title: 'Yemek Kitabı Android Mobil Uygulaması',
         content: `
-            <img src="görseller/yemekkitabi.png" alt="Yemek Kitabı">
+            <img src="görseller/yemekkitabi/yemekkitabi.png" alt="Yemek Kitabı">
             <p><strong>Yemek Kitabı</strong> İstediğiniz yemekleri tarif/malzeme, isim ve görsel olarak kaydederek cihazınızda not edebileceğiniz temel bir kotlin yazılım çalışmasıdır.</p>
             <p>Kullanılan Teknolojiler:</p>
             <ul>
@@ -47,7 +47,7 @@ const projectData = {
     'wordgame': {
         title: 'Kelime Oyunu Mobil Uygulaması',
         content: ` 
-            <img src="görseller/kelimeoyunu.png" alt="Kelime Oyunu">
+            <img src="görseller/kelimeoyunu/kelimeoyunu.png" alt="Kelime Oyunu">
             <p><strong>Kelime Oyunu</strong> çeşitli kategorilerde ki kelimeleri tahmin etmeye çalıştığınız temel bir kotlin yazılım çalışmasıdır.</p>
             <p>Kullanılan Teknolojiler:</p>
             <ul>
@@ -61,8 +61,8 @@ const projectData = {
         title: 'BlackJack Android Mobil Uygulaması',
         content: `
             <div class="image-row">
-                <img src="görseller/blackjackmain.png" alt="BlackJack Giriş Ekranı">
-                <img src="görseller/blackjackmasa.png" alt="BlackJack Oyun Masası">
+                <img src="görseller/blackjack/blackjackmain.png" alt="BlackJack Giriş Ekranı">
+                <img src="görseller/blackjack/blackjackmasa.png" alt="BlackJack Oyun Masası">
             </div>
             <p><strong>BlackJack</strong> klasik blackjack mantığını mobil cihazlarınıza taşıyan temel bir android yazılımdır.</p>
             <p>Kullanılan Teknolojiler:</p>
@@ -76,9 +76,9 @@ const projectData = {
     'notehub': {
         title: 'NoteHub Android Mobil Uygulaması',
         content: ` 
-            <img src="görseller/notehubmain.png" alt="Note Hub">
+            <img src="görseller/noteHub/notehubmain.png" alt="Note Hub">
             <p><strong>NoteHub</strong> istediğiniz aktivitelerinizi planlarınızı ve programlarınıznı vs. başlık-detay (title - content) olarak kaydetmenize izin veren bir kotlin çalışmasıdır.</p>
-            <img src="görseller/notehubdelete.png" alt="Note Hub Görev Silme">
+            <img src="görseller/noteHub/notehubdelete.png" alt="Note Hub Görev Silme">
             <p>Ayrıca, <strong>NoteHub</strong>'da görevleri sola kaydırarak eklenmiş görevleri silebilirsiniz.</p>
             <p>Kullanılan Teknolojiler:</p>
             <ul>
@@ -95,7 +95,7 @@ const projectData = {
         content: ` 
             <img src="görseller/cardwars_menu.png" alt="Kart Savaşları Menü">
             <p><strong>Kart Savaşları</strong> çevrimiçi/çevrimdışı olarak mücadele edebileceğiniz strateji üzerine kurulu sıra tabanlı bir mobil oyun çalışmasıdır.</p>
-            <img src="görseller/cardwars_game.png" alt="Kart Savaşları Oyun Ekranı">
+            <img src="görseller/cardwars/cardwars_game.png" alt="Kart Savaşları Oyun Ekranı">
             <p>
                 <strong>Kart Savaşları</strong>'nda arenaya çıktığınızda size 3 kart verilir ve bu kartları kullanarak çeşitli stratejilerle rakibinizi alt etmeye çalışırsınız.
                 Kartlar kullanıcı kullandıkça değişir ve temel kartların (saldırı, savunma) yanı sıra özel etkilere sahip kartlarda bulunur.
@@ -118,9 +118,9 @@ const projectData = {
         title: 'TrendManga Android Mobil Uygulaması',
         content: `
             <div class="image-row">
-                <img src="görseller/mangaapp1.png" alt="MangaApp1">
-                <img src="görseller/mangaapp2.png" alt="MangaApp2">
-                <img src="görseller/mangaapp3.png" alt="MangaApp3">
+                <img src="görseller/mangaApp/mangaapp1.png" alt="MangaApp1">
+                <img src="görseller/mangaApp/mangaapp2.png" alt="MangaApp2">
+                <img src="görseller/mangaApp/mangaapp3.png" alt="MangaApp3">
             </div>
             <p><strong>TrendManga</strong> Dünya genelinde yayınlanan mangaları isim ve puanlarıyla listeleyen bir android yazılım çalışmasıdır.
             Bu projeyle birlikte modern "Compose" yapısı hakkında genel bir çalışma yapmış bulunmaktayım. Bu gibi projelerle güncel gelişmeleri ve teknolojileri kullanarak kendimi geliştirmeye devam edeceğim.</p>
@@ -138,15 +138,15 @@ const projectData = {
         title: 'DevTrack Android Mobil Uygulaması',
         content: `
             <div class="image-row">
-                <img src="görseller/devTrack_mainScreen.png" alt="devtrack1">
-                <img src="görseller/devTrack_addPorject.png" alt="devtrack2">
-                <img src="görseller/devTrack_projectdetail.png" alt="devtrack3">
+                <img src="görseller/devTrack/evTrack_mainScreen.png" alt="devtrack1">
+                <img src="görseller/devTrack/devTrack_addPorject.png" alt="devtrack2">
+                <img src="görseller/devTrack/devTrack_projectdetail.png" alt="devtrack3">
             </div>
             <p><strong>DevTrack</strong> geliştiriciler için tasarlanmış olmasıyla birlikte genel kullanıcı kitlesine hitap edebilmiş bir planlayıcı uygulamasıdır. 
             Bu uygulamada amaç; Çalışmaları düzenli ve sistematik olarak ilerletmek, ilerlemeleri arşiv halinde kaydedip bir kayıt tutmak ve kullanıcıların çalışmaları üzerinde 
             daha kontrol sahibi olmalarını sağlamaktır. Bu projeyle birlikte modern "Compose" teknolojisi hakkında daha fazla pratik yaparak yapay zekayı da projelerimde daha etkili kullanma yollarını öğrenmiş oldum.</p>
 
-            <img src="görseller/devTrack_archive.png" alt="devtrack4">
+            <img src="görseller/devTrack/devTrack_archive.png" alt="devtrack4">
 
             <p>Görsellerde görüldüğü üzere uygulama içerisinde eklenen projeler belirlenen görevlerin tamamlanmasına bağlı olarak ilerleme kaydeder ve ilerleme %100'e ulaştığında 
             kullanıcı projeyi "Tamamlandı" olarak işaretleyerek arşive gönderebilir. Arşivlenen projelerde tekrar ekleme yapılarak projelerin sürekli olarak geliştirilebilmesine olanak tanır.</p>
@@ -164,7 +164,7 @@ const projectData = {
         'Yasarlar24': {
     title: 'Yaşarlar 24 Manitou Kiralama WEB Sitesi',
     content: `
-        <img src="görseller/yasarlar24anasayfa.png" alt="Yaşarlar 24 Ana Sayfa">
+        <img src="görseller/yasarlar24/yasarlar24anasayfa.png" alt="Yaşarlar 24 Ana Sayfa">
 
         <p>
             <strong>YAŞARLAR 24 Manitou Kiralama</strong>, İstanbul Anadolu Yakası'nda
@@ -181,8 +181,8 @@ const projectData = {
         </p>
 
         <div class="image-row">
-            <img src="görseller/yasarlar24yorumlar.png" alt="Yaşarlar 24 Yorumlar">
-            <img src="görseller/yasarlar24iletisim.png" alt="Yaşarlar 24 İletişim">
+            <img src="görseller/yasarlar24/yasarlar24yorumlar.png" alt="Yaşarlar 24 Yorumlar">
+            <img src="görseller/yasarlar24/yasarlar24iletisim.png" alt="Yaşarlar 24 İletişim">
         </div>
 
         <p>

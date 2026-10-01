@@ -223,18 +223,9 @@ const activityData = {
 
 function openActivity(id) {
 
-    const modal = document.getElementById("projectModal");
-    const body = document.getElementById("modal-body");
     const data = activityData[id];
 
     if (data) {
-
-        body.innerHTML = `
-            <h2>${data.title}</h2>
-            ${data.content}
-        `;
-
-        modal.style.display = "block";
-        document.body.style.overflow = "hidden";
+        showModal(`<h2>${data.title}</h2>${data.content}`);
     }
 }

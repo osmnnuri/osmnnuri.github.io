@@ -210,21 +210,51 @@ const projectData = {
 };
 
 function openProject(id) {
-    const modal = document.getElementById("projectModal");
-    const body = document.getElementById("modal-body");
     const data = projectData[id];
 
     if (data) {
-        body.innerHTML = `<h2>${data.title}</h2>${data.content}`;
-        modal.style.display = "block";
-        document.body.style.overflow = "hidden"; // Modal açıkken arka plan kaymasın
+        showModal(`<h2>${data.title}</h2>${data.content}`);
     }
+}
+
+function showModal(html) {
+    const modal = document.getElementById("projectModal");
+    const body = document.getElementById("modal-body");
+    body.innerHTML = html;
+    modal.querySelector(".modal-content").scrollTop = 0;
+    modal.classList.add("show");
+    document.body.style.overflow = "hidden"; // Modal açıkken arka plan kaymasın
 }
 
 function closeModal() {
     const modal = document.getElementById("projectModal");
-    modal.style.display = "none";
+    modal.classList.remove("show");
     document.body.style.overflow = "auto"; // Kaydırmayı geri aç
+}
+
+document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeModal();
+});
+
+// --- Kartların kaydırma ile görünme animasyonu ---
+const revealCards = document.querySelectorAll(".activity-card");
+
+if ("IntersectionObserver" in window) {
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+        let order = 0;
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            entry.target.style.setProperty("--reveal-delay", `${order * 0.1}s`);
+            entry.target.classList.add("visible");
+            order++;
+            observer.unobserve(entry.target);
+        });
+    }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+
+    revealCards.forEach(card => {
+        card.classList.add("reveal");
+        revealObserver.observe(card);
+    });
 }
 
 // Kapatma butonu ve dışarı tıklama olayları

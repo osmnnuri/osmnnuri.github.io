@@ -308,3 +308,18 @@ if (hamburger && navLinks && navOverlay) {
         }
     });
 }
+
+// --- Yetenek seviye bar animasyonu (Uzmanlık Alanları bölümü) ---
+const skillLevelsGrid = document.querySelector(".skill-levels-grid");
+if (skillLevelsGrid && "IntersectionObserver" in window) {
+    const skillBarObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            entry.target.querySelectorAll(".skill-bar-fill").forEach(bar => {
+                bar.style.width = bar.dataset.width + "%";
+            });
+            skillBarObserver.unobserve(entry.target);
+        });
+    }, { threshold: 0.3 });
+    skillBarObserver.observe(skillLevelsGrid);
+}

@@ -81,7 +81,194 @@ body::before {
     box-sizing: border-box;
 }
 
-.section-title { color: #11d6d6; font-size: 2.5rem; margin-bottom: 40px; text-align: center; }
+.section-title { color: #11d6d6; font-size: 2.5rem; margin-bottom: 10px; text-align: center; }
+
+.section-subtitle { color: #a0a0a0; font-size: 1.05rem; margin: 0 0 40px; text-align: center; }
+
+/* --- UZMANLIK ALANLARI --- */
+.services-section { padding-top: 100px; padding-bottom: 100px; }
+
+.services-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 25px;
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 10px;
+}
+
+.service-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(17, 214, 214, 0.18);
+    padding: 30px 25px;
+    border-radius: 14px;
+    text-align: center;
+    transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.service-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(17, 214, 214, 0.12), transparent);
+    transform: skewX(-20deg);
+    pointer-events: none;
+}
+
+.service-card:hover::before { animation: cardShine 0.9s ease; }
+
+.service-card:hover {
+    transform: translateY(-10px);
+    border-color: #11d6d6;
+    background: rgba(17, 214, 214, 0.04);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4), 0 0 22px rgba(17, 214, 214, 0.2);
+}
+
+.service-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(17, 214, 214, 0.1);
+    border: 1.5px solid rgba(17, 214, 214, 0.4);
+    border-radius: 50%;
+    color: #11d6d6;
+    transition: transform 0.4s ease, background 0.4s ease;
+}
+
+.service-card:hover .service-icon {
+    transform: scale(1.08) rotate(-5deg);
+    background: rgba(17, 214, 214, 0.2);
+}
+
+.service-icon svg { width: 30px; height: 30px; }
+
+.service-card h3 {
+    color: #11d6d6;
+    font-size: 1.2rem;
+    margin: 0 0 12px;
+    transition: color 0.3s ease;
+}
+
+.service-card:hover h3 { color: white; }
+
+.service-card p {
+    color: #c0c0c0;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    margin: 0 0 16px;
+    text-align: center;
+}
+
+.service-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+}
+
+.service-tags span {
+    font-size: 0.72rem;
+    color: #11d6d6;
+    background: rgba(17, 214, 214, 0.08);
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 1px solid rgba(17, 214, 214, 0.15);
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.service-card:hover .service-tags span {
+    background: rgba(17, 214, 214, 0.16);
+    transform: translateY(-2px);
+}
+
+.services-cta {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+}
+
+.services-cta p {
+    color: #c0c0c0;
+    font-size: 1.05rem;
+    margin: 0;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 12px 32px;
+    border: 2px solid #11d6d6;
+    color: #11d6d6;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.cta-button:hover {
+    background: #11d6d6;
+    color: white;
+    box-shadow: 0 0 20px rgba(17, 214, 214, 0.5);
+    transform: translateY(-2px);
+}
+
+/* --- YETKİNLİK SEVİYELERİ --- */
+.skills-levels-section { padding-top: 100px; }
+
+.skill-levels-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 18px 35px;
+    width: 100%;
+    max-width: 900px;
+    margin-top: 10px;
+}
+
+.skill-level-item { padding: 12px 0; }
+
+.skill-level-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.skill-level-name {
+    color: white;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.skill-level-value {
+    color: #11d6d6;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.skill-bar {
+    height: 8px;
+    background: rgba(17, 214, 214, 0.08);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(17, 214, 214, 0.15);
+}
+
+.skill-bar-fill {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, #11d6d6, #0dbdbd);
+    border-radius: 10px;
+    transition: width 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow: 0 0 10px rgba(17, 214, 214, 0.5);
+}
 
 /* --- 4. HAKKIMDA ALANI --- */
 .hero-container { display: flex; flex-direction: row; align-items: flex-start; gap: 60px; max-width: 1100px; }
@@ -414,9 +601,21 @@ body::before {
         font-size: 2rem;
     }
 
+    .section-subtitle { font-size: 0.95rem; }
+
     .activity-container {
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 20px;
+    }
+
+    .services-container {
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 20px;
+    }
+
+    .skill-levels-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
     }
 
     .modal-content {
@@ -527,6 +726,11 @@ body::before {
     /* --- Bölüm Başlıkları --- */
     .section-title {
         font-size: 1.6rem;
+        margin-bottom: 12px;
+    }
+
+    .section-subtitle {
+        font-size: 0.85rem;
         margin-bottom: 25px;
     }
 
@@ -559,6 +763,21 @@ body::before {
         width: 38px;
         height: 38px;
     }
+
+    /* --- Uzmanlık Alanları --- */
+    .services-container {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .service-card { padding: 22px 18px; }
+    .service-card h3 { font-size: 1.1rem; }
+    .service-card p { font-size: 0.88rem; }
+    .service-icon { width: 54px; height: 54px; }
+    .service-icon svg { width: 26px; height: 26px; }
+
+    .services-cta { margin-top: 35px; }
+    .cta-button { padding: 10px 24px; font-size: 0.92rem; }
 
     /* --- Modal --- */
     .modal-content {

@@ -307,38 +307,41 @@ body::before {
 }
 
 .contact-list {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
     width: 100%;
-    max-width: 420px;
+    max-width: 900px;
 }
 
 .contact-card {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 20px;
-    padding: 18px 24px;
+    justify-content: center;
+    gap: 14px;
+    padding: 28px 20px;
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(17, 214, 214, 0.15);
-    border-radius: 12px;
+    border-radius: 16px;
     text-decoration: none;
     color: white;
+    text-align: center;
     transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
 }
 
 .contact-card:hover {
-    transform: translateX(8px);
+    transform: translateY(-6px);
     border-color: #11d6d6;
     background: rgba(17, 214, 214, 0.04);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 18px rgba(17, 214, 214, 0.2);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45), 0 0 22px rgba(17, 214, 214, 0.25);
 }
 
 .contact-icon {
     flex-shrink: 0;
-    width: 64px;
-    height: 64px;
-    border-radius: 12px;
+    width: 72px;
+    height: 72px;
+    border-radius: 16px;
     background: rgba(17, 214, 214, 0.08);
     display: flex;
     align-items: center;
@@ -346,28 +349,21 @@ body::before {
     transition: background 0.35s ease;
 }
 
-.contact-icon img { width: 40px; height: 40px; filter: invert(1); transition: transform 0.35s ease; }
+.contact-icon img { width: 42px; height: 42px; filter: invert(1); transition: transform 0.35s ease; }
 
 .contact-card:hover .contact-icon { background: rgba(17, 214, 214, 0.18); }
-.contact-card:hover .contact-icon img { transform: scale(1.1); }
+.contact-card:hover .contact-icon img { transform: scale(1.12); }
 
-.contact-text { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.contact-text { display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 0; }
 
 .contact-text h4 { margin: 0; font-size: 1.15rem; transition: color 0.3s ease; }
 .contact-card:hover .contact-text h4 { color: #11d6d6; }
 
-.contact-text span { color: grey; font-size: 0.9rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.contact-text span { color: grey; font-size: 0.9rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%; }
 
 .contact-arrow {
-    margin-left: auto;
-    color: #11d6d6;
-    font-size: 1.3rem;
-    opacity: 0;
-    transform: translateX(-8px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    display: none;
 }
-
-.contact-card:hover .contact-arrow { opacity: 1; transform: none; }
 
 /* --- 6. FAALİYET KARTLARI (GRID) --- */
 .activity-container {
@@ -812,9 +808,10 @@ body::before {
     }
 
     /* --- Sosyal Medya --- */
-    .contact-card { padding: 14px 16px; gap: 14px; }
-    .contact-icon { width: 52px; height: 52px; }
-    .contact-icon img { width: 32px; height: 32px; }
+    .contact-list { grid-template-columns: 1fr; max-width: 340px; gap: 16px; }
+    .contact-card { padding: 22px 18px; }
+    .contact-icon { width: 58px; height: 58px; }
+    .contact-icon img { width: 34px; height: 34px; }
 
     /* --- Uzmanlık Alanları --- */
     .services-container {

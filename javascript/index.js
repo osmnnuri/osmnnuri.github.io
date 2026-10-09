@@ -206,6 +206,80 @@ const projectData = {
             <li>JavaScript</li>
         </ul>
     `
+},
+        'FinansDefteri': {
+    title: 'Finans Defteri Mobil Uygulaması',
+    content: `
+        <img src="görseller/finansDefteri/01-giris.png" alt="Finans Defteri Giris Sayfası">
+
+        <p>
+            <strong>Finans Defteri</strong>, kişisel gelir-gider takibi; sesle,ekran görüntüsüyle ya da elle kayıt; bütçe,rapor ve dövizi tek ara yüzde 
+            bir araya getiren bir mobil uygulama çalışmasıdır.
+
+            <div class= "image-row">
+                <img src="görseller/finansDefteri/04-ana-ekran.png" alt="Finans Defteri Ana Sayfa">
+                <img src="görseller/finansDefteri/13-koyu-ana-ekran.png" alt="Finans Defteri Ana Sayfa(Karanlık Tema)">
+            </div>
+        </p>
+
+        <p>
+            Harcama takip uygulamalarının çoğu her işlemi elle girmeyi gerektiriyor; sonuç olarak kullanıcı kayıt tutmayı bırakıyor. Bu projede amacım kayıt girmeyi 
+            olabildiğinde zahmetsiz hale getirmek ve ay sonunda paranın nereye gittiğini tek bakışta görebilmeyi sağlamaktı.
+
+            <strong> Benim Ürettiğim Çözüm; Finans Defteri Ne yapıyor?</strong> 
+                Finans Defterinde bir işlem üç yoldan eklenebiliyor; 
+                    <strong> - Sesle: </strong> "Markete 150 lira harcadım" demek yeterli; tutar, kategori ve tarih cümleden çıkarılıyor ve kayıtlara kullanıcı onayıyla birlikte kaydediliyor. 
+                    <strong> - Ekran Görüntüsüyle: </strong> Banka uygulamasındaki "İşlem Geçmişi/Hesap Hareketleri" ekran görüntüsü uygulamaya yükleniyor; işlemler cihaz üzerinde okunup gelir/gider olarak listeleniyor ve kullanıcı onayıyla birlikte kaydediliyor.
+                    <strong> - Elle: </strong> Tutar, Kategori ve tarih olarak bilgileri kullanıcı elle girer ve kayıt manuel olarak eklenir.
+
+            <div class= "image-row">
+                <img src="görseller/finansDefteri/10-islemler.png" alt="Finans Defteri İşlemler">    
+                <img src="görseller/finansDefteri/11-gider-ekle.png" alt="Finans Defteri Gider Ekle">
+                img src="görseller/finansDefteri/03-tanitim.png" alt="Finans Defteri Tanıtım">
+            </div>
+
+        </p>
+
+        <strong> Öne Çıkan Özellikler </strong> 
+
+            <strong> Aylık rapor ve PDF </strong> Gelir, Gider, net birikim, tasarruf oranı ve kategori bazlı gider dağılımı. Rapor tek dokunuşla PDF olarak kaydediliyor.
+        <div class= "image-row">
+            <img src="görseller/finansDefteri/05-rapor.png" alt="Finans Defteri Rapor Ekranı">
+            <img src="görseller/finansDefteri/06-rapor-kategoriler.png" alt="Finans Defteri kategori Ekranı">
+        </div> 
+
+            <strong> Bütçe ve hatırlatıcılar </strong> Kategori bazlı aylık limitler, limite yaklaşınca uyarı;
+        kira,fatura gibi tekrarlayan ödemeler için takvimli hatırlatıcılar.
+        <div class= "image-row">
+            <img src="görseller/finansDefteri/07-butce.png" alt="Finans Defteri Bütçe Ekranı">
+            <img src="görseller/finansDefteri/08-hatirlaticilar.png" alt="Finans Defteri Hatırlatıcı Ekranı">
+        </div> 
+            
+            <strong> Döviz ve altın </strong> Türkiye Cumhuriyeti Merkez Banka'sı (TCMB) kurları,gram altın ve gümüş fiyatları, kur çeviricisi.  
+        <img src="görseller/finansDefteri/09-doviz.png" alt="Finans Defteri Döviz Ekranı">
+     
+            <strong> Çevrimdışı Çalışma </strong> İnternet yokken girilen kayıtlar cihazda bekliyor, bağlantı gelince kendiliğinden eşitleniyor.
+
+             <strong> Güvenlik </strong> E-posta doğrulamalı hesap, cihazda PIN kilidi, her kullanıcının yalnızca kendi verisine erişebildiği sunucu kuralları. 
+         <div class= "image-row">
+            <img src="görseller/finansDefteri/01-giris.png" alt="Finans Defteri Giriş Ekranı">
+            <img src="görseller/finansDefteri/02-pin.png" alt="Finans Defteri PIN Ekranı">
+        </div> 
+
+         <strong> Kişiselleştirme </strong> Açık/Koyu tema, Türkçe/İngilizce ve ayarlanabilir yazı boyutu
+        <img src="görseller/finansDefteri/14-koyu-rapor.png" alt="Finans Defteri Koyu Rapor Ekranı">
+
+        <p>Kullanılan Teknolojiler:</p>
+
+        <ul>
+            <li>Flutter Dart</li>
+            <li>Visual Studio Code</li>
+            <li>Firebase</li>
+            <li>AI</li>
+            <li>Firestore</li>
+            <li>PWA</li>
+        </ul>
+    `
 }
 };
 

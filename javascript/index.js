@@ -3,14 +3,14 @@ const projectData = {
         title: 'IZeka Mobil Eğitim Uygulaması',
         content: `
             <img src="görseller/IZeka/proje_kapak.png" alt="IZeka Görsel">
-            <p><strong>IZeka</strong>, ekibimle birlikte geliştirdiğim oyunlaştırılmış bir eğitim platformudur.</p>
-            <p>Bu projede kullanılan teknolojiler:</p>
-            <ul>
+            <p><strong>IZeka</strong>, ekibimle birlikte geliştirdiğimiz oyunlaştırılmış bir mobil eğitim platformudur.</p>
+            <p>Uygulama, INUFEST kapsamında sunulmuş ve büyük ilgi görmüştür.</p>
+            <h3>Kullanılan Teknolojiler</h3>
+            <ul class="tech-list">
                 <li>Kotlin & Android Studio</li>
                 <li>Local Database</li>
                 <li>XML Layout Tasarımı</li>
             </ul>
-            <p>Uygulama, INUFEST kapsamında sunulmuş ve büyük ilgi görmüştür.</p>
         `
     },
 
@@ -18,13 +18,13 @@ const projectData = {
         title: 'Müşteri - Garson Sipariş Arayüzü',
         content: `
             <img src="görseller/Kafe/garson_paneli.png" alt="Garson Paneli">
-            <p><strong>Garson Paneli:</strong> Masaların durumunu ve siparişleri anlık takip edebilirsiniz.</p>
+            <p><strong>Garson Paneli:</strong> Masaların durumu ve gelen siparişler anlık olarak takip edilebilir.</p>
             
             <img src="görseller/Kafe/musteri_paneli.png" alt="Restoran Menüsü">
-            <p><strong>Menü Yönetimi:</strong> Ürünleri tercihinize göre düzenleyebilir(Malzeme ekleyip çıkarabilir), siparişinizi verebilir ve hesabı masanıza isteyebilirsiniz.</p>
+            <p><strong>Müşteri Paneli:</strong> Müşteri ürünleri tercihine göre düzenleyebilir (malzeme ekleyip çıkarabilir), siparişini verebilir ve hesabı masasına isteyebilir.</p>
             
-            <p>Kullanılan Teknolojiler</p>
-            <ul>
+            <h3>Kullanılan Teknolojiler</h3>
+            <ul class="tech-list">
                 <li>HTML5 & CSS3</li>
                 <li>Cursor AI Destekli Geliştirme</li>
             </ul>
@@ -35,9 +35,9 @@ const projectData = {
         title: 'Yemek Kitabı Android Mobil Uygulaması',
         content: `
             <img src="görseller/yemekkitabi/yemekkitabi.png" alt="Yemek Kitabı">
-            <p><strong>Yemek Kitabı</strong> İstediğiniz yemekleri tarif/malzeme, isim ve görsel olarak kaydederek cihazınızda not edebileceğiniz temel bir kotlin yazılım çalışmasıdır.</p>
-            <p>Kullanılan Teknolojiler:</p>
-            <ul>
+            <p><strong>Yemek Kitabı</strong>, istediğiniz yemekleri isim, tarif/malzeme ve görsel olarak cihazınıza kaydedebildiğiniz temel bir Kotlin çalışmasıdır.</p>
+            <h3>Kullanılan Teknolojiler</h3>
+            <ul class="tech-list">
                 <li>Kotlin</li>
                 <li>Local Database & Room Yapısı</li>
             </ul>
@@ -48,9 +48,9 @@ const projectData = {
         title: 'Kelime Oyunu Mobil Uygulaması',
         content: ` 
             <img src="görseller/kelimeoyunu/kelimeoyunu.png" alt="Kelime Oyunu">
-            <p><strong>Kelime Oyunu</strong> çeşitli kategorilerde ki kelimeleri tahmin etmeye çalıştığınız temel bir kotlin yazılım çalışmasıdır.</p>
-            <p>Kullanılan Teknolojiler:</p>
-            <ul>
+            <p><strong>Kelime Oyunu</strong>, çeşitli kategorilerdeki kelimeleri tahmin etmeye çalıştığınız temel bir Kotlin çalışmasıdır.</p>
+            <h3>Kullanılan Teknolojiler</h3>
+            <ul class="tech-list">
                 <li>Kotlin</li>
                 <li>Local Database & Room Yapısı</li>
             </ul>
@@ -64,9 +64,9 @@ const projectData = {
                 <img src="görseller/blackjack/blackjackmain.png" alt="BlackJack Giriş Ekranı">
                 <img src="görseller/blackjack/blackjackmasa.png" alt="BlackJack Oyun Masası">
             </div>
-            <p><strong>BlackJack</strong> klasik blackjack mantığını mobil cihazlarınıza taşıyan temel bir android yazılımdır.</p>
-            <p>Kullanılan Teknolojiler:</p>
-            <ul>
+            <p><strong>BlackJack</strong>, klasik blackjack mantığını mobil cihazlara taşıyan temel bir Android uygulamasıdır.</p>
+            <h3>Kullanılan Teknolojiler</h3>
+            <ul class="tech-list">
                 <li>Kotlin</li>
                 <li>Android Studio</li>
             </ul>
@@ -76,12 +76,14 @@ const projectData = {
     'notehub': {
         title: 'NoteHub Android Mobil Uygulaması',
         content: ` 
-            <img src="görseller/noteHub/notehubmain.png" alt="Note Hub">
-            <p><strong>NoteHub</strong> istediğiniz aktivitelerinizi planlarınızı ve programlarınıznı vs. başlık-detay (title - content) olarak kaydetmenize izin veren bir kotlin çalışmasıdır.</p>
-            <img src="görseller/noteHub/notehubdelete.png" alt="Note Hub Görev Silme">
-            <p>Ayrıca, <strong>NoteHub</strong>'da görevleri sola kaydırarak eklenmiş görevleri silebilirsiniz.</p>
-            <p>Kullanılan Teknolojiler:</p>
-            <ul>
+            <p><strong>NoteHub</strong>; aktivitelerinizi, planlarınızı ve programlarınızı başlık-detay (title - content) olarak kaydetmenizi sağlayan bir Kotlin çalışmasıdır.</p>
+            <div class="image-row">
+                <img src="görseller/noteHub/notehubmain.png" alt="NoteHub Ana Ekran">
+                <img src="görseller/noteHub/notehubdelete.png" alt="NoteHub Görev Silme">
+            </div>
+            <p>Ayrıca <strong>NoteHub</strong>'da eklenmiş görevleri sola kaydırarak silebilirsiniz.</p>
+            <h3>Kullanılan Teknolojiler</h3>
+            <ul class="tech-list">
                 <li>Kotlin</li>
                 <li>Local Database & Room Yapısı</li>
                 <li>RecyclerView</li>
@@ -93,16 +95,18 @@ const projectData = {
     'cardwars': {
         title: 'Kart Savaşları Mobil Oyunu',
         content: ` 
-            <img src="görseller/cardwars_menu.png" alt="Kart Savaşları Menü">
-            <p><strong>Kart Savaşları</strong> çevrimiçi/çevrimdışı olarak mücadele edebileceğiniz strateji üzerine kurulu sıra tabanlı bir mobil oyun çalışmasıdır.</p>
-            <img src="görseller/cardwars/cardwars_game.png" alt="Kart Savaşları Oyun Ekranı">
+            <p><strong>Kart Savaşları</strong>, çevrimiçi/çevrimdışı olarak mücadele edebileceğiniz, strateji üzerine kurulu sıra tabanlı bir mobil oyun çalışmasıdır.</p>
+            <div class="image-row">
+                <img src="görseller/cardwars/cardwars_menu.png" alt="Kart Savaşları Menü">
+                <img src="görseller/cardwars/cardwars_game.png" alt="Kart Savaşları Oyun Ekranı">
+            </div>
             <p>
                 <strong>Kart Savaşları</strong>'nda arenaya çıktığınızda size 3 kart verilir ve bu kartları kullanarak çeşitli stratejilerle rakibinizi alt etmeye çalışırsınız.
-                Kartlar kullanıcı kullandıkça değişir ve temel kartların (saldırı, savunma) yanı sıra özel etkilere sahip kartlarda bulunur.
-                Uygulama şuan (05.02.2026) demo sürümündedir(v1.0) ve uygulama zamanla geliştirilmeye devam edecektir.
+                Kartlar kullanıldıkça değişir; temel kartların (saldırı, savunma) yanı sıra özel etkilere sahip kartlar da bulunur.
+                Uygulama şu an (05.02.2026) demo sürümündedir (v1.0) ve zamanla geliştirilmeye devam edecektir.
             </p>
-            <p>Kullanılan Teknolojiler:</p>
-            <ul>
+            <h3>Kullanılan Teknolojiler</h3>
+            <ul class="tech-list">
                 <li>Kotlin</li>
                 <li>Local Database & Room Yapısı</li>
                 <li>ViewBinding</li>
@@ -122,10 +126,10 @@ const projectData = {
                 <img src="görseller/mangaApp/mangaapp2.png" alt="MangaApp2">
                 <img src="görseller/mangaApp/mangaapp3.png" alt="MangaApp3">
             </div>
-            <p><strong>TrendManga</strong> Dünya genelinde yayınlanan mangaları isim ve puanlarıyla listeleyen bir android yazılım çalışmasıdır.
+            <p><strong>TrendManga</strong>, dünya genelinde yayınlanan mangaları isim ve puanlarıyla listeleyen bir Android uygulamasıdır.
             Bu projeyle birlikte modern "Compose" yapısı hakkında genel bir çalışma yapmış bulunmaktayım. Bu gibi projelerle güncel gelişmeleri ve teknolojileri kullanarak kendimi geliştirmeye devam edeceğim.</p>
-            <p>Kullanılan Teknolojiler:</p>
-            <ul>
+            <h3>Kullanılan Teknolojiler</h3>
+            <ul class="tech-list">
                 <li>Kotlin</li>
                 <li>Android Studio</li>
                 <li>Compose</li>
@@ -138,20 +142,20 @@ const projectData = {
         title: 'DevTrack Android Mobil Uygulaması',
         content: `
             <div class="image-row">
-                <img src="görseller/devTrack/evTrack_mainScreen.png" alt="devtrack1">
+                <img src="görseller/devTrack/devTrack_mainScreen.png" alt="devtrack1">
                 <img src="görseller/devTrack/devTrack_addPorject.png" alt="devtrack2">
                 <img src="görseller/devTrack/devTrack_projectdetail.png" alt="devtrack3">
             </div>
-            <p><strong>DevTrack</strong> geliştiriciler için tasarlanmış olmasıyla birlikte genel kullanıcı kitlesine hitap edebilmiş bir planlayıcı uygulamasıdır. 
-            Bu uygulamada amaç; Çalışmaları düzenli ve sistematik olarak ilerletmek, ilerlemeleri arşiv halinde kaydedip bir kayıt tutmak ve kullanıcıların çalışmaları üzerinde 
+            <p><strong>DevTrack</strong>, geliştiriciler için tasarlanmış olmakla birlikte genel kullanıcı kitlesine de hitap eden bir planlayıcı uygulamasıdır.
+            Bu uygulamada amaç; çalışmaları düzenli ve sistematik olarak ilerletmek, ilerlemeleri arşiv halinde kaydedip bir kayıt tutmak ve kullanıcıların çalışmaları üzerinde 
             daha kontrol sahibi olmalarını sağlamaktır. Bu projeyle birlikte modern "Compose" teknolojisi hakkında daha fazla pratik yaparak yapay zekayı da projelerimde daha etkili kullanma yollarını öğrenmiş oldum.</p>
 
             <img src="görseller/devTrack/devTrack_archive.png" alt="devtrack4">
 
             <p>Görsellerde görüldüğü üzere uygulama içerisinde eklenen projeler belirlenen görevlerin tamamlanmasına bağlı olarak ilerleme kaydeder ve ilerleme %100'e ulaştığında 
             kullanıcı projeyi "Tamamlandı" olarak işaretleyerek arşive gönderebilir. Arşivlenen projelerde tekrar ekleme yapılarak projelerin sürekli olarak geliştirilebilmesine olanak tanır.</p>
-            <p>Kullanılan Teknolojiler:</p>
-            <ul>
+            <h3>Kullanılan Teknolojiler</h3>
+            <ul class="tech-list">
                 <li>Kotlin</li>
                 <li>Android Studio</li>
                 <li>Compose</li>
@@ -162,7 +166,7 @@ const projectData = {
         `
     },
         'Yasarlar24': {
-    title: 'Yaşarlar 24 Manitou Kiralama WEB Sitesi',
+    title: 'Yaşarlar 24 Manitou Kiralama Web Sitesi',
     content: `
         <img src="görseller/yasarlar24/yasarlar24anasayfa.png" alt="Yaşarlar 24 Ana Sayfa">
 
@@ -180,7 +184,7 @@ const projectData = {
             müşteri yorumları ve hızlı iletişim</strong> gibi özellikler bulunmaktadır.
         </p>
 
-        <div class="image-row">
+        <div class="image-row wide">
             <img src="görseller/yasarlar24/yasarlar24yorumlar.png" alt="Yaşarlar 24 Yorumlar">
             <img src="görseller/yasarlar24/yasarlar24iletisim.png" alt="Yaşarlar 24 İletişim">
         </div>
@@ -193,9 +197,9 @@ const projectData = {
             pratik deneyim kazandım.
         </p>
 
-        <p>Kullanılan Teknolojiler:</p>
+        <h3>Kullanılan Teknolojiler</h3>
 
-        <ul>
+        <ul class="tech-list">
             <li>HTML ve CSS</li>
             <li>Visual Studio Code</li>
             <li>SSL</li>
@@ -207,79 +211,83 @@ const projectData = {
         </ul>
     `
 },
-        'FinansDefteri': {
-    title: 'Finans Defteri Mobil Uygulaması',
-    content: `
-        <p>
-            <strong>Finans Defteri</strong>, kişisel gelir-gider takibi; sesle,ekran görüntüsüyle ya da elle kayıt; bütçe,rapor ve dövizi tek ara yüzde 
-            bir araya getiren bir mobil uygulama çalışmasıdır.
+    'FinansDefteri': {
+        title: 'Finans Defteri Mobil Uygulaması',
+        content: `
+            <p>
+                <strong>Finans Defteri</strong>; kişisel gelir-gider takibini, sesle, ekran görüntüsüyle ya da elle kaydı,
+                bütçe, rapor ve dövizi tek arayüzde bir araya getiren bir mobil uygulama çalışmasıdır.
+            </p>
 
-            <div class= "image-row">
+            <div class="image-row">
                 <img src="görseller/finansDefteri/04-ana-ekran.png" alt="Finans Defteri Ana Sayfa">
-                <img src="görseller/finansDefteri/13-koyu-ana-ekran.png" alt="Finans Defteri Ana Sayfa(Karanlık Tema)">
+                <img src="görseller/finansDefteri/13-koyu-ana-ekran.png" alt="Finans Defteri Ana Sayfa (Karanlık Tema)">
             </div>
-        </p>
 
-        <p>
-            Harcama takip uygulamalarının çoğu her işlemi elle girmeyi gerektiriyor; sonuç olarak kullanıcı kayıt tutmayı bırakıyor. Bu projede amacım kayıt girmeyi 
-            olabildiğinde zahmetsiz hale getirmek ve ay sonunda paranın nereye gittiğini tek bakışta görebilmeyi sağlamaktı.
+            <h3>Problem</h3>
+            <p>
+                Harcama takip uygulamalarının çoğu her işlemi elle girmeyi gerektiriyor; sonuç olarak kullanıcı kayıt tutmayı bırakıyor.
+                Bu projede amacım kayıt girmeyi olabildiğince zahmetsiz hale getirmek ve ay sonunda paranın nereye gittiğini
+                tek bakışta görebilmeyi sağlamaktı.
+            </p>
 
-            <strong> Benim Ürettiğim Çözüm; Finans Defteri Ne yapıyor?</strong> 
-                Finans Defterinde bir işlem üç yoldan eklenebiliyor; 
-                    <strong> - Sesle: </strong> "Markete 150 lira harcadım" demek yeterli; tutar, kategori ve tarih cümleden çıkarılıyor ve kayıtlara kullanıcı onayıyla birlikte kaydediliyor. 
-                    <strong> - Ekran Görüntüsüyle: </strong> Banka uygulamasındaki "İşlem Geçmişi/Hesap Hareketleri" ekran görüntüsü uygulamaya yükleniyor; işlemler cihaz üzerinde okunup gelir/gider olarak listeleniyor ve kullanıcı onayıyla birlikte kaydediliyor.
-                    <strong> - Elle: </strong> Tutar, Kategori ve tarih olarak bilgileri kullanıcı elle girer ve kayıt manuel olarak eklenir.
+            <h3>Ürettiğim Çözüm: Finans Defteri Ne Yapıyor?</h3>
+            <p>Finans Defteri'nde bir işlem üç yoldan eklenebiliyor:</p>
+            <ul class="feature-list">
+                <li><strong>Sesle:</strong> "Markete 150 lira harcadım" demek yeterli; tutar, kategori ve tarih cümleden çıkarılıyor ve kullanıcı onayıyla kaydediliyor.</li>
+                <li><strong>Ekran görüntüsüyle:</strong> Banka uygulamasındaki "İşlem Geçmişi / Hesap Hareketleri" ekran görüntüsü uygulamaya yükleniyor; işlemler cihaz üzerinde okunup gelir/gider olarak listeleniyor ve kullanıcı onayıyla kaydediliyor.</li>
+                <li><strong>Elle:</strong> Tutar, kategori ve tarih bilgilerini kullanıcı kendisi girer ve kayıt manuel olarak eklenir.</li>
+            </ul>
 
-            <div class= "image-row">
-                <img src="görseller/finansDefteri/10-islemler.png" alt="Finans Defteri İşlemler">    
+            <div class="image-row">
+                <img src="görseller/finansDefteri/10-islemler.png" alt="Finans Defteri İşlemler">
                 <img src="görseller/finansDefteri/11-gider-ekle.png" alt="Finans Defteri Gider Ekle">
-                img src="görseller/finansDefteri/03-tanitim.png" alt="Finans Defteri Tanıtım">
+                <img src="görseller/finansDefteri/03-tanitim.png" alt="Finans Defteri Tanıtım">
             </div>
 
-        </p>
+            <h3>Öne Çıkan Özellikler</h3>
 
-        <strong> Öne Çıkan Özellikler </strong> 
+            <p><strong>Aylık rapor ve PDF:</strong> Gelir, gider, net birikim, tasarruf oranı ve kategori bazlı gider dağılımı. Rapor tek dokunuşla PDF olarak kaydediliyor.</p>
+            <div class="image-row">
+                <img src="görseller/finansDefteri/05-rapor.png" alt="Finans Defteri Rapor Ekranı">
+                <img src="görseller/finansDefteri/06-rapor-kategoriler.png" alt="Finans Defteri Kategori Ekranı">
+            </div>
 
-            <strong> Aylık rapor ve PDF </strong> Gelir, Gider, net birikim, tasarruf oranı ve kategori bazlı gider dağılımı. Rapor tek dokunuşla PDF olarak kaydediliyor.
-        <div class= "image-row">
-            <img src="görseller/finansDefteri/05-rapor.png" alt="Finans Defteri Rapor Ekranı">
-            <img src="görseller/finansDefteri/06-rapor-kategoriler.png" alt="Finans Defteri kategori Ekranı">
-        </div> 
+            <p><strong>Bütçe ve hatırlatıcılar:</strong> Kategori bazlı aylık limitler, limite yaklaşınca uyarı; kira, fatura gibi tekrarlayan ödemeler için takvimli hatırlatıcılar.</p>
+            <div class="image-row">
+                <img src="görseller/finansDefteri/07-butce.png" alt="Finans Defteri Bütçe Ekranı">
+                <img src="görseller/finansDefteri/08-hatirlaticilar.png" alt="Finans Defteri Hatırlatıcı Ekranı">
+            </div>
 
-            <strong> Bütçe ve hatırlatıcılar </strong> Kategori bazlı aylık limitler, limite yaklaşınca uyarı;
-        kira,fatura gibi tekrarlayan ödemeler için takvimli hatırlatıcılar.
-        <div class= "image-row">
-            <img src="görseller/finansDefteri/07-butce.png" alt="Finans Defteri Bütçe Ekranı">
-            <img src="görseller/finansDefteri/08-hatirlaticilar.png" alt="Finans Defteri Hatırlatıcı Ekranı">
-        </div> 
-            
-            <strong> Döviz ve altın </strong> Türkiye Cumhuriyeti Merkez Banka'sı (TCMB) kurları,gram altın ve gümüş fiyatları, kur çeviricisi.  
-        <img src="görseller/finansDefteri/09-doviz.png" alt="Finans Defteri Döviz Ekranı">
-     
-            <strong> Çevrimdışı Çalışma </strong> İnternet yokken girilen kayıtlar cihazda bekliyor, bağlantı gelince kendiliğinden eşitleniyor.
+            <p><strong>Döviz ve altın:</strong> Türkiye Cumhuriyet Merkez Bankası (TCMB) kurları, gram altın ve gümüş fiyatları, kur çeviricisi.</p>
+            <img src="görseller/finansDefteri/09-doviz.png" alt="Finans Defteri Döviz Ekranı">
 
-             <strong> Güvenlik </strong> E-posta doğrulamalı hesap, cihazda PIN kilidi, her kullanıcının yalnızca kendi verisine erişebildiği sunucu kuralları. 
-         <div class= "image-row">
-            <img src="görseller/finansDefteri/01-giris.png" alt="Finans Defteri Giriş Ekranı">
-            <img src="görseller/finansDefteri/02-pin.png" alt="Finans Defteri PIN Ekranı">
-        </div> 
+            <p><strong>Çevrimdışı çalışma:</strong> İnternet yokken girilen kayıtlar cihazda bekliyor, bağlantı gelince kendiliğinden eşitleniyor.</p>
 
-         <strong> Kişiselleştirme </strong> Açık/Koyu tema, Türkçe/İngilizce ve ayarlanabilir yazı boyutu
-        <img src="görseller/finansDefteri/14-koyu-rapor.png" alt="Finans Defteri Koyu Rapor Ekranı">
+            <p><strong>Güvenlik:</strong> E-posta doğrulamalı hesap, cihazda PIN kilidi, her kullanıcının yalnızca kendi verisine erişebildiği sunucu kuralları.</p>
+            <div class="image-row">
+                <img src="görseller/finansDefteri/01-giris.png" alt="Finans Defteri Giriş Ekranı">
+                <img src="görseller/finansDefteri/02-pin.png" alt="Finans Defteri PIN Ekranı">
+            </div>
 
-        <p>Kullanılan Teknolojiler:</p>
+            <p><strong>Kişiselleştirme:</strong> Açık/koyu tema, Türkçe/İngilizce ve ayarlanabilir yazı boyutu.</p>
+            <div class="image-row">
+                <img src="görseller/finansDefteri/12-ayarlar.png" alt="Finans Defteri Ayarlar Ekranı">
+                <img src="görseller/finansDefteri/14-koyu-rapor.png" alt="Finans Defteri Koyu Rapor Ekranı">
+            </div>
 
-        <ul>
-            <li>Flutter Dart</li>
-            <li>Visual Studio Code</li>
-            <li>Firebase</li>
-            <li>AI</li>
-            <li>Firestore</li>
-            <li>PWA</li>
-            <li>REST API</li>
-        </ul>
-    `
-}
+            <h3>Kullanılan Teknolojiler</h3>
+            <ul class="tech-list">
+                <li>Flutter Dart</li>
+                <li>Visual Studio Code</li>
+                <li>Firebase</li>
+                <li>AI</li>
+                <li>Firestore</li>
+                <li>PWA</li>
+                <li>REST API</li>
+            </ul>
+        `
+    }
 };
 
 function openProject(id) {
@@ -338,6 +346,15 @@ window.onclick = (event) => {
     const modal = document.getElementById("projectModal");
     if (event.target == modal) closeModal();
 };
+
+// Kartlar klavyeyle de açılabilsin (Enter / Boşluk)
+document.querySelectorAll(".project-card[onclick]").forEach(card => {
+    card.addEventListener("keydown", (event) => {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        event.preventDefault();
+        card.click();
+    });
+});
 
 // --- Hamburger Menü (Mobil Navigasyon) ---
 const hamburger = document.getElementById("hamburger");

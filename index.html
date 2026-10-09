@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kişisel Portfolyo | Osman Nuri Yaşar</title>
     <link rel="icon" type="image/png" href="görseller/icons/favicon.png">
-    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
     <nav class="navbar">
@@ -453,137 +453,203 @@
 <section id="projects" class="full-page">
     <h2 class="section-title">Projelerim</h2>
 
-    <div class="activity-container">
-        
-        <!-- IZeka Projesi -->
-        <div class="activity-card project-card" onclick="openProject('izeka')">
-            <div class="card-header">
-                <span class="date"> 2024 </span>
+    <div class="activity-container project-grid">
+
+        <div class="activity-card project-card" onclick="openProject('izeka')" role="button" tabindex="0">
+            <div class="card-cover">
+                <img src="görseller/IZeka/proje_kapak.png" alt="IZeka Mobil Eğitim Uygulaması ekran görüntüsü" loading="lazy">
+            </div>
+            <div class="card-body">
+                <div class="card-meta">
+                    <span class="date">2024</span>
+                    <span class="card-type">Mobil Uygulama</span>
+                </div>
                 <h4>IZeka Mobil Eğitim Uygulaması</h4>
-            </div>
-            <p>Detayları görmek için tıklayınız...</p>
-            <div class="card-tags">
-                <span>#Kotlin</span> <span>#AndroidStudio</span>
+                <p>Ekibimle geliştirdiğimiz, INUFEST'te sunulan oyunlaştırılmış mobil eğitim platformu.</p>
+                <div class="card-tags">
+                    <span>#Kotlin</span> <span>#AndroidStudio</span> <span>#XML</span> <span>#LocalDatabase</span>
+                </div>
+                <span class="card-link">Detayları gör &rarr;</span>
             </div>
         </div>
 
-        <!-- Cafe Projesi -->
-        <div class="activity-card project-card" onclick="openProject('cafe')">
-            <div class="card-header">
-                <span class="date"> 2024 </span>
+        <div class="activity-card project-card" onclick="openProject('cafe')" role="button" tabindex="0">
+            <div class="card-cover">
+                <img src="görseller/Kafe/garson_paneli.png" alt="Kafe Garson-Müşteri Arayüzü ekran görüntüsü" loading="lazy">
+            </div>
+            <div class="card-body">
+                <div class="card-meta">
+                    <span class="date">2024</span>
+                    <span class="card-type">Web</span>
+                </div>
                 <h4>Kafe Garson-Müşteri Arayüzü</h4>
-            </div>
-            <p>Detayları görmek için tıklayınız...</p>
-            <div class="card-tags">
-                <span>#HTML</span> <span>#Cursor</span>
-            </div>
-        </div>
-
-        <!-- Yemek Kitabı Projesi -->
-        <div class="activity-card project-card" onclick="openProject('YemekKitabi')">
-            <div class="card-header">
-                <span class="date"> 2025 </span>
-                <h4>Yemek Kitabı Android Mobil Uygulaması</h4>
-            </div>
-            <p>Detayları görmek için tıklayınız...</p>
-            <div class="card-tags">
-                <span>#Kotlin</span> <span>#AndroidStudio</span> <span>#Room</span> <span>#LocalDatabase</span>
+                <p>Masa ve siparişlerin anlık takip edildiği garson paneli ile müşterinin sipariş verdiği menü arayüzü.</p>
+                <div class="card-tags">
+                    <span>#HTML</span> <span>#CSS</span> <span>#Cursor</span>
+                </div>
+                <span class="card-link">Detayları gör &rarr;</span>
             </div>
         </div>
 
-        <!-- Kelime Oyunu Projesi -->
-        <div class="activity-card project-card" onclick="openProject('wordgame')">
-            <div class="card-header">
-                <span class="date"> 2025 </span>
-                <h4>Kelime Oyunu Uygulaması</h4>
+        <div class="activity-card project-card" onclick="openProject('YemekKitabi')" role="button" tabindex="0">
+            <div class="card-cover phone">
+                <img src="görseller/yemekkitabi/yemekkitabi.png" alt="Yemek Kitabı ekran görüntüsü" loading="lazy">
             </div>
-            <p>Detayları görmek için tıklayınız...</p>
-            <div class="card-tags">
-                <span>#Kotlin</span> <span>#AndroidStudio</span>
-            </div>
-        </div>
-
-        <!-- BlackJack Projesi -->
-        <div class="activity-card project-card" onclick="openProject('BlackJack')">
-            <div class="card-header">
-                <span class="date"> 2025 </span>
-                <h4>Android BlackJack Mobil Uygulaması</h4>
-            </div>
-            <p>Detayları görmek için tıklayınız...</p>
-            <div class="card-tags">
-                <span>#Kotlin</span> <span>#XML</span> <span>#AndroidStudio</span>
+            <div class="card-body">
+                <div class="card-meta">
+                    <span class="date">2025</span>
+                    <span class="card-type">Mobil Uygulama</span>
+                </div>
+                <h4>Yemek Kitabı</h4>
+                <p>Yemekleri isim, tarif/malzeme ve görselleriyle cihaza kaydeden tarif defteri uygulaması.</p>
+                <div class="card-tags">
+                    <span>#Kotlin</span> <span>#AndroidStudio</span> <span>#Room</span>
+                </div>
+                <span class="card-link">Detayları gör &rarr;</span>
             </div>
         </div>
 
-        <!-- NoteHub Projesi -->
-        <div class="activity-card project-card" onclick="openProject('notehub')">
-            <div class="card-header">
-                <span class="date"> 2025 </span>
-                <h4>NoteHub Uygulaması</h4>
+        <div class="activity-card project-card" onclick="openProject('wordgame')" role="button" tabindex="0">
+            <div class="card-cover phone">
+                <img src="görseller/kelimeoyunu/kelimeoyunu.png" alt="Kelime Oyunu ekran görüntüsü" loading="lazy">
             </div>
-            <p>Detayları görmek için tıklayınız...</p>
-            <div class="card-tags">
-                <span>#Kotlin</span> <span>#AndroidStudio</span> <span>#AIImageCreative</span>
-            </div>
-        </div>
-
-        <!-- Kart Savaşları Projesi -->
-        <div class="activity-card project-card" onclick="openProject('cardwars')">
-            <div class="card-header">
-                <span class="date"> 2026 </span>
-                <h4>Strateji Ustası Kart Savaşları Mobil Oyunu</h4>
-            </div>
-            <p>Detayları görmek için tıklayınız...</p>
-            <div class="card-tags">
-                <span>#Kotlin</span> <span>#AndroidStudio</span> <span>#AIImageCreative</span> <span>#ViewBinding</span> <span>#ObjectOriantedProgram</span> <span>#XML</span>
+            <div class="card-body">
+                <div class="card-meta">
+                    <span class="date">2025</span>
+                    <span class="card-type">Mobil Oyun</span>
+                </div>
+                <h4>Kelime Oyunu</h4>
+                <p>Farklı kategorilerdeki kelimeleri tahmin etmeye dayalı mobil kelime oyunu.</p>
+                <div class="card-tags">
+                    <span>#Kotlin</span> <span>#AndroidStudio</span> <span>#Room</span>
+                </div>
+                <span class="card-link">Detayları gör &rarr;</span>
             </div>
         </div>
 
-        <!-- MangaApp Projesi -->
-        <div class="activity-card project-card" onclick="openProject('MangaApp')">
-            <div class="card-header">
-                <span class="date"> 2026 </span>
-                <h4>TrendManga Mobil Android Uygulaması</h4>
+        <div class="activity-card project-card" onclick="openProject('BlackJack')" role="button" tabindex="0">
+            <div class="card-cover phone">
+                <img src="görseller/blackjack/blackjackmain.png" alt="BlackJack ekran görüntüsü" loading="lazy">
             </div>
-            <p>Detayları görmek için tıklayınız...</p>
-            <div class="card-tags">
-                <span>#Kotlin</span> <span>#AndroidStudio</span> <span>#Room</span> <span>#ObjectOriantedProgram</span> <span>#Compose</span> <span>#MangaAPI</span>
-            </div>
-        </div>
-
-        <!-- DevTrack Projesi -->
-        <div class="activity-card project-card" onclick="openProject('DevTrack')">
-            <div class="card-header">
-                <span class="date"> 2026 </span>
-                <h4>DevTrack Mobil Android Uygulaması</h4>
-            </div>
-            <p>Detayları görmek için tıklayınız...</p>
-            <div class="card-tags">
-                <span>#Kotlin</span> <span>#AndroidStudio</span> <span>#Room</span> <span>#AI</span> <span>#Compose</span> <span>#Firebase</span>
+            <div class="card-body">
+                <div class="card-meta">
+                    <span class="date">2025</span>
+                    <span class="card-type">Mobil Oyun</span>
+                </div>
+                <h4>BlackJack</h4>
+                <p>Klasik blackjack mantığını mobil cihaza taşıyan kart oyunu.</p>
+                <div class="card-tags">
+                    <span>#Kotlin</span> <span>#XML</span> <span>#AndroidStudio</span>
+                </div>
+                <span class="card-link">Detayları gör &rarr;</span>
             </div>
         </div>
 
-        <!-- Yaşarlar 24 Manitou Kiralama Projesi -->
-        <div class="activity-card project-card" onclick="openProject('Yasarlar24')">
-            <div class="card-header">
-                <span class="date"> 2026 </span>
-                <h4>Gerçek bir işletme için geliştirilen, mobil uyumlu ve modern tanıtım web sitesi.</h4>
+        <div class="activity-card project-card" onclick="openProject('notehub')" role="button" tabindex="0">
+            <div class="card-cover phone">
+                <img src="görseller/noteHub/notehubmain.png" alt="NoteHub ekran görüntüsü" loading="lazy">
             </div>
-            <p>Detayları görmek için tıklayınız...</p>
-            <div class="card-tags">
-                <span>#HTML</span> <span>#CSS</span> <span>#FirebaseHosting</span> <span>#Firebase</span> <span>#AI</span> <span>#WebDevelopment</span> <span>#SEO</span> <span>#JavaScript</span> <span>#Responsive</span>
+            <div class="card-body">
+                <div class="card-meta">
+                    <span class="date">2025</span>
+                    <span class="card-type">Mobil Uygulama</span>
+                </div>
+                <h4>NoteHub</h4>
+                <p>Plan ve görevleri başlık-detay olarak kaydeden, kaydırarak silme destekli not uygulaması.</p>
+                <div class="card-tags">
+                    <span>#Kotlin</span> <span>#Room</span> <span>#RecyclerView</span> <span>#AI</span>
+                </div>
+                <span class="card-link">Detayları gör &rarr;</span>
             </div>
         </div>
 
-        <!-- Finans Defteri Projesi -->
-        <div class="activity-card project-card" onclick="openProject('FinansDefteri')">
-            <div class="card-header">
-                <span class="date"> 2026 </span>
-                <h4>Flutter ile geliştirdiğim kişisel finans uygulaması. PWA Uyummlu modern UI tasarımlı mobil uygulama.</h4>
+        <div class="activity-card project-card" onclick="openProject('cardwars')" role="button" tabindex="0">
+            <div class="card-cover phone">
+                <img src="görseller/cardwars/cardwars_menu.png" alt="Kart Savaşları ekran görüntüsü" loading="lazy">
             </div>
-            <p>Detayları görmek için tıklayınız...</p>
-            <div class="card-tags">
-                <span>#Flutter</span> <span>#Dart</span> <span>#Firestore</span> <span>#Firebase</span> <span>#AI</span> <span>#MobileDevelopment</span> <span>#Finans</span> <span>#Mobile</span> <span>#PWA</span>
+            <div class="card-body">
+                <div class="card-meta">
+                    <span class="date">2026</span>
+                    <span class="card-type">Mobil Oyun</span>
+                </div>
+                <h4>Kart Savaşları</h4>
+                <p>Çevrimiçi/çevrimdışı oynanabilen, kart stratejisine dayalı sıra tabanlı mobil oyun (demo v1.0).</p>
+                <div class="card-tags">
+                    <span>#Kotlin</span> <span>#ViewBinding</span> <span>#Room</span> <span>#OOP</span> <span>#Navigation</span>
+                </div>
+                <span class="card-link">Detayları gör &rarr;</span>
+            </div>
+        </div>
+
+        <div class="activity-card project-card" onclick="openProject('MangaApp')" role="button" tabindex="0">
+            <div class="card-cover phone">
+                <img src="görseller/mangaApp/mangaapp1.png" alt="TrendManga ekran görüntüsü" loading="lazy">
+            </div>
+            <div class="card-body">
+                <div class="card-meta">
+                    <span class="date">2026</span>
+                    <span class="card-type">Mobil Uygulama</span>
+                </div>
+                <h4>TrendManga</h4>
+                <p>Dünya genelindeki mangaları isim ve puanlarıyla listeleyen, API destekli Compose uygulaması.</p>
+                <div class="card-tags">
+                    <span>#Kotlin</span> <span>#Compose</span> <span>#API</span> <span>#Room</span>
+                </div>
+                <span class="card-link">Detayları gör &rarr;</span>
+            </div>
+        </div>
+
+        <div class="activity-card project-card" onclick="openProject('DevTrack')" role="button" tabindex="0">
+            <div class="card-cover phone">
+                <img src="görseller/devTrack/devTrack_mainScreen.png" alt="DevTrack ekran görüntüsü" loading="lazy">
+            </div>
+            <div class="card-body">
+                <div class="card-meta">
+                    <span class="date">2026</span>
+                    <span class="card-type">Mobil Uygulama</span>
+                </div>
+                <h4>DevTrack</h4>
+                <p>Projeleri görevlere bölüp ilerlemeyi takip eden ve tamamlananları arşivleyen planlayıcı uygulaması.</p>
+                <div class="card-tags">
+                    <span>#Kotlin</span> <span>#Compose</span> <span>#Room</span> <span>#Firebase</span> <span>#AI</span>
+                </div>
+                <span class="card-link">Detayları gör &rarr;</span>
+            </div>
+        </div>
+
+        <div class="activity-card project-card" onclick="openProject('Yasarlar24')" role="button" tabindex="0">
+            <div class="card-cover">
+                <img src="görseller/yasarlar24/yasarlar24anasayfa.png" alt="Yaşarlar 24 Manitou Kiralama ekran görüntüsü" loading="lazy">
+            </div>
+            <div class="card-body">
+                <div class="card-meta">
+                    <span class="date">2026</span>
+                    <span class="card-type">Web</span>
+                </div>
+                <h4>Yaşarlar 24 Manitou Kiralama</h4>
+                <p>Gerçek bir işletme için geliştirilen, mobil uyumlu ve SEO odaklı modern tanıtım web sitesi.</p>
+                <div class="card-tags">
+                    <span>#HTML</span> <span>#CSS</span> <span>#JavaScript</span> <span>#FirebaseHosting</span> <span>#SEO</span>
+                </div>
+                <span class="card-link">Detayları gör &rarr;</span>
+            </div>
+        </div>
+
+        <div class="activity-card project-card" onclick="openProject('FinansDefteri')" role="button" tabindex="0">
+            <div class="card-cover phone">
+                <img src="görseller/finansDefteri/04-ana-ekran.png" alt="Finans Defteri ekran görüntüsü" loading="lazy">
+            </div>
+            <div class="card-body">
+                <div class="card-meta">
+                    <span class="date">2026</span>
+                    <span class="card-type">Mobil Uygulama</span>
+                </div>
+                <h4>Finans Defteri</h4>
+                <p>Sesle, ekran görüntüsüyle ya da elle kayıt; bütçe, rapor ve dövizi tek arayüzde toplayan PWA uyumlu kişisel finans uygulaması.</p>
+                <div class="card-tags">
+                    <span>#Flutter</span> <span>#Dart</span> <span>#Firebase</span> <span>#Firestore</span> <span>#PWA</span>
+                </div>
+                <span class="card-link">Detayları gör &rarr;</span>
             </div>
         </div>
 

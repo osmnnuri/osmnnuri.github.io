@@ -210,8 +210,6 @@ const projectData = {
         'FinansDefteri': {
     title: 'Finans Defteri Mobil Uygulaması',
     content: `
-        <img src="görseller/finansDefteri/01-giris.png" alt="Finans Defteri Giris Sayfası">
-
         <p>
             <strong>Finans Defteri</strong>, kişisel gelir-gider takibi; sesle,ekran görüntüsüyle ya da elle kayıt; bütçe,rapor ve dövizi tek ara yüzde 
             bir araya getiren bir mobil uygulama çalışmasıdır.
@@ -278,6 +276,7 @@ const projectData = {
             <li>AI</li>
             <li>Firestore</li>
             <li>PWA</li>
+            <li>REST API</li>
         </ul>
     `
 }

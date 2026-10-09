@@ -413,3 +413,13 @@ if (skillLevelsGrid && "IntersectionObserver" in window) {
     }, { threshold: 0.3 });
     skillBarObserver.observe(skillLevelsGrid);
 }
+// --- Güncel sürüm kontrolü: eski önbelleği yok sayan service worker ---
+if ("serviceWorker" in navigator) {
+    // İlk kurulumda sayfa hâlâ eski önbellekten gelmiş olabilir; bir kez yenileyerek güncel sürüme geç
+    const hadController = Boolean(navigator.serviceWorker.controller);
+    navigator.serviceWorker.addEventListener("controllerchange", () => {
+        if (!hadController) window.location.reload();
+    });
+
+    navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).catch(() => {});
+}

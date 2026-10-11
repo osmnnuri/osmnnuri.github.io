@@ -3,698 +3,399 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kişisel Portfolyo | Osman Nuri Yaşar</title>
+    <title>Osman Nuri Yaşar | Yazılım Geliştirici</title>
+    <meta name="description" content="Osman Nuri Yaşar — mobil, web ve siber güvenlik alanlarında çalışan Bilgisayar Mühendisliği öğrencisi. Projeler, deneyim ve iletişim.">
     <link rel="icon" type="image/png" href="görseller/icons/favicon.png">
-    <link rel="stylesheet" href="style.css?v=4">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
     <nav class="navbar">
-        <div class="logo"> ONY </div>
-        <button class="hamburger" id="hamburger" aria-label="Menüyü Aç/Kapat" aria-expanded="false" aria-controls="navLinks">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="#about">Hakkımda</a></li>
-            <li><a href="#services">Uzmanlık Alanlarım</a></li>
-            <li><a href="#skills-levels">Yetenekler</a></li>
-            <li><a href="#education">Eğitim</a></li>
-            <li><a href="#projects">Projelerim</a></li>
-            <li><a href="#contact" class="nav-btn">İletişim</a></li>
-        </ul>
+        <div class="wrap">
+            <a href="#top" class="logo">ONY</a>
+            <button class="hamburger" id="hamburger" aria-label="Menüyü Aç/Kapat" aria-expanded="false" aria-controls="navLinks">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#projects">Projeler</a></li>
+                <li><a href="#about">Hakkımda</a></li>
+                <li><a href="#experience">Deneyim &amp; Eğitim</a></li>
+                <li><a href="#contact" class="nav-btn">İletişim</a></li>
+            </ul>
+        </div>
     </nav>
     <div class="nav-overlay" id="navOverlay"></div>
 
-    <section id="about" class="full-page">
-        <main class="hero-container">
-            <div class="profile-wrapper">
-                <img src="görseller/images/osmnurii_profile.jpeg" alt="Osman Nuri Yaşar" class="profile-pic">
-                
-                <div class="skills-container">
-                    <div class="skills-group">
-                        <p>Diller</p>
-                        <span class="skill-badge">Python</span>
-                        <span class="skill-badge">C</span>
-                        <span class="skill-badge">Java</span>
-                        <span class="skill-badge">Kotlin</span>
-                        <span class="skill-badge">HTML & CSS</span>
-                        <span class="skill-badge">Flutter</span>
-                        <span class="skill-badge">React Native</span>
-                    </div>
-                    <div class="skills-group">
-                        <p>Araçlar</p>
-                        <span class="skill-badge">Android Studio</span>
-                        <span class="skill-badge">VS Code</span>
-                        <span class="skill-badge">IntelliJ IDEA</span>
-                        <span class="skill-badge">Ardunio IDE</span>
+    <main id="top">
+        <!-- ===== HERO ===== -->
+        <header class="hero">
+            <div class="wrap hero-main">
+                <div>
+                    <p class="eyebrow">Bilgisayar Mühendisliği Öğrencisi · İnönü Üniversitesi</p>
+                    <h1>Osman Nuri Yaşar<br><span>Mobil, web ve siber güvenlik.</span></h1>
+                    <p class="lead">Çok yönlü bir geliştirici olmaya çalışıyorum. Uzmanlığım Kotlin ve Flutter ile mobil uygulama geliştirme; bunun yanında web projeleri üretiyor, siber güvenlik alanında uygulama güvenliği ve bilgisayar ağları üzerine çalışıyorum.</p>
+                    <div class="hero-actions">
+                        <a href="#projects" class="btn primary">Projelerimi Gör</a>
+                        <a href="https://github.com/osmnnuri" target="_blank" rel="noopener" class="btn"><img src="görseller/icons/icons8-github-50.png" alt="">GitHub</a>
+                        <a href="https://www.linkedin.com/in/osman-nuri-yaşar-59901a324/" target="_blank" rel="noopener" class="btn"><img src="görseller/icons/icons8-linkedin-50.png" alt="">LinkedIn</a>
                     </div>
                 </div>
-            </div>
-
-            <div class="text-content">
-                <h1 class="name">Osman Nuri YAŞAR</h1>
-                <h5 class="job-title">Bilgisayar Mühendisi</h5>
-                <div class="about-section">
-                    <h3>Hakkımda</h3>
-                    <p> Merhabalar, ben <strong> Osman Nuri YAŞAR.</strong> İnönü Üniversitesi Bilgisayar Mühendisliği öğrencisiyim. <strong> Mobil Android Uygulama Geliştirme (Flutter, ReactNative, Kotlin ve Java),
-                        C Programlama Dili,Python Programlama Dili, Modern WEB Geliştirme Teknolojileri (HTML & CSS)</strong> alanlarında çalışmaktayım. Güncel teknolojileri ve yapay zeka ile ilgili gelişimleri yakından takip ederek kendimi sürekli buna uygun şekilde geliştirmekte ve yeni projelerle pratiğimi güçlendirmekteyim.
-                        Yaptığım çalışmaları ve projeleri <strong>Github, LinkedIn ve bu platform </strong> aracılığıyla sizlerle paylaşmaktan mutluluk duyarım.  
-                    </p>
+                <div class="code-card terminal" id="terminal">
+                    <div class="code-bar"><i></i><i></i><i></i><span>ony@portfolyo: ~</span></div>
+                    <div class="term-screen" id="termScreen" aria-live="polite"></div>
+                    <div class="term-cmds" role="group" aria-label="Terminal komutları">
+                        <button type="button" data-cmd="hakkimda">hakkimda</button>
+                        <button type="button" data-cmd="yetenekler">yetenekler</button>
+                        <button type="button" data-cmd="projeler">projeler</button>
+                        <button type="button" data-cmd="guvenlik">guvenlik</button>
+                        <button type="button" data-cmd="iletisim">iletisim</button>
+                    </div>
                 </div>
             </div>
-        </main>
-    </section>
+            <div class="wrap">
+                <ul class="stats">
+                    <li><strong>11</strong><span>tamamlanan proje</span></li>
+                    <li><strong>2</strong><span>INUFEST proje sunumu</span></li>
+                    <li><strong>Ar-Ge Başkanı</strong><span>İnönü Üni. Siber Güvenlik Topluluğu</span></li>
+                </ul>
+            </div>
+        </header>
 
-    <!-- ===== UZMANLIK ALANLARI ===== -->
-    <section id="services" class="full-page services-section">
-        <h2 class="section-title">Uzmanlık Alanlarım</h2>
-        <p class="section-subtitle">Frontend ağırlıklı çalışıyorum — öğrendiğim her şeyi projelerime yansıtmaya çalışıyorum.</p>
-
-        <div class="services-container">
-
-            <!-- Kart 1: Mobil Uygulama Geliştirme -->
-            <div class="service-card">
-                <div class="service-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
-                        <line x1="12" y1="18" x2="12.01" y2="18"/>
-                    </svg>
+        <!-- ===== PROJELER ===== -->
+        <section id="projects">
+            <div class="wrap">
+                <div class="section-head reveal">
+                    <p class="eyebrow">Projeler</p>
+                    <h2>Öne çıkan çalışmalar</h2>
+                    <p>Detayları, ekran görüntülerini ve kullanılan teknolojileri görmek için bir projeye tıklayın.</p>
                 </div>
-                <h3>Mobil Uygulama Geliştirme</h3>
-                <p>Android (Kotlin, Java) ile modern, kullanıcı dostu ve performans odaklı mobil uygulamalar geliştiriyorum. Compose ile sade arayüzler kuruyorum.</p>
-                <div class="service-tags">
-                    <span>Kotlin</span>
-                    <span>Java</span>
-                    <span>Android Studio</span>
-                    <span>Compose</span>
+
+                <div class="featured">
+                    <article class="feature project-card reveal" onclick="openProject('FinansDefteri')" role="button" tabindex="0">
+                        <div class="feature-media">
+                            <img src="görseller/finansDefteri/04-ana-ekran.png" alt="Finans Defteri ana ekran" loading="lazy">
+                            <img src="görseller/finansDefteri/13-koyu-ana-ekran.png" alt="Finans Defteri koyu tema" loading="lazy">
+                        </div>
+                        <div class="feature-body">
+                            <div class="meta"><span class="year">2026</span><span class="type">Mobil Uygulama</span></div>
+                            <h3>Finans Defteri</h3>
+                            <p>Kayıt tutmayı zahmetsiz hale getiren kişisel finans uygulaması.</p>
+                            <ul>
+                                <li>Sesle, ekran görüntüsüyle veya elle işlem ekleme</li>
+                                <li>Aylık rapor, PDF çıktısı, bütçe ve hatırlatıcılar</li>
+                                <li>Çevrimdışı çalışma ve PIN kilidi</li>
+                            </ul>
+                            <div class="tags"><span>Flutter</span><span>Dart</span><span>Firebase</span><span>Firestore</span><span>PWA</span></div>
+                            <span class="more">Detayları gör &rarr;</span>
+                        </div>
+                    </article>
+
+                    <article class="feature project-card reveal" onclick="openProject('DevTrack')" role="button" tabindex="0">
+                        <div class="feature-media">
+                            <img src="görseller/devTrack/devTrack_mainScreen.png" alt="DevTrack ana ekran" loading="lazy">
+                            <img src="görseller/devTrack/devTrack_projectdetail.png" alt="DevTrack proje detayı" loading="lazy">
+                            <img src="görseller/devTrack/devTrack_archive.png" alt="DevTrack arşiv" loading="lazy">
+                        </div>
+                        <div class="feature-body">
+                            <div class="meta"><span class="year">2026</span><span class="type">Mobil Uygulama</span></div>
+                            <h3>DevTrack</h3>
+                            <p>Çalışmaları düzenli ve sistematik ilerletmek için tasarlanmış planlayıcı uygulaması.</p>
+                            <ul>
+                                <li>Projeleri görevlere bölme ve ilerleme takibi</li>
+                                <li>Tamamlanan projeleri arşivleme ve yeniden geliştirme</li>
+                            </ul>
+                            <div class="tags"><span>Kotlin</span><span>Compose</span><span>Room</span><span>Firebase</span></div>
+                            <span class="more">Detayları gör &rarr;</span>
+                        </div>
+                    </article>
+
+                    <article class="feature project-card reveal" onclick="openProject('Yasarlar24')" role="button" tabindex="0">
+                        <div class="feature-media web">
+                            <img src="görseller/yasarlar24/yasarlar24anasayfa.png" alt="Yaşarlar 24 ana sayfa" loading="lazy">
+                        </div>
+                        <div class="feature-body">
+                            <div class="meta"><span class="year">2026</span><span class="type">Web</span></div>
+                            <h3>Yaşarlar 24 Manitou Kiralama</h3>
+                            <p>Gerçek bir işletme için geliştirilen, mobil uyumlu kurumsal web sitesi.</p>
+                            <ul>
+                                <li>Hizmet tanıtımı, bölge bazlı fiyatlar, galeri ve yorumlar</li>
+                                <li>SEO, Search Console ve domain yönetimi</li>
+                            </ul>
+                            <div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Firebase Hosting</span><span>SEO</span></div>
+                            <span class="more">Detayları gör &rarr;</span>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="sub-head reveal">
+                    <h3>Tüm projeler</h3>
+                    <div class="filters" role="group" aria-label="Proje türüne göre filtrele">
+                        <button type="button" data-filter="all" aria-pressed="true">Tümü</button>
+                        <button type="button" data-filter="app" aria-pressed="false">Mobil Uygulama</button>
+                        <button type="button" data-filter="game" aria-pressed="false">Mobil Oyun</button>
+                        <button type="button" data-filter="web" aria-pressed="false">Web</button>
+                    </div>
+                </div>
+
+                <div class="project-grid">
+                    <article class="p-card project-card" data-type="app" onclick="openProject('FinansDefteri')" role="button" tabindex="0">
+                        <div class="p-cover phone"><img src="görseller/finansDefteri/04-ana-ekran.png" alt="" loading="lazy"></div>
+                        <div class="p-body">
+                            <div class="meta"><span class="year">2026</span><span class="type">Mobil Uygulama</span></div>
+                            <h4>Finans Defteri</h4>
+                            <p>Sesle, ekran görüntüsüyle veya elle kayıt yapılan kişisel finans uygulaması.</p>
+                            <div class="tags"><span>Flutter</span><span>Firebase</span><span>PWA</span></div>
+                        </div>
+                    </article>
+
+                    <article class="p-card project-card" data-type="app" onclick="openProject('DevTrack')" role="button" tabindex="0">
+                        <div class="p-cover phone"><img src="görseller/devTrack/devTrack_mainScreen.png" alt="" loading="lazy"></div>
+                        <div class="p-body">
+                            <div class="meta"><span class="year">2026</span><span class="type">Mobil Uygulama</span></div>
+                            <h4>DevTrack</h4>
+                            <p>Projeleri görevlere bölüp ilerlemeyi takip eden planlayıcı uygulaması.</p>
+                            <div class="tags"><span>Kotlin</span><span>Compose</span><span>Firebase</span></div>
+                        </div>
+                    </article>
+
+                    <article class="p-card project-card" data-type="web" onclick="openProject('Yasarlar24')" role="button" tabindex="0">
+                        <div class="p-cover"><img src="görseller/yasarlar24/yasarlar24anasayfa.png" alt="" loading="lazy"></div>
+                        <div class="p-body">
+                            <div class="meta"><span class="year">2026</span><span class="type">Web</span></div>
+                            <h4>Yaşarlar 24 Manitou Kiralama</h4>
+                            <p>Gerçek bir işletme için geliştirilen, mobil uyumlu kurumsal web sitesi.</p>
+                            <div class="tags"><span>HTML</span><span>CSS</span><span>SEO</span></div>
+                        </div>
+                    </article>
+
+                    <article class="p-card project-card" data-type="app" onclick="openProject('MangaApp')" role="button" tabindex="0">
+                        <div class="p-cover phone"><img src="görseller/mangaApp/mangaapp1.png" alt="" loading="lazy"></div>
+                        <div class="p-body">
+                            <div class="meta"><span class="year">2026</span><span class="type">Mobil Uygulama</span></div>
+                            <h4>TrendManga</h4>
+                            <p>Mangaları isim ve puanlarıyla listeleyen, API destekli Compose uygulaması.</p>
+                            <div class="tags"><span>Kotlin</span><span>Compose</span><span>API</span></div>
+                        </div>
+                    </article>
+
+                    <article class="p-card project-card" data-type="game" onclick="openProject('cardwars')" role="button" tabindex="0">
+                        <div class="p-cover phone"><img src="görseller/cardwars/cardwars_menu.png" alt="" loading="lazy"></div>
+                        <div class="p-body">
+                            <div class="meta"><span class="year">2026</span><span class="type">Mobil Oyun</span></div>
+                            <h4>Kart Savaşları</h4>
+                            <p>Kart stratejisine dayalı, sıra tabanlı mobil oyun (demo v1.0).</p>
+                            <div class="tags"><span>Kotlin</span><span>ViewBinding</span><span>Room</span></div>
+                        </div>
+                    </article>
+
+                    <article class="p-card project-card" data-type="app" onclick="openProject('notehub')" role="button" tabindex="0">
+                        <div class="p-cover phone"><img src="görseller/noteHub/notehubmain.png" alt="" loading="lazy"></div>
+                        <div class="p-body">
+                            <div class="meta"><span class="year">2025</span><span class="type">Mobil Uygulama</span></div>
+                            <h4>NoteHub</h4>
+                            <p>Plan ve görevleri kaydeden, kaydırarak silme destekli not uygulaması.</p>
+                            <div class="tags"><span>Kotlin</span><span>Room</span><span>RecyclerView</span></div>
+                        </div>
+                    </article>
+
+                    <article class="p-card project-card" data-type="game" onclick="openProject('BlackJack')" role="button" tabindex="0">
+                        <div class="p-cover phone"><img src="görseller/blackjack/blackjackmain.png" alt="" loading="lazy"></div>
+                        <div class="p-body">
+                            <div class="meta"><span class="year">2025</span><span class="type">Mobil Oyun</span></div>
+                            <h4>BlackJack</h4>
+                            <p>Klasik blackjack mantığını mobil cihaza taşıyan kart oyunu.</p>
+                            <div class="tags"><span>Kotlin</span><span>XML</span></div>
+                        </div>
+                    </article>
+
+                    <article class="p-card project-card" data-type="game" onclick="openProject('wordgame')" role="button" tabindex="0">
+                        <div class="p-cover phone"><img src="görseller/kelimeoyunu/kelimeoyunu.png" alt="" loading="lazy"></div>
+                        <div class="p-body">
+                            <div class="meta"><span class="year">2025</span><span class="type">Mobil Oyun</span></div>
+                            <h4>Kelime Oyunu</h4>
+                            <p>Farklı kategorilerdeki kelimeleri tahmin etmeye dayalı kelime oyunu.</p>
+                            <div class="tags"><span>Kotlin</span><span>Room</span></div>
+                        </div>
+                    </article>
+
+                    <article class="p-card project-card" data-type="app" onclick="openProject('YemekKitabi')" role="button" tabindex="0">
+                        <div class="p-cover phone"><img src="görseller/yemekkitabi/yemekkitabi.png" alt="" loading="lazy"></div>
+                        <div class="p-body">
+                            <div class="meta"><span class="year">2025</span><span class="type">Mobil Uygulama</span></div>
+                            <h4>Yemek Kitabı</h4>
+                            <p>Yemekleri tarif ve görselleriyle cihaza kaydeden tarif defteri.</p>
+                            <div class="tags"><span>Kotlin</span><span>Room</span></div>
+                        </div>
+                    </article>
+
+                    <article class="p-card project-card" data-type="app" onclick="openProject('izeka')" role="button" tabindex="0">
+                        <div class="p-cover square"><img src="görseller/IZeka/proje_kapak.png" alt="" loading="lazy"></div>
+                        <div class="p-body">
+                            <div class="meta"><span class="year">2024</span><span class="type">Mobil Uygulama</span></div>
+                            <h4>IZeka</h4>
+                            <p>INUFEST'te sunulan, ekipçe geliştirilen oyunlaştırılmış eğitim platformu.</p>
+                            <div class="tags"><span>Kotlin</span><span>XML</span><span>Local DB</span></div>
+                        </div>
+                    </article>
+
+                    <article class="p-card project-card" data-type="web" onclick="openProject('cafe')" role="button" tabindex="0">
+                        <div class="p-cover"><img src="görseller/Kafe/garson_paneli.png" alt="" loading="lazy"></div>
+                        <div class="p-body">
+                            <div class="meta"><span class="year">2024</span><span class="type">Web</span></div>
+                            <h4>Kafe Garson-Müşteri Arayüzü</h4>
+                            <p>Garson paneli ve müşteri sipariş menüsünden oluşan web arayüzü.</p>
+                            <div class="tags"><span>HTML</span><span>CSS</span></div>
+                        </div>
+                    </article>
                 </div>
             </div>
+        </section>
 
-            <!-- Kart 2: Mobil Frontend Geliştirme -->
-            <div class="service-card">
-                <div class="service-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                        <line x1="9" y1="3" x2="9" y2="21"/>
-                        <line x1="15" y1="9" x2="15" y2="9"/>
-                        <line x1="3" y1="9" x2="9" y2="9"/>
-                    </svg>
+        <!-- ===== HAKKIMDA ===== -->
+        <section id="about" class="alt">
+            <div class="wrap">
+                <div class="section-head reveal">
+                    <p class="eyebrow">Hakkımda</p>
+                    <h2>Kısaca ben</h2>
                 </div>
-                <h3>Mobil Frontend Geliştirme</h3>
-                <p>Android uygulamalarında Jetpack Compose ve modern Material Design prensipleriyle sade, erişilebilir ve kullanıcı dostu arayüzler tasarlıyorum. XML ile de klasik arayüzler hazırlayabiliyorum.</p>
-                <div class="service-tags">
-                    <span>Jetpack Compose</span>
-                    <span>Material Design</span>
-                    <span>XML Layout</span>
-                    <span>UI/UX</span>
-                </div>
-            </div>
 
-            <!-- Kart 3: UI / UX Tasarımı -->
-            <div class="service-card">
-                <div class="service-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"/>
-                        <path d="M2 12h20"/>
-                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-                    </svg>
-                </div>
-                <h3>UI / UX Tasarımı</h3>
-                <p>Sade, modern ve kullanıcı deneyimini ön planda tutan arayüzler tasarlıyorum. Uygulamalarımda Material Design prensiplerine uyuyorum.</p>
-                <div class="service-tags">
-                    <span>Material Design</span>
-                    <span>Compose</span>
-                    <span>XML Layout</span>
-                </div>
-            </div>
+                <div class="about-grid">
+                    <div class="about-text reveal">
+                        <p>Merhaba, ben <strong>Osman Nuri Yaşar</strong>. İnönü Üniversitesi Bilgisayar Mühendisliği öğrencisiyim. Kendimi tek bir alanla sınırlamadan, <strong>çok yönlü</strong> bir geliştirici olarak yetiştirmeye çalışıyorum.</p>
+                        <p>En deneyimli olduğum alan <strong>mobil uygulama geliştirme</strong>. Bunun yanında web projeleri geliştiriyor, C ve Python ile çalışıyor ve <strong>siber güvenlik</strong> alanında kendimi geliştiriyorum. Güncel teknolojileri ve yapay zekâ alanındaki gelişmeleri yakından takip ediyorum.</p>
 
-            <!-- Kart 4: Mobil Oyun Geliştirme -->
-            <div class="service-card">
-                <div class="service-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="2" y="6" width="20" height="12" rx="2" ry="2"/>
-                        <circle cx="7" cy="12" r="2"/>
-                        <circle cx="17" cy="12" r="2"/>
-                        <line x1="7" y1="10" x2="17" y2="10"/>
-                    </svg>
-                </div>
-                <h3>Mobil Oyun Geliştirme</h3>
-                <p>Kart tabanlı strateji oyunları, klasik casino oyunları ve kelime oyunları gibi farklı türlerde mobil oyun prototipleri geliştirdim.</p>
-                <div class="service-tags">
-                    <span>Kotlin</span>
-                    <span>OOP</span>
-                    <span>Game Logic</span>
-                    <span>ViewBinding</span>
+                        <ul class="focus-list">
+                            <li><strong>Mobil uygulama ve oyun <em>Uzmanlık</em></strong><span>Kotlin, Jetpack Compose ve Flutter ile Android uygulamaları ve oyun prototipleri</span></li>
+                            <li><strong>Web ve SEO</strong><span>Mobil uyumlu tanıtım siteleri, Search Console ve performans iyileştirme</span></li>
+                            <li><strong>Siber güvenlik <em>Yeni başladım</em></strong><span>Uygulama güvenliği ve bilgisayar ağları / iletişimi üzerine çalışmalar; topluluk Ar-Ge faaliyetleri</span></li>
+                            <li><strong>Arayüz tasarımı</strong><span>Material Design prensipleriyle sade ve kullanıcı dostu ekranlar</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="skill-groups reveal">
+                        <div class="skill-group">
+                            <h3>Diller</h3>
+                            <div class="chips"><span>Kotlin</span><span>Java</span><span>Dart</span><span>Python</span><span>C</span><span>JavaScript</span></div>
+                        </div>
+                        <div class="skill-group">
+                            <h3>Mobil</h3>
+                            <div class="chips"><span>Jetpack Compose</span><span>Flutter</span><span>React Native</span><span>XML Layout</span><span>Room</span><span>ViewBinding</span><span>Navigation</span></div>
+                        </div>
+                        <div class="skill-group">
+                            <h3>Web</h3>
+                            <div class="chips"><span>HTML &amp; CSS</span><span>JavaScript</span><span>Responsive Tasarım</span><span>SEO</span></div>
+                        </div>
+                        <div class="skill-group">
+                            <h3>Siber Güvenlik · öğreniyorum</h3>
+                            <div class="chips"><span>Uygulama Güvenliği</span><span>Bilgisayar Ağları</span><span>Ağ İletişimi</span></div>
+                        </div>
+                        <div class="skill-group">
+                            <h3>Servisler</h3>
+                            <div class="chips"><span>Firebase</span><span>Firestore</span><span>Firebase Hosting</span><span>REST API</span><span>PWA</span></div>
+                        </div>
+                        <div class="skill-group">
+                            <h3>Araçlar</h3>
+                            <div class="chips"><span>Android Studio</span><span>VS Code</span><span>IntelliJ IDEA</span><span>Arduino IDE</span><span>Cursor</span><span>Git &amp; GitHub</span></div>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <!-- Kart 5: Yapay Zekâ Destekli Geliştirme -->
-            <div class="service-card">
-                <div class="service-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15A2.5 2.5 0 0 1 9.5 22h-5A2.5 2.5 0 0 1 2 19.5v-15A2.5 2.5 0 0 1 4.5 2h5z"/>
-                        <line x1="6" y1="8" x2="9" y2="8"/>
-                        <line x1="6" y1="12" x2="9" y2="12"/>
-                        <path d="M14 2l4 4-4 4"/>
-                        <path d="M18 6h-4"/>
-                    </svg>
+        <!-- ===== DENEYİM & EĞİTİM ===== -->
+        <section id="experience">
+            <div class="wrap">
+                <div class="section-head reveal">
+                    <p class="eyebrow">Deneyim &amp; Eğitim</p>
+                    <h2>Yolculuğum</h2>
+                    <p>Ayrıntılar için bir kayda tıklayın.</p>
                 </div>
-                <h3>Yapay Zekâ Destekli Geliştirme</h3>
-                <p>Geliştirme sürecimde AI araçlarıyla (Cursor, AI destekli debug, AI ile görsel oluşturma) uyumlu çalışarak daha hızlı ve verimli projeler çıkarıyorum.</p>
-                <div class="service-tags">
-                    <span>Cursor</span>
-                    <span>AI Debug</span>
-                    <span>AI Image</span>
-                    <span>Prompt</span>
+
+                <ol class="timeline">
+                    <li class="now reveal">
+                        <button type="button" class="t-item" onclick="openActivity('arge-baskani')">
+                            <span class="year">2026</span>
+                            <h3>Siber Güvenlik Topluluğu Ar-Ge Başkanı</h3>
+                            <p>İnönü Üniversitesi Siber Güvenlik Topluluğu'nda Ar-Ge Başkanı olarak görevlendirildim.</p>
+                        </button>
+                    </li>
+                    <li class="reveal">
+                        <button type="button" class="t-item" onclick="openActivity('ekip-ici-iletisim')">
+                            <span class="year">2026</span>
+                            <h3>Proje Yöneticisi &amp; Mobil Frontend</h3>
+                            <p>Topluluk bünyesinde geliştirilen ekip içi iletişim aracında iki rolde çalıştım.</p>
+                        </button>
+                    </li>
+                    <li class="reveal">
+                        <button type="button" class="t-item" onclick="openActivity('siber-sozluk')">
+                            <span class="year">2026</span>
+                            <h3>Siber Sözlük · INUFEST</h3>
+                            <p>"Siber Sözlük" projesiyle INUFEST'e katılıp proje geliştirme süreçlerini deneyimledim.</p>
+                        </button>
+                    </li>
+                    <li class="reveal">
+                        <button type="button" class="t-item" onclick="openActivity('bireysel-calismalar')">
+                            <span class="year">2025</span>
+                            <h3>Bireysel Çalışmalar</h3>
+                            <p>Programlama çalışmaları, BTK Akademi eğitimleri ve Android uygulama geliştirme.</p>
+                        </button>
+                    </li>
+                    <li class="reveal">
+                        <button type="button" class="t-item" onclick="openActivity('siber-guvenlik-2024')">
+                            <span class="year">2024</span>
+                            <h3>Siber Güvenlik Topluluğu Ar-Ge Ekibi</h3>
+                            <p>İnönü Üniversitesi Siber Güvenlik Topluluğu Ar-Ge ekibine katıldım.</p>
+                        </button>
+                    </li>
+                    <li class="reveal">
+                        <button type="button" class="t-item" onclick="openActivity('android-egitim')">
+                            <span class="year">2024</span>
+                            <h3>IZeka · INUFEST</h3>
+                            <p>Ekibimle geliştirdiğimiz oyunlaştırılmış eğitim uygulamasını INUFEST'te sunduk.</p>
+                        </button>
+                    </li>
+                    <li class="reveal">
+                        <button type="button" class="t-item" onclick="openActivity('universite')">
+                            <span class="year">2024 – 2028</span>
+                            <h3>İnönü Üniversitesi</h3>
+                            <p>Bilgisayar Mühendisliği Lisans Eğitimi</p>
+                        </button>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- ===== İLETİŞİM ===== -->
+        <section id="contact">
+            <div class="wrap">
+                <div class="contact-box reveal">
+                    <p class="eyebrow">İletişim</p>
+                    <h2>Birlikte çalışalım</h2>
+                    <p>Mobil uygulama fikirleri, staj fırsatları veya proje iş birlikleri için bana ulaşabilirsiniz.</p>
+                    <div class="hero-actions">
+                        <a href="mailto:osmannuriyasar57@gmail.com" class="btn primary">osmannuriyasar57@gmail.com</a>
+                        <a href="https://github.com/osmnnuri" target="_blank" rel="noopener" class="btn"><img src="görseller/icons/icons8-github-50.png" alt="">GitHub</a>
+                        <a href="https://www.linkedin.com/in/osman-nuri-yaşar-59901a324/" target="_blank" rel="noopener" class="btn"><img src="görseller/icons/icons8-linkedin-50.png" alt="">LinkedIn</a>
+                    </div>
                 </div>
             </div>
-
-            <!-- Kart 6: SEO & Web Performans -->
-            <div class="service-card">
-                <div class="service-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="11" cy="11" r="8"/>
-                        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-                        <line x1="11" y1="8" x2="11" y2="14"/>
-                        <line x1="8" y1="11" x2="14" y2="11"/>
-                    </svg>
-                </div>
-                <h3>SEO & Web Performans</h3>
-                <p>Web sitelerinin arama motorlarında üst sıralarda yer alması için SEO optimizasyonu, Google Search Console kurulumu ve performans iyileştirmeleri yapıyorum.</p>
-                <div class="service-tags">
-                    <span>SEO</span>
-                    <span>Google Search</span>
-                    <span>Optimizasyon</span>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- CTA -->
-        <div class="services-cta">
-            <p>Frontend projeleri, mobil uygulama fikirleri veya oyun prototipleri için birlikte çalışabiliriz.</p>
-            <a href="#contact" class="cta-button">İletişime Geç →</a>
-        </div>
-    </section>
-
-    <!-- ===== YETKİNLİK SEVİYELERİ ===== -->
-    <section id="skills-levels" class="full-page skills-levels-section">
-        <h2 class="section-title">Yetenek Seviyelerim</h2>
-        <p class="section-subtitle">Güncel seviyeler — öğrenmeye devam ediyorum.</p>
-
-        <div class="skill-levels-grid">
-            <div class="skill-level-item">
-                <div class="skill-level-info">
-                    <span class="skill-level-name">Kotlin / Android</span>
-                    <span class="skill-level-value">85%</span>
-                </div>
-                <div class="skill-bar"><div class="skill-bar-fill" data-width="85"></div></div>
-            </div>
-            <div class="skill-level-item">
-                <div class="skill-level-info">
-                    <span class="skill-level-name">Java</span>
-                    <span class="skill-level-value">70%</span>
-                </div>
-                <div class="skill-bar"><div class="skill-bar-fill" data-width="70"></div></div>
-            </div>
-            <div class="skill-level-item">
-                <div class="skill-level-info">
-                    <span class="skill-level-name">HTML & CSS</span>
-                    <span class="skill-level-value">90%</span>
-                </div>
-                <div class="skill-bar"><div class="skill-bar-fill" data-width="90"></div></div>
-            </div>
-            <div class="skill-level-item">
-                <div class="skill-level-info">
-                    <span class="skill-level-name">JavaScript</span>
-                    <span class="skill-level-value">50%</span>
-                </div>
-                <div class="skill-bar"><div class="skill-bar-fill" data-width="50"></div></div>
-            </div>
-            <div class="skill-level-item">
-                <div class="skill-level-info">
-                    <span class="skill-level-name">Python</span>
-                    <span class="skill-level-value">75%</span>
-                </div>
-                <div class="skill-bar"><div class="skill-bar-fill" data-width="75"></div></div>
-            </div>
-            <div class="skill-level-item">
-                <div class="skill-level-info">
-                    <span class="skill-level-name">React Native / Flutter</span>
-                    <span class="skill-level-value">60%</span>
-                </div>
-                <div class="skill-bar"><div class="skill-bar-fill" data-width="60"></div></div>
-            </div>
-            <div class="skill-level-item">
-                <div class="skill-level-info">
-                    <span class="skill-level-name">Firebase</span>
-                    <span class="skill-level-value">50%</span>
-                </div>
-                <div class="skill-bar"><div class="skill-bar-fill" data-width="50"></div></div>
-            </div>
-            <div class="skill-level-item">
-                <div class="skill-level-info">
-                    <span class="skill-level-name">C</span>
-                    <span class="skill-level-value">70%</span>
-                </div>
-                <div class="skill-bar"><div class="skill-bar-fill" data-width="70"></div></div>
-            </div>
-        </div>
-    </section>
-
-    <section id="education" class="full-page">
-        <h2 class="section-title">Faaliyetler & Eğitim</h2>
-        
-        
-<div class="activity-container">
-
-    <!-- 2024 - 2028 -->
-    <div class="activity-card academic"
-         onclick="openActivity('universite')">
-
-        <div class="card-header">
-            <span class="date">2024 - 2028</span>
-            <h4>İnönü Üniversitesi</h4>
-        </div>
-
-        <p>Bilgisayar Mühendisliği Lisans Eğitimi</p>
-
-        <div class="card-tags">
-            <span>#Eğitim</span>
-            <span>#Üniversite</span>
-            <span>#İnönüÜniversitesi</span>
-        </div>
-
-    </div>
-
-    <!-- 2024 - Android Eğitim -->
-    <div class="activity-card"
-         onclick="openActivity('android-egitim')">
-
-        <div class="card-header">
-            <span class="date">2024</span>
-            <h4>Android Eğitim Uygulaması</h4>
-        </div>
-
-        <p>
-            Kotlin ve Local Database kullanılarak geliştirilen
-            oyunlaştırılmış eğitim uygulaması.
-        </p>
-
-        <div class="card-tags">
-            <span>#Kotlin</span>
-            <span>#AndroidStudio</span>
-            <span>#UI/UX</span>
-            <span>#INUFEST</span>
-        </div>
-
-    </div>
-
-    <!-- 2024 - Siber Güvenlik -->
-    <div class="activity-card"
-         onclick="openActivity('siber-guvenlik-2024')">
-
-        <div class="card-header">
-            <span class="date">2024</span>
-            <h4>Siber Güvenlik Topluluk Faaliyetleri</h4>
-        </div>
-
-        <p>
-            İnönü Üniversitesi Siber Güvenlik Topluluğu
-            Ar-Ge ekibine katılım.
-        </p>
-
-        <div class="card-tags">
-            <span>#C</span>
-            <span>#SiberGüvenlik</span>
-            <span>#İnönüÜniversitesi</span>
-            <span>#Ar-Ge</span>
-        </div>
-
-    </div>
-
-    <!-- 2024 - Kafe -->
-    <div class="activity-card academic"
-         onclick="openActivity('kafe-uygulamasi')">
-
-        <div class="card-header">
-            <span class="date">2024</span>
-            <h4>Kafe Uygulaması</h4>
-        </div>
-
-        <p>
-            Kafe kullanımı için geliştirdiğim
-            web tabanlı garson-müşteri paneli.
-        </p>
-
-        <div class="card-tags">
-            <span>#HTML</span>
-            <span>#Cafe</span>
-            <span>#Cursor</span>
-        </div>
-
-    </div>
-
-    <!-- 2025 - Bireysel Çalışmalar -->
-    <div class="activity-card academic"
-         onclick="openActivity('bireysel-calismalar')">
-
-        <div class="card-header">
-            <span class="date">2025</span>
-            <h4>Bireysel Çalışmalar</h4>
-        </div>
-
-        <p>
-            Programlama çalışmaları, BTK Akademi eğitimleri
-            ve Android uygulama geliştirme çalışmalarım.
-        </p>
-
-        <div class="card-tags">
-            <span>#Kotlin</span>
-            <span>#Java</span>
-            <span>#BTKAkademi</span>
-        </div>
-
-    </div>
-
-    <!-- 2026 - Siber Sözlük -->
-    <div class="activity-card academic"
-         onclick="openActivity('siber-sozluk')">
-
-        <div class="card-header">
-            <span class="date">2026</span>
-            <h4>Siber Güvenlik Topluluk Faaliyetleri</h4>
-        </div>
-
-        <p>
-            "Siber Sözlük" projesi ile INUFEST'e katılıp
-            proje geliştirme süreçlerini yakından deneyimledim.
-        </p>
-
-        <div class="card-tags">
-            <span>#Flutter</span>
-            <span>#Dart</span>
-            <span>#SiberGüvenlik</span>
-            <span>#INUFEST</span>
-        </div>
-
-    </div>
-
-    <!-- 2026 - Ekip İçi İletişim -->
-    <div class="activity-card academic"
-         onclick="openActivity('ekip-ici-iletisim')">
-
-        <div class="card-header">
-            <span class="date">2026</span>
-            <h4>Siber Güvenlik Topluluk Projesi</h4>
-        </div>
-
-        <p>
-            Ekip içi iletişim aracı olarak tasarlanan bir
-            projede "Proje Yöneticisi" ve "Mobil Frontend" görevleri 
-            üzerinde çalıştım.
-        </p>
-
-        <div class="card-tags">
-            <span>#Flutter</span>
-            <span>#Dart</span>
-            <span>#ArGe</span>
-            <span>#Mobil</span>
-            <span>#Frontend</span>
-        </div>
-
-    </div>
-
-    <!-- 2026 - Ar-Ge Başkanı -->
-    <div class="activity-card academic"
-         onclick="openActivity('arge-baskani')">
-
-        <div class="card-header">
-            <span class="date">2026</span>
-            <h4>Siber Güvenlik Topluluğu Ar-Ge Başkanı</h4>
-        </div>
-
-        <p>
-            İnönü Üniversitesi Siber Güvenlik Topluluğu
-            Ar-Ge Başkanı olarak görevlendirildim.
-        </p>
-
-        <div class="card-tags">
-            <span>#SiberGüvenlik</span>
-            <span>#ArGe</span>
-            <span>#İnönüÜniversitesi</span>
-        </div>
-    </div>
-
-</div>
-    </section>
-
-<section id="projects" class="full-page">
-    <h2 class="section-title">Projelerim</h2>
-
-    <div class="activity-container project-grid">
-
-        <div class="activity-card project-card" onclick="openProject('izeka')" role="button" tabindex="0">
-            <div class="card-cover">
-                <img src="görseller/IZeka/proje_kapak.png" alt="IZeka Mobil Eğitim Uygulaması ekran görüntüsü" loading="lazy">
-            </div>
-            <div class="card-body">
-                <div class="card-meta">
-                    <span class="date">2024</span>
-                    <span class="card-type">Mobil Uygulama</span>
-                </div>
-                <h4>IZeka Mobil Eğitim Uygulaması</h4>
-                <p>Ekibimle geliştirdiğimiz, INUFEST'te sunulan oyunlaştırılmış mobil eğitim platformu.</p>
-                <div class="card-tags">
-                    <span>#Kotlin</span> <span>#AndroidStudio</span> <span>#XML</span> <span>#LocalDatabase</span>
-                </div>
-                <span class="card-link">Detayları gör &rarr;</span>
-            </div>
-        </div>
-
-        <div class="activity-card project-card" onclick="openProject('cafe')" role="button" tabindex="0">
-            <div class="card-cover">
-                <img src="görseller/Kafe/garson_paneli.png" alt="Kafe Garson-Müşteri Arayüzü ekran görüntüsü" loading="lazy">
-            </div>
-            <div class="card-body">
-                <div class="card-meta">
-                    <span class="date">2024</span>
-                    <span class="card-type">Web</span>
-                </div>
-                <h4>Kafe Garson-Müşteri Arayüzü</h4>
-                <p>Masa ve siparişlerin anlık takip edildiği garson paneli ile müşterinin sipariş verdiği menü arayüzü.</p>
-                <div class="card-tags">
-                    <span>#HTML</span> <span>#CSS</span> <span>#Cursor</span>
-                </div>
-                <span class="card-link">Detayları gör &rarr;</span>
-            </div>
-        </div>
-
-        <div class="activity-card project-card" onclick="openProject('YemekKitabi')" role="button" tabindex="0">
-            <div class="card-cover phone">
-                <img src="görseller/yemekkitabi/yemekkitabi.png" alt="Yemek Kitabı ekran görüntüsü" loading="lazy">
-            </div>
-            <div class="card-body">
-                <div class="card-meta">
-                    <span class="date">2025</span>
-                    <span class="card-type">Mobil Uygulama</span>
-                </div>
-                <h4>Yemek Kitabı</h4>
-                <p>Yemekleri isim, tarif/malzeme ve görselleriyle cihaza kaydeden tarif defteri uygulaması.</p>
-                <div class="card-tags">
-                    <span>#Kotlin</span> <span>#AndroidStudio</span> <span>#Room</span>
-                </div>
-                <span class="card-link">Detayları gör &rarr;</span>
-            </div>
-        </div>
-
-        <div class="activity-card project-card" onclick="openProject('wordgame')" role="button" tabindex="0">
-            <div class="card-cover phone">
-                <img src="görseller/kelimeoyunu/kelimeoyunu.png" alt="Kelime Oyunu ekran görüntüsü" loading="lazy">
-            </div>
-            <div class="card-body">
-                <div class="card-meta">
-                    <span class="date">2025</span>
-                    <span class="card-type">Mobil Oyun</span>
-                </div>
-                <h4>Kelime Oyunu</h4>
-                <p>Farklı kategorilerdeki kelimeleri tahmin etmeye dayalı mobil kelime oyunu.</p>
-                <div class="card-tags">
-                    <span>#Kotlin</span> <span>#AndroidStudio</span> <span>#Room</span>
-                </div>
-                <span class="card-link">Detayları gör &rarr;</span>
-            </div>
-        </div>
-
-        <div class="activity-card project-card" onclick="openProject('BlackJack')" role="button" tabindex="0">
-            <div class="card-cover phone">
-                <img src="görseller/blackjack/blackjackmain.png" alt="BlackJack ekran görüntüsü" loading="lazy">
-            </div>
-            <div class="card-body">
-                <div class="card-meta">
-                    <span class="date">2025</span>
-                    <span class="card-type">Mobil Oyun</span>
-                </div>
-                <h4>BlackJack</h4>
-                <p>Klasik blackjack mantığını mobil cihaza taşıyan kart oyunu.</p>
-                <div class="card-tags">
-                    <span>#Kotlin</span> <span>#XML</span> <span>#AndroidStudio</span>
-                </div>
-                <span class="card-link">Detayları gör &rarr;</span>
-            </div>
-        </div>
-
-        <div class="activity-card project-card" onclick="openProject('notehub')" role="button" tabindex="0">
-            <div class="card-cover phone">
-                <img src="görseller/noteHub/notehubmain.png" alt="NoteHub ekran görüntüsü" loading="lazy">
-            </div>
-            <div class="card-body">
-                <div class="card-meta">
-                    <span class="date">2025</span>
-                    <span class="card-type">Mobil Uygulama</span>
-                </div>
-                <h4>NoteHub</h4>
-                <p>Plan ve görevleri başlık-detay olarak kaydeden, kaydırarak silme destekli not uygulaması.</p>
-                <div class="card-tags">
-                    <span>#Kotlin</span> <span>#Room</span> <span>#RecyclerView</span> <span>#AI</span>
-                </div>
-                <span class="card-link">Detayları gör &rarr;</span>
-            </div>
-        </div>
-
-        <div class="activity-card project-card" onclick="openProject('cardwars')" role="button" tabindex="0">
-            <div class="card-cover phone">
-                <img src="görseller/cardwars/cardwars_menu.png" alt="Kart Savaşları ekran görüntüsü" loading="lazy">
-            </div>
-            <div class="card-body">
-                <div class="card-meta">
-                    <span class="date">2026</span>
-                    <span class="card-type">Mobil Oyun</span>
-                </div>
-                <h4>Kart Savaşları</h4>
-                <p>Çevrimiçi/çevrimdışı oynanabilen, kart stratejisine dayalı sıra tabanlı mobil oyun (demo v1.0).</p>
-                <div class="card-tags">
-                    <span>#Kotlin</span> <span>#ViewBinding</span> <span>#Room</span> <span>#OOP</span> <span>#Navigation</span>
-                </div>
-                <span class="card-link">Detayları gör &rarr;</span>
-            </div>
-        </div>
-
-        <div class="activity-card project-card" onclick="openProject('MangaApp')" role="button" tabindex="0">
-            <div class="card-cover phone">
-                <img src="görseller/mangaApp/mangaapp1.png" alt="TrendManga ekran görüntüsü" loading="lazy">
-            </div>
-            <div class="card-body">
-                <div class="card-meta">
-                    <span class="date">2026</span>
-                    <span class="card-type">Mobil Uygulama</span>
-                </div>
-                <h4>TrendManga</h4>
-                <p>Dünya genelindeki mangaları isim ve puanlarıyla listeleyen, API destekli Compose uygulaması.</p>
-                <div class="card-tags">
-                    <span>#Kotlin</span> <span>#Compose</span> <span>#API</span> <span>#Room</span>
-                </div>
-                <span class="card-link">Detayları gör &rarr;</span>
-            </div>
-        </div>
-
-        <div class="activity-card project-card" onclick="openProject('DevTrack')" role="button" tabindex="0">
-            <div class="card-cover phone">
-                <img src="görseller/devTrack/devTrack_mainScreen.png" alt="DevTrack ekran görüntüsü" loading="lazy">
-            </div>
-            <div class="card-body">
-                <div class="card-meta">
-                    <span class="date">2026</span>
-                    <span class="card-type">Mobil Uygulama</span>
-                </div>
-                <h4>DevTrack</h4>
-                <p>Projeleri görevlere bölüp ilerlemeyi takip eden ve tamamlananları arşivleyen planlayıcı uygulaması.</p>
-                <div class="card-tags">
-                    <span>#Kotlin</span> <span>#Compose</span> <span>#Room</span> <span>#Firebase</span> <span>#AI</span>
-                </div>
-                <span class="card-link">Detayları gör &rarr;</span>
-            </div>
-        </div>
-
-        <div class="activity-card project-card" onclick="openProject('Yasarlar24')" role="button" tabindex="0">
-            <div class="card-cover">
-                <img src="görseller/yasarlar24/yasarlar24anasayfa.png" alt="Yaşarlar 24 Manitou Kiralama ekran görüntüsü" loading="lazy">
-            </div>
-            <div class="card-body">
-                <div class="card-meta">
-                    <span class="date">2026</span>
-                    <span class="card-type">Web</span>
-                </div>
-                <h4>Yaşarlar 24 Manitou Kiralama</h4>
-                <p>Gerçek bir işletme için geliştirilen, mobil uyumlu ve SEO odaklı modern tanıtım web sitesi.</p>
-                <div class="card-tags">
-                    <span>#HTML</span> <span>#CSS</span> <span>#JavaScript</span> <span>#FirebaseHosting</span> <span>#SEO</span>
-                </div>
-                <span class="card-link">Detayları gör &rarr;</span>
-            </div>
-        </div>
-
-        <div class="activity-card project-card" onclick="openProject('FinansDefteri')" role="button" tabindex="0">
-            <div class="card-cover phone">
-                <img src="görseller/finansDefteri/04-ana-ekran.png" alt="Finans Defteri ekran görüntüsü" loading="lazy">
-            </div>
-            <div class="card-body">
-                <div class="card-meta">
-                    <span class="date">2026</span>
-                    <span class="card-type">Mobil Uygulama</span>
-                </div>
-                <h4>Finans Defteri</h4>
-                <p>Sesle, ekran görüntüsüyle ya da elle kayıt; bütçe, rapor ve dövizi tek arayüzde toplayan PWA uyumlu kişisel finans uygulaması.</p>
-                <div class="card-tags">
-                    <span>#Flutter</span> <span>#Dart</span> <span>#Firebase</span> <span>#Firestore</span> <span>#PWA</span>
-                </div>
-                <span class="card-link">Detayları gör &rarr;</span>
-            </div>
-        </div>
-
-    </div> 
-</section>
-
-    <section id="contact" class="full-page">
-        <h2 class="section-title">İletişim</h2>
-        <div class="contact-list">
-            <a href="https://github.com/osmnnuri" target="_blank" class="contact-card">
-                <div class="contact-icon"><img src="görseller/icons/icons8-github-50.png" alt="GitHub"></div>
-                <div class="contact-text">
-                    <h4>GitHub</h4>
-                    <span>github.com/osmnnuri</span>
-                </div>
-            </a>
-            <a href="https://www.linkedin.com/in/osman-nuri-yaşar-59901a324/" target="_blank" class="contact-card">
-                <div class="contact-icon"><img src="görseller/icons/icons8-linkedin-50.png" alt="LinkedIn"></div>
-                <div class="contact-text">
-                    <h4>LinkedIn</h4>
-                    <span>Osman Nuri Yaşar</span>
-                </div>
-            </a>
-            <a href="mailto:osmannuriyasar57@gmail.com" class="contact-card">
-                <div class="contact-icon"><img src="görseller/icons/icons8-gmail-50.png" alt="Gmail"></div>
-                <div class="contact-text">
-                    <h4>E-posta</h4>
-                    <span>osmannuriyasar57@gmail.com</span>
-                </div>
-            </a>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <div id="projectModal" class="modal">
         <div class="modal-content">
-            <span class="close-button">&times;</span>
+            <span class="close-button" role="button" aria-label="Kapat">&times;</span>
             <div id="modal-body"></div>
         </div>
     </div>
 
     <footer class="footer">
-        <p>© 2025 Osman Nuri Yaşar | Tüm Hakları Saklıdır.</p>
+        <div class="wrap">© 2026 Osman Nuri Yaşar</div>
     </footer>
 
-    <script src="javascript/faaliyetler.js?v=4"></script>
-    <script src="javascript/index.js?v=4"></script>
+    <script src="javascript/faaliyetler.js?v=5"></script>
+    <script src="javascript/index.js?v=5"></script>
 </body>
 </html>

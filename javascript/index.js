@@ -317,27 +317,6 @@ document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") closeModal();
 });
 
-// --- Kartların kaydırma ile görünme animasyonu ---
-const revealCards = document.querySelectorAll(".activity-card");
-
-if ("IntersectionObserver" in window) {
-    const revealObserver = new IntersectionObserver((entries, observer) => {
-        let order = 0;
-        entries.forEach(entry => {
-            if (!entry.isIntersecting) return;
-            entry.target.style.setProperty("--reveal-delay", `${order * 0.1}s`);
-            entry.target.classList.add("visible");
-            order++;
-            observer.unobserve(entry.target);
-        });
-    }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
-
-    revealCards.forEach(card => {
-        card.classList.add("reveal");
-        revealObserver.observe(card);
-    });
-}
-
 // Kapatma butonu ve dışarı tıklama olayları
 const closeBtn = document.querySelector(".close-button");
 if (closeBtn) closeBtn.onclick = closeModal;
@@ -393,26 +372,109 @@ if (hamburger && navLinks && navOverlay) {
 
     // Ekran boyutu masaüstüne dönerse menüyü sıfırla
     window.addEventListener("resize", () => {
-        if (window.innerWidth > 640) {
+        if (window.innerWidth > 700) {
             closeMenu();
         }
     });
 }
 
-// --- Yetenek seviye bar animasyonu (Uzmanlık Alanları bölümü) ---
-const skillLevelsGrid = document.querySelector(".skill-levels-grid");
-if (skillLevelsGrid && "IntersectionObserver" in window) {
-    const skillBarObserver = new IntersectionObserver((entries) => {
+// --- Etkileşimli terminal ---
+const termOutputs = {
+    hakkimda: `<p><b>Osman Nuri Yaşar</b></p>
+        <p>İnönü Üniversitesi Bilgisayar Mühendisliği öğrencisi.</p>
+        <p><span class="key">uzmanlık</span> Mobil uygulama geliştirme</p>
+        <p><span class="key">alanlar</span> Web · Siber güvenlik</p>
+        <p><span class="key">hedef</span> Çok yönlü bir geliştirici olmak</p>`,
+    yetenekler: `<p><span class="key">diller</span> Kotlin, Java, Dart, Python, C, JavaScript</p>
+        <p><span class="key">mobil</span> Jetpack Compose, Flutter, React Native, Room</p>
+        <p><span class="key">web</span> HTML &amp; CSS, Responsive Tasarım, SEO</p>
+        <p><span class="key">servis</span> Firebase, Firestore, REST API</p>
+        <p><span class="key">araçlar</span> Android Studio, VS Code, IntelliJ IDEA</p>`,
+    projeler: `<p>Öne çıkan projeler (açmak için tıklayın):</p>
+        <p><button type="button" onclick="openProject('FinansDefteri')">→ Finans Defteri</button> <span class="dim">Flutter</span></p>
+        <p><button type="button" onclick="openProject('DevTrack')">→ DevTrack</button> <span class="dim">Kotlin · Compose</span></p>
+        <p><button type="button" onclick="openProject('Yasarlar24')">→ Yaşarlar 24</button> <span class="dim">Web</span></p>
+        <p><a href="#projects">11 projenin tümünü gör ↓</a></p>`,
+    guvenlik: `<p><span class="key">çalışma</span> Uygulama güvenliği</p>
+        <p><span class="key">çalışma</span> Bilgisayar ağları / iletişimi</p>
+        <p><span class="key">görev</span> Siber Güvenlik Topluluğu Ar-Ge Başkanı</p>
+        <p><span class="key">proje</span> Siber Sözlük (INUFEST 2026)</p>
+        <p class="dim">Bu alanda çalışmalarıma yeni başladım.</p>`,
+    iletisim: `<p><span class="key">e-posta</span> <a href="mailto:osmannuriyasar57@gmail.com">osmannuriyasar57@gmail.com</a></p>
+        <p><span class="key">github</span> <a href="https://github.com/osmnnuri" target="_blank" rel="noopener">github.com/osmnnuri</a></p>
+        <p><span class="key">linkedin</span> <a href="https://www.linkedin.com/in/osman-nuri-yaşar-59901a324/" target="_blank" rel="noopener">Osman Nuri Yaşar</a></p>`
+};
+
+const termScreen = document.getElementById("termScreen");
+const termButtons = document.querySelectorAll(".term-cmds button");
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+let termRun = 0;
+
+function runCommand(cmd) {
+    const run = ++termRun; // Yeni komut, süren yazma animasyonunu iptal eder
+    termButtons.forEach(b => b.setAttribute("aria-pressed", String(b.dataset.cmd === cmd)));
+    termScreen.innerHTML = `<p class="term-line"><span class="prompt">$</span> <span class="typed"></span><span class="caret"></span></p>`;
+    const typed = termScreen.querySelector(".typed");
+
+    const showOutput = () => {
+        termScreen.querySelector(".caret").remove();
+        termScreen.insertAdjacentHTML("beforeend", `<div class="term-out">${termOutputs[cmd]}</div>`);
+    };
+
+    if (reduceMotion) {
+        typed.textContent = cmd;
+        showOutput();
+        return;
+    }
+
+    let index = 0;
+    const typeNext = () => {
+        if (run !== termRun) return;
+        typed.textContent = cmd.slice(0, ++index);
+        if (index < cmd.length) setTimeout(typeNext, 45);
+        else setTimeout(() => { if (run === termRun) showOutput(); }, 180);
+    };
+    typeNext();
+}
+
+termButtons.forEach(button => button.addEventListener("click", () => runCommand(button.dataset.cmd)));
+runCommand("hakkimda");
+
+// --- Proje türü filtresi ---
+const filterButtons = document.querySelectorAll(".filters button");
+filterButtons.forEach(button => {
+    button.addEventListener("click", () => {
+        filterButtons.forEach(b => b.setAttribute("aria-pressed", String(b === button)));
+        document.querySelectorAll(".p-card").forEach(card => {
+            card.hidden = button.dataset.filter !== "all" && card.dataset.type !== button.dataset.filter;
+        });
+    });
+});
+
+if ("IntersectionObserver" in window) {
+    // --- Kaydırınca görünme ---
+    const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (!entry.isIntersecting) return;
-            entry.target.querySelectorAll(".skill-bar-fill").forEach(bar => {
-                bar.style.width = bar.dataset.width + "%";
-            });
-            skillBarObserver.unobserve(entry.target);
+            entry.target.classList.add("in");
+            revealObserver.unobserve(entry.target);
         });
-    }, { threshold: 0.3 });
-    skillBarObserver.observe(skillLevelsGrid);
+    }, { threshold: 0.1 });
+    document.querySelectorAll(".reveal").forEach(el => revealObserver.observe(el));
+
+    // --- Menüde bulunulan bölümü vurgula ---
+    const navAnchors = document.querySelectorAll(".nav-links a:not(.nav-btn)");
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            navAnchors.forEach(a => a.classList.toggle("current", a.getAttribute("href") === "#" + entry.target.id));
+        });
+    }, { rootMargin: "-45% 0px -50% 0px" });
+    document.querySelectorAll("main section[id]").forEach(section => sectionObserver.observe(section));
+} else {
+    document.querySelectorAll(".reveal").forEach(el => el.classList.add("in"));
 }
+
 // --- Güncel sürüm kontrolü: eski önbelleği yok sayan service worker ---
 if ("serviceWorker" in navigator) {
     // İlk kurulumda sayfa hâlâ eski önbellekten gelmiş olabilir; bir kez yenileyerek güncel sürüme geç

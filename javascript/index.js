@@ -292,7 +292,7 @@ const projectData = {
 
 // Proje detaylarının altında gösterilen kaynak kod / canlı site bağlantıları
 const projectLinks = {
-    'FinansDefteri': { repo: 'https://github.com/osmnnuri/FinansDefteri-Showcase' },
+    'FinansDefteri': { repo: 'https://github.com/osmnnuri/FinansDefteri-Showcase', live: 'https://financeapp-997b3.web.app/?demo=1', liveLabel: 'Canlı demoyu dene' },
     'DevTrack': { repo: 'https://github.com/osmnnuri/DevTrack-Showcase' },
     'Yasarlar24': { repo: 'https://github.com/osmnnuri/Yasarlar24ManitouKiralama-Showcase', live: 'https://yasarlar24manitoukiralama.com' },
     'MangaApp': { repo: 'https://github.com/osmnnuri/MangaAppCompose-Showcase' },
@@ -305,7 +305,7 @@ const projectLinks = {
 function linkButtons(links) {
     if (!links) return "";
     let html = "";
-    if (links.live) html += `<a class="btn primary" href="${links.live}" target="_blank" rel="noopener">Canlı siteyi aç &nearr;</a>`;
+    if (links.live) html += `<a class="btn primary" href="${links.live}" target="_blank" rel="noopener">${links.liveLabel || "Canlı siteyi aç"} &nearr;</a>`;
     if (links.repo) html += `<a class="btn" href="${links.repo}" target="_blank" rel="noopener"><img src="görseller/icons/icons8-github-50.png" alt="">GitHub'da incele</a>`;
     return `<div class="modal-links">${html}</div>`;
 }

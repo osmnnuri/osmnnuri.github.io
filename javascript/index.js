@@ -2,7 +2,7 @@ const projectData = {
     'izeka': {
         title: 'IZeka Mobil Eğitim Uygulaması',
         content: `
-            <img src="görseller/IZeka/proje_kapak.png" alt="IZeka Görsel">
+            <img src="görseller/IZeka/proje_kapak.webp" alt="IZeka Görsel">
             <p><strong>IZeka</strong>, ekibimle birlikte geliştirdiğimiz oyunlaştırılmış bir mobil eğitim platformudur.</p>
             <p>Uygulama, INUFEST kapsamında sunulmuş ve büyük ilgi görmüştür.</p>
             <h3>Kullanılan Teknolojiler</h3>
@@ -17,10 +17,10 @@ const projectData = {
     'cafe': {
         title: 'Müşteri - Garson Sipariş Arayüzü',
         content: `
-            <img src="görseller/Kafe/garson_paneli.png" alt="Garson Paneli">
+            <img src="görseller/Kafe/garson_paneli.webp" alt="Garson Paneli">
             <p><strong>Garson Paneli:</strong> Masaların durumu ve gelen siparişler anlık olarak takip edilebilir.</p>
             
-            <img src="görseller/Kafe/musteri_paneli.png" alt="Restoran Menüsü">
+            <img src="görseller/Kafe/musteri_paneli.webp" alt="Restoran Menüsü">
             <p><strong>Müşteri Paneli:</strong> Müşteri ürünleri tercihine göre düzenleyebilir (malzeme ekleyip çıkarabilir), siparişini verebilir ve hesabı masasına isteyebilir.</p>
             
             <h3>Kullanılan Teknolojiler</h3>
@@ -34,7 +34,7 @@ const projectData = {
     'YemekKitabi': {
         title: 'Yemek Kitabı Android Mobil Uygulaması',
         content: `
-            <img src="görseller/yemekkitabi/yemekkitabi.png" alt="Yemek Kitabı">
+            <img src="görseller/yemekkitabi/yemekkitabi.webp" alt="Yemek Kitabı">
             <p><strong>Yemek Kitabı</strong>, istediğiniz yemekleri isim, tarif/malzeme ve görsel olarak cihazınıza kaydedebildiğiniz temel bir Kotlin çalışmasıdır.</p>
             <h3>Kullanılan Teknolojiler</h3>
             <ul class="tech-list">
@@ -47,7 +47,7 @@ const projectData = {
     'wordgame': {
         title: 'Kelime Oyunu Mobil Uygulaması',
         content: ` 
-            <img src="görseller/kelimeoyunu/kelimeoyunu.png" alt="Kelime Oyunu">
+            <img src="görseller/kelimeoyunu/kelimeoyunu.webp" alt="Kelime Oyunu">
             <p><strong>Kelime Oyunu</strong>, çeşitli kategorilerdeki kelimeleri tahmin etmeye çalıştığınız temel bir Kotlin çalışmasıdır.</p>
             <h3>Kullanılan Teknolojiler</h3>
             <ul class="tech-list">
@@ -61,8 +61,8 @@ const projectData = {
         title: 'BlackJack Android Mobil Uygulaması',
         content: `
             <div class="image-row">
-                <img src="görseller/blackjack/blackjackmain.png" alt="BlackJack Giriş Ekranı">
-                <img src="görseller/blackjack/blackjackmasa.png" alt="BlackJack Oyun Masası">
+                <img src="görseller/blackjack/blackjackmain.webp" alt="BlackJack Giriş Ekranı">
+                <img src="görseller/blackjack/blackjackmasa.webp" alt="BlackJack Oyun Masası">
             </div>
             <p><strong>BlackJack</strong>, klasik blackjack mantığını mobil cihazlara taşıyan temel bir Android uygulamasıdır.</p>
             <h3>Kullanılan Teknolojiler</h3>
@@ -78,8 +78,8 @@ const projectData = {
         content: ` 
             <p><strong>NoteHub</strong>; aktivitelerinizi, planlarınızı ve programlarınızı başlık-detay (title - content) olarak kaydetmenizi sağlayan bir Kotlin çalışmasıdır.</p>
             <div class="image-row">
-                <img src="görseller/noteHub/notehubmain.png" alt="NoteHub Ana Ekran">
-                <img src="görseller/noteHub/notehubdelete.png" alt="NoteHub Görev Silme">
+                <img src="görseller/noteHub/notehubmain.webp" alt="NoteHub Ana Ekran">
+                <img src="görseller/noteHub/notehubdelete.webp" alt="NoteHub Görev Silme">
             </div>
             <p>Ayrıca <strong>NoteHub</strong>'da eklenmiş görevleri sola kaydırarak silebilirsiniz.</p>
             <h3>Kullanılan Teknolojiler</h3>
@@ -97,8 +97,8 @@ const projectData = {
         content: ` 
             <p><strong>Kart Savaşları</strong>, çevrimiçi/çevrimdışı olarak mücadele edebileceğiniz, strateji üzerine kurulu sıra tabanlı bir mobil oyun çalışmasıdır.</p>
             <div class="image-row">
-                <img src="görseller/cardwars/cardwars_menu.png" alt="Kart Savaşları Menü">
-                <img src="görseller/cardwars/cardwars_game.png" alt="Kart Savaşları Oyun Ekranı">
+                <img src="görseller/cardwars/cardwars_menu.webp" alt="Kart Savaşları Menü">
+                <img src="görseller/cardwars/cardwars_game.webp" alt="Kart Savaşları Oyun Ekranı">
             </div>
             <p>
                 <strong>Kart Savaşları</strong>'nda arenaya çıktığınızda size 3 kart verilir ve bu kartları kullanarak çeşitli stratejilerle rakibinizi alt etmeye çalışırsınız.
@@ -122,9 +122,9 @@ const projectData = {
         title: 'TrendManga Android Mobil Uygulaması',
         content: `
             <div class="image-row">
-                <img src="görseller/mangaApp/mangaapp1.png" alt="MangaApp1">
-                <img src="görseller/mangaApp/mangaapp2.png" alt="MangaApp2">
-                <img src="görseller/mangaApp/mangaapp3.png" alt="MangaApp3">
+                <img src="görseller/mangaApp/mangaapp1.webp" alt="MangaApp1">
+                <img src="görseller/mangaApp/mangaapp2.webp" alt="MangaApp2">
+                <img src="görseller/mangaApp/mangaapp3.webp" alt="MangaApp3">
             </div>
             <p><strong>TrendManga</strong>, dünya genelinde yayınlanan mangaları isim ve puanlarıyla listeleyen bir Android uygulamasıdır.
             Bu projeyle birlikte modern "Compose" yapısı hakkında genel bir çalışma yapmış bulunmaktayım. Bu gibi projelerle güncel gelişmeleri ve teknolojileri kullanarak kendimi geliştirmeye devam edeceğim.</p>
@@ -142,15 +142,15 @@ const projectData = {
         title: 'DevTrack Android Mobil Uygulaması',
         content: `
             <div class="image-row">
-                <img src="görseller/devTrack/devTrack_mainScreen.png" alt="devtrack1">
-                <img src="görseller/devTrack/devTrack_addPorject.png" alt="devtrack2">
-                <img src="görseller/devTrack/devTrack_projectdetail.png" alt="devtrack3">
+                <img src="görseller/devTrack/devTrack_mainScreen.webp" alt="devtrack1">
+                <img src="görseller/devTrack/devTrack_addPorject.webp" alt="devtrack2">
+                <img src="görseller/devTrack/devTrack_projectdetail.webp" alt="devtrack3">
             </div>
             <p><strong>DevTrack</strong>, geliştiriciler için tasarlanmış olmakla birlikte genel kullanıcı kitlesine de hitap eden bir planlayıcı uygulamasıdır.
             Bu uygulamada amaç; çalışmaları düzenli ve sistematik olarak ilerletmek, ilerlemeleri arşiv halinde kaydedip bir kayıt tutmak ve kullanıcıların çalışmaları üzerinde 
             daha kontrol sahibi olmalarını sağlamaktır. Bu projeyle birlikte modern "Compose" teknolojisi hakkında daha fazla pratik yaparak yapay zekayı da projelerimde daha etkili kullanma yollarını öğrenmiş oldum.</p>
 
-            <img src="görseller/devTrack/devTrack_archive.png" alt="devtrack4">
+            <img src="görseller/devTrack/devTrack_archive.webp" alt="devtrack4">
 
             <p>Görsellerde görüldüğü üzere uygulama içerisinde eklenen projeler belirlenen görevlerin tamamlanmasına bağlı olarak ilerleme kaydeder ve ilerleme %100'e ulaştığında 
             kullanıcı projeyi "Tamamlandı" olarak işaretleyerek arşive gönderebilir. Arşivlenen projelerde tekrar ekleme yapılarak projelerin sürekli olarak geliştirilebilmesine olanak tanır.</p>
@@ -168,7 +168,7 @@ const projectData = {
         'Yasarlar24': {
     title: 'Yaşarlar 24 Manitou Kiralama Web Sitesi',
     content: `
-        <img src="görseller/yasarlar24/yasarlar24anasayfa.png" alt="Yaşarlar 24 Ana Sayfa">
+        <img src="görseller/yasarlar24/yasarlar24anasayfa.webp" alt="Yaşarlar 24 Ana Sayfa">
 
         <p>
             <strong>YAŞARLAR 24 Manitou Kiralama</strong>, İstanbul Anadolu Yakası'nda
@@ -185,8 +185,8 @@ const projectData = {
         </p>
 
         <div class="image-row wide">
-            <img src="görseller/yasarlar24/yasarlar24yorumlar.png" alt="Yaşarlar 24 Yorumlar">
-            <img src="görseller/yasarlar24/yasarlar24iletisim.png" alt="Yaşarlar 24 İletişim">
+            <img src="görseller/yasarlar24/yasarlar24yorumlar.webp" alt="Yaşarlar 24 Yorumlar">
+            <img src="görseller/yasarlar24/yasarlar24iletisim.webp" alt="Yaşarlar 24 İletişim">
         </div>
 
         <p>
@@ -220,8 +220,8 @@ const projectData = {
             </p>
 
             <div class="image-row">
-                <img src="görseller/finansDefteri/04-ana-ekran.png" alt="Finans Defteri Ana Sayfa">
-                <img src="görseller/finansDefteri/13-koyu-ana-ekran.png" alt="Finans Defteri Ana Sayfa (Karanlık Tema)">
+                <img src="görseller/finansDefteri/04-ana-ekran.webp" alt="Finans Defteri Ana Sayfa">
+                <img src="görseller/finansDefteri/13-koyu-ana-ekran.webp" alt="Finans Defteri Ana Sayfa (Karanlık Tema)">
             </div>
 
             <h3>Problem</h3>
@@ -240,40 +240,40 @@ const projectData = {
             </ul>
 
             <div class="image-row">
-                <img src="görseller/finansDefteri/10-islemler.png" alt="Finans Defteri İşlemler">
-                <img src="görseller/finansDefteri/11-gider-ekle.png" alt="Finans Defteri Gider Ekle">
-                <img src="görseller/finansDefteri/03-tanitim.png" alt="Finans Defteri Tanıtım">
+                <img src="görseller/finansDefteri/10-islemler.webp" alt="Finans Defteri İşlemler">
+                <img src="görseller/finansDefteri/11-gider-ekle.webp" alt="Finans Defteri Gider Ekle">
+                <img src="görseller/finansDefteri/03-tanitim.webp" alt="Finans Defteri Tanıtım">
             </div>
 
             <h3>Öne Çıkan Özellikler</h3>
 
             <p><strong>Aylık rapor ve PDF:</strong> Gelir, gider, net birikim, tasarruf oranı ve kategori bazlı gider dağılımı. Rapor tek dokunuşla PDF olarak kaydediliyor.</p>
             <div class="image-row">
-                <img src="görseller/finansDefteri/05-rapor.png" alt="Finans Defteri Rapor Ekranı">
-                <img src="görseller/finansDefteri/06-rapor-kategoriler.png" alt="Finans Defteri Kategori Ekranı">
+                <img src="görseller/finansDefteri/05-rapor.webp" alt="Finans Defteri Rapor Ekranı">
+                <img src="görseller/finansDefteri/06-rapor-kategoriler.webp" alt="Finans Defteri Kategori Ekranı">
             </div>
 
             <p><strong>Bütçe ve hatırlatıcılar:</strong> Kategori bazlı aylık limitler, limite yaklaşınca uyarı; kira, fatura gibi tekrarlayan ödemeler için takvimli hatırlatıcılar.</p>
             <div class="image-row">
-                <img src="görseller/finansDefteri/07-butce.png" alt="Finans Defteri Bütçe Ekranı">
-                <img src="görseller/finansDefteri/08-hatirlaticilar.png" alt="Finans Defteri Hatırlatıcı Ekranı">
+                <img src="görseller/finansDefteri/07-butce.webp" alt="Finans Defteri Bütçe Ekranı">
+                <img src="görseller/finansDefteri/08-hatirlaticilar.webp" alt="Finans Defteri Hatırlatıcı Ekranı">
             </div>
 
             <p><strong>Döviz ve altın:</strong> Türkiye Cumhuriyet Merkez Bankası (TCMB) kurları, gram altın ve gümüş fiyatları, kur çeviricisi.</p>
-            <img src="görseller/finansDefteri/09-doviz.png" alt="Finans Defteri Döviz Ekranı">
+            <img src="görseller/finansDefteri/09-doviz.webp" alt="Finans Defteri Döviz Ekranı">
 
             <p><strong>Çevrimdışı çalışma:</strong> İnternet yokken girilen kayıtlar cihazda bekliyor, bağlantı gelince kendiliğinden eşitleniyor.</p>
 
             <p><strong>Güvenlik:</strong> E-posta doğrulamalı hesap, cihazda PIN kilidi, her kullanıcının yalnızca kendi verisine erişebildiği sunucu kuralları.</p>
             <div class="image-row">
-                <img src="görseller/finansDefteri/01-giris.png" alt="Finans Defteri Giriş Ekranı">
-                <img src="görseller/finansDefteri/02-pin.png" alt="Finans Defteri PIN Ekranı">
+                <img src="görseller/finansDefteri/01-giris.webp" alt="Finans Defteri Giriş Ekranı">
+                <img src="görseller/finansDefteri/02-pin.webp" alt="Finans Defteri PIN Ekranı">
             </div>
 
             <p><strong>Kişiselleştirme:</strong> Açık/koyu tema, Türkçe/İngilizce ve ayarlanabilir yazı boyutu.</p>
             <div class="image-row">
-                <img src="görseller/finansDefteri/12-ayarlar.png" alt="Finans Defteri Ayarlar Ekranı">
-                <img src="görseller/finansDefteri/14-koyu-rapor.png" alt="Finans Defteri Koyu Rapor Ekranı">
+                <img src="görseller/finansDefteri/12-ayarlar.webp" alt="Finans Defteri Ayarlar Ekranı">
+                <img src="görseller/finansDefteri/14-koyu-rapor.webp" alt="Finans Defteri Koyu Rapor Ekranı">
             </div>
 
             <h3>Kullanılan Teknolojiler</h3>
@@ -290,31 +290,80 @@ const projectData = {
     }
 };
 
+// Proje detaylarının altında gösterilen kaynak kod / canlı site bağlantıları
+const projectLinks = {
+    'FinansDefteri': { repo: 'https://github.com/osmnnuri/FinansDefteri-Showcase' },
+    'DevTrack': { repo: 'https://github.com/osmnnuri/DevTrack-Showcase' },
+    'Yasarlar24': { repo: 'https://github.com/osmnnuri/Yasarlar24ManitouKiralama-Showcase', live: 'https://yasarlar24manitoukiralama.com' },
+    'MangaApp': { repo: 'https://github.com/osmnnuri/MangaAppCompose-Showcase' },
+    'cardwars': { repo: 'https://github.com/osmnnuri/SM-CardWars-Demo---Showcase' },
+    'notehub': { repo: 'https://github.com/osmnnuri/NoteHub-Showcase' },
+    'BlackJack': { repo: 'https://github.com/osmnnuri/Blackjack-Showcase' },
+    'YemekKitabi': { repo: 'https://github.com/osmnnuri/YemekKitabi-Showcase' }
+};
+
+function linkButtons(links) {
+    if (!links) return "";
+    let html = "";
+    if (links.live) html += `<a class="btn primary" href="${links.live}" target="_blank" rel="noopener">Canlı siteyi aç &nearr;</a>`;
+    if (links.repo) html += `<a class="btn" href="${links.repo}" target="_blank" rel="noopener"><img src="görseller/icons/icons8-github-50.png" alt="">GitHub'da incele</a>`;
+    return `<div class="modal-links">${html}</div>`;
+}
+
 function openProject(id) {
     const data = projectData[id];
 
     if (data) {
-        showModal(`<h2>${data.title}</h2>${data.content}`);
+        showModal(`<h2 id="modal-title">${data.title}</h2>${data.content}${linkButtons(projectLinks[id])}`);
     }
 }
+
+let lastFocused = null;
 
 function showModal(html) {
     const modal = document.getElementById("projectModal");
     const body = document.getElementById("modal-body");
+    const content = modal.querySelector(".modal-content");
+    lastFocused = document.activeElement;
     body.innerHTML = html;
-    modal.querySelector(".modal-content").scrollTop = 0;
+    const title = body.querySelector("h2");
+    if (title) {
+        title.id = "modal-title";
+        modal.setAttribute("aria-labelledby", "modal-title");
+    }
+    content.scrollTop = 0;
     modal.classList.add("show");
+    modal.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden"; // Modal açıkken arka plan kaymasın
+    content.focus({ preventScroll: true });
 }
 
 function closeModal() {
     const modal = document.getElementById("projectModal");
+    if (!modal.classList.contains("show")) return;
     modal.classList.remove("show");
-    document.body.style.overflow = "auto"; // Kaydırmayı geri aç
+    modal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = ""; // Kaydırmayı geri aç
+    if (lastFocused && lastFocused.focus) lastFocused.focus({ preventScroll: true });
 }
 
 document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") closeModal();
+
+    // Modal açıkken Tab tuşu pencerenin içinde dolaşsın
+    const modal = document.getElementById("projectModal");
+    if (event.key !== "Tab" || !modal.classList.contains("show")) return;
+    const focusables = [...modal.querySelectorAll("button, a[href], [tabindex]:not([tabindex='-1'])")];
+    if (!focusables.length) return;
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    if (event.shiftKey && (document.activeElement === first || document.activeElement === modal.querySelector(".modal-content"))) {
+        event.preventDefault();
+        last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+    }
 });
 
 // Kapatma butonu ve dışarı tıklama olayları

@@ -334,11 +334,13 @@ section { padding: 96px 0; }
 
 .about-text strong { color: var(--text); }
 
-.about-intro { display: flex; align-items: center; gap: 22px; margin-bottom: 16px; }
+.about-intro { display: flex; align-items: center; gap: 20px; margin-bottom: 24px; padding: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
 
-.about-intro p { margin: 0; }
+.avatar { flex: 0 0 auto; width: 88px; height: 88px; object-fit: cover; border: 1px solid rgba(17, 214, 214, 0.45); border-radius: 50%; }
 
-.avatar { flex: 0 0 auto; width: 112px; height: 112px; object-fit: cover; object-position: center 20%; border: 2px solid var(--accent); border-radius: 50%; box-shadow: 0 0 0 6px var(--accent-soft); }
+.about-name { display: block; color: var(--text); font-size: 1.15rem; line-height: 1.3; }
+
+.about-role { display: block; margin-top: 4px; color: var(--muted); font-size: 0.9rem; }
 
 .focus-list { display: grid; gap: 12px; margin: 28px 0 0; padding: 0; list-style: none; }
 
@@ -589,9 +591,9 @@ section { padding: 96px 0; }
 
     .term-screen { height: 240px; padding: 16px; }
 
-    .avatar { width: 84px; height: 84px; }
+    .avatar { width: 72px; height: 72px; }
 
-    .about-intro { gap: 16px; }
+    .about-intro { gap: 14px; padding: 14px; }
 
     .term-screen .key { min-width: 74px; }
 

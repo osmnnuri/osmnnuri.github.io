@@ -39,7 +39,7 @@ const projectData = {
             <h3>Kullanılan Teknolojiler</h3>
             <ul class="tech-list">
                 <li>Kotlin</li>
-                <li>Local Database & Room Yapısı</li>
+                <li>Oyun Motoru (OOP)</li>
             </ul>
         `
     },
@@ -95,7 +95,8 @@ const projectData = {
     'cardwars': {
         title: 'Kart Savaşları Mobil Oyunu',
         content: ` 
-            <p><strong>Kart Savaşları</strong>, çevrimiçi/çevrimdışı olarak mücadele edebileceğiniz, strateji üzerine kurulu sıra tabanlı bir mobil oyun çalışmasıdır.</p>
+            <p><strong>Kart Savaşları</strong>, yapay zekâ rakibe karşı çevrimdışı oynanan, strateji üzerine kurulu sıra tabanlı bir mobil oyun çalışmasıdır.
+            Oyunun Flutter ile baştan yazılan yeni sürümü için <a href="#projects" onclick="openProject('AetherWorld'); return false;">Aether World Card Wars (v2.0)</a> projesine göz atın.</p>
             <div class="image-row">
                 <img src="görseller/cardwars/cardwars_menu.webp" alt="Kart Savaşları Menü">
                 <img src="görseller/cardwars/cardwars_game.webp" alt="Kart Savaşları Oyun Ekranı">
@@ -103,7 +104,8 @@ const projectData = {
             <p>
                 <strong>Kart Savaşları</strong>'nda arenaya çıktığınızda size 3 kart verilir ve bu kartları kullanarak çeşitli stratejilerle rakibinizi alt etmeye çalışırsınız.
                 Kartlar kullanıldıkça değişir; temel kartların (saldırı, savunma) yanı sıra özel etkilere sahip kartlar da bulunur.
-                Uygulama şu an (05.02.2026) demo sürümündedir (v1.0) ve zamanla geliştirilmeye devam edecektir.
+                Oyuncu ve yapay zekâ 30 canla başlar; saldırı 6 hasar verir, savunma 5 kalkan ekler, sersemletme rakibi bir tur durdurur.
+                Rakip, canı azaldıkça savunmaya ağırlık veren olasılıklı bir yapay zekâdır. Bu demo (v1.0), oyunun v2.0 sürümünün temelini oluşturdu.
             </p>
             <h3>Kullanılan Teknolojiler</h3>
             <ul class="tech-list">
@@ -288,6 +290,64 @@ const projectData = {
             </ul>
         `
     },
+    'AetherWorld': {
+        title: 'Aether World Card Wars (v2.0)',
+        content: `
+            <p>
+                <strong>Aether World Card Wars</strong>; desteni kurup ekipmanını kuşandığın, yapay zekâya ya da arkadaşına karşı oynanan,
+                sıra tabanlı ve taktik ağırlıklı bir kart savaşı oyunudur. İlk hâli Kotlin ile yazdığım üç kartlık
+                <a href="#projects" onclick="openProject('cardwars'); return false;">Kart Savaşları (v1.0)</a> demosuydu; v2.0'da oyunu Flutter ile
+                sıfırdan yeniden yazdım ve kapsamını büyük ölçüde genişlettim.
+            </p>
+
+            <div class="image-row">
+                <img src="görseller/aetherWorld/01-giris.webp" alt="Aether World giriş ekranı">
+                <img src="görseller/aetherWorld/02-ana-menu.webp" alt="Aether World ana menü">
+            </div>
+
+            <h3>Oyun Konsepti</h3>
+            <p>
+                Oyuncu kartlarından 8 kartlık bir deste kurar. Savaşta elde her zaman 4 kart bulunur; oynanan kartın yerine desteden yenisi gelir
+                ve 8 kart dönüşümlü kullanılır. Her turda hem eldeki hem sıradaki kartları düşünüp MP'yi hangi karta harcayacağına karar vermek gerekir.
+            </p>
+            <div class="image-row">
+                <img src="görseller/aetherWorld/04-savas.webp" alt="Aether World savaş başlangıcı">
+                <img src="görseller/aetherWorld/05-savas-hamle.webp" alt="Aether World rakibin hamlesi">
+            </div>
+
+            <h3>Öne Çıkan Özellikler</h3>
+            <ul class="feature-list">
+                <li><strong>Kart sistemi:</strong> Beceri, büyü ve pasif kartlar; MP maliyeti, şarj süresi, geri tepme ve savunma mekanikleri; D'den EX/LG'ye uzanan rank sistemi.</li>
+                <li><strong>Ekipman:</strong> Kask, göğüslük, pantolon, bot ve el slotları; eşyalar can, savunma ve güç verir, yeni kartların kilidini açar.</li>
+                <li><strong>Yapay zekâ rakip:</strong> Her turda olası hamleleri puanlayıp en iyisini seçer; gerektiğinde güçlü bir kart için MP biriktirir.</li>
+                <li><strong>Hikâye modu:</strong> 20 bölüm boyunca bir yan savaşçının gözünden ilerleyen, yeni kart ve eşyaların açıldığı anlatı.</li>
+                <li><strong>Çevrimiçi mod:</strong> Oda oluştur, kodu arkadaşınla paylaş, karşılıklı savaş.</li>
+                <li><strong>Yönetim paneli:</strong> Kart düzenleyici, denge ayarları, oyuncu yönetimi ve ödül kodları; içerik uygulamayı güncellemeden sunucudan değiştirilebiliyor.</li>
+            </ul>
+            <div class="image-row">
+                <img src="görseller/aetherWorld/03-hikaye-modu.webp" alt="Aether World hikâye modu bölümleri">
+                <img src="görseller/aetherWorld/06-envanter.webp" alt="Aether World envanter ve ekipman">
+                <img src="görseller/aetherWorld/07-deste.webp" alt="Aether World deste yuvaları ve kartlar">
+            </div>
+
+            <h3>Neden Kotlin'den Flutter'a?</h3>
+            <p>
+                Tek kod tabanıyla Android, iOS, web (PWA) ve masaüstü için derleme yapabilmek; oyunu herhangi bir mağazaya bağlı kalmadan
+                tarayıcıdan açılabilir ve ana ekrana eklenebilir hâle getirmek için.
+            </p>
+
+            <h3>Kullanılan Teknolojiler</h3>
+            <ul class="tech-list">
+                <li>Flutter Dart</li>
+                <li>Node.js (sunucusuz API)</li>
+                <li>Zod</li>
+                <li>Firebase</li>
+                <li>Vercel</li>
+                <li>PWA</li>
+                <li>AI ile Görsel Oluşturma</li>
+            </ul>
+        `
+    },
     'DersAsistanim': {
         title: 'DersAsistanım: Maskotlu Ders Çalışma Asistanı',
         content: `
@@ -362,6 +422,7 @@ const projectLinks = {
     'DevTrack': { repo: 'https://github.com/osmnnuri/DevTrack-Showcase' },
     'Yasarlar24': { repo: 'https://github.com/osmnnuri/Yasarlar24ManitouKiralama-Showcase', live: 'https://yasarlar24manitoukiralama.com' },
     'MangaApp': { repo: 'https://github.com/osmnnuri/MangaAppCompose-Showcase' },
+    'AetherWorld': { repo: 'https://github.com/osmnnuri/SM-CardWars-v2-AetherWorldCardWars-Showcase' },
     'cardwars': { repo: 'https://github.com/osmnnuri/SM-CardWars-Demo---Showcase' },
     'notehub': { repo: 'https://github.com/osmnnuri/NoteHub-Showcase' },
     'BlackJack': { repo: 'https://github.com/osmnnuri/Blackjack-Showcase' },
@@ -508,9 +569,10 @@ const termOutputs = {
     projeler: `<p>Öne çıkan projeler (açmak için tıklayın):</p>
         <p><button type="button" onclick="openProject('FinansDefteri')">→ Finans Defteri</button> <span class="dim">Flutter</span></p>
         <p><button type="button" onclick="openProject('DersAsistanim')">→ DersAsistanım</button> <span class="dim">Flutter · PWA</span></p>
+        <p><button type="button" onclick="openProject('AetherWorld')">→ Aether World</button> <span class="dim">Flutter · Oyun</span></p>
         <p><button type="button" onclick="openProject('DevTrack')">→ DevTrack</button> <span class="dim">Kotlin · Compose</span></p>
         <p><button type="button" onclick="openProject('Yasarlar24')">→ Yaşarlar 24</button> <span class="dim">Web</span></p>
-        <p><a href="#projects">12 projenin tümünü gör ↓</a></p>`,
+        <p><a href="#projects">13 projenin tümünü gör ↓</a></p>`,
     guvenlik: `<p><span class="key">çalışma</span> Uygulama güvenliği</p>
         <p><span class="key">çalışma</span> Bilgisayar ağları / iletişimi</p>
         <p><span class="key">görev</span> Siber Güvenlik Topluluğu Ar-Ge Başkanı</p>

@@ -36,6 +36,13 @@ const isler = [
   { html: 'Osman-Nuri-Yasar-Ozgecmis-TR.html', pdf: 'Osman-Nuri-Yasar-Ozgecmis-TR.pdf', sayfa: 'Sayfa <span class="pageNumber"></span> / <span class="totalPages"></span>' },
   { html: 'Osman-Nuri-Yasar-CV-EN.html', pdf: 'Osman-Nuri-Yasar-CV-EN.pdf', sayfa: 'Page <span class="pageNumber"></span> of <span class="totalPages"></span>' },
 ];
+// Tek sayfalık sürümler yalnızca başvuru için (telefonlu) üretilir; üstbilgi ve sayfa numarası yok.
+if (telefon) {
+  isler.push(
+    { html: 'Osman-Nuri-Yasar-Ozgecmis-TR-1sayfa.html', pdf: 'Osman-Nuri-Yasar-Ozgecmis-TR-1sayfa.pdf' },
+    { html: 'Osman-Nuri-Yasar-CV-EN-1page.html', pdf: 'Osman-Nuri-Yasar-CV-EN-1page.pdf' },
+  );
+}
 
 const port = 9333;
 const tarayici = spawn(chrome, ['--headless=new', `--remote-debugging-port=${port}`, `--user-data-dir=${mkdtempSync(join(tmpdir(), 'cvpdf-'))}`, '--no-first-run', 'about:blank'], { stdio: 'ignore' });
@@ -73,12 +80,13 @@ for (const is of isler) {
   const { data } = await gonder('Page.printToPDF', {
     printBackground: true,
     preferCSSPageSize: true,
-    displayHeaderFooter: true,
+    displayHeaderFooter: Boolean(is.sayfa),
     headerTemplate: `<div style="${kucuk}">${baslik}</div>`,
-    footerTemplate: `<div style="${kucuk} text-align: right;">${is.sayfa}</div>`,
+    footerTemplate: `<div style="${kucuk} text-align: right;">${is.sayfa ?? ''}</div>`,
   });
   writeFileSync(join(cikti, is.pdf), Buffer.from(data, 'base64'));
-  console.log('yazıldı', join(cikti, is.pdf));
+  const sayfaSayisi = Buffer.from(data, 'base64').toString('latin1').match(/\/Type\s*\/Page[^s]/g)?.length;
+  console.log('yazıldı', join(cikti, is.pdf), `(${sayfaSayisi} sayfa)`);
 }
 ws.close();
 tarayici.kill();

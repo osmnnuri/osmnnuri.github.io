@@ -45,3 +45,17 @@ li { margin: 0 0 2pt; }
 .project { break-inside: avoid; margin-bottom: 4pt; }
 
 .tech { color: #333; }
+
+/* Başvurular için tek sayfalık sürüm: aynı görünüm, daha sıkı ölçüler. */
+@page tek { size: A4; margin: 12mm 15mm 11mm; }
+
+body.tek-sayfa { page: tek; font-size: 9.8pt; line-height: 1.4; }
+.tek-sayfa h1 { margin: 0 0 5pt; font-size: 23pt; }
+.tek-sayfa h2 { margin: 11pt 0 4pt; font-size: 13pt; }
+.tek-sayfa p { margin: 0 0 2pt; }
+.tek-sayfa .contact { margin: 0 0 1pt; }
+.tek-sayfa ul { margin: 0 0 3pt; padding-left: 13pt; }
+.tek-sayfa li { margin: 0 0 1pt; }
+.tek-sayfa .project { margin-bottom: 2pt; }
+.tek-sayfa .tech { display: inline; color: #555; }
+.tek-sayfa .tech::before { content: " · "; }

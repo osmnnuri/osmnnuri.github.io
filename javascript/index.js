@@ -352,9 +352,10 @@ const projectData = {
         title: 'DersAsistanım: Maskotlu Ders Çalışma Asistanı',
         content: `
             <p>
-                <strong>DersAsistanım</strong>; ortaokul ve LGS öğrencilerinin ders çalışmayı planlamasına, takip etmesine
-                ve sürdürmesine yardım eden, maskotlu bir asistanı olan ve internetsiz çalışan bir web uygulamasıdır (PWA).
-                Telefonda "Ana ekrana ekle" ile uygulama gibi kurulur; hesap, sunucu ya da ücret gerektirmez.
+                <strong>DersAsistanım</strong>; ortaokul (LGS) ve lise (YKS) öğrencilerinin ders çalışmayı planlamasına,
+                takip etmesine ve sürdürmesine yardım eden, maskotlu bir asistanı olan web uygulamasıdır (PWA).
+                Telefonda "Ana ekrana ekle" ile uygulama gibi kurulur ve internetsiz de çalışır. Son sürümle birlikte
+                öğrencinin yanına öğretmen ve veli de katıldı: hesaplar, bulut senkronu ve bir yönetim paneli eklendi.
             </p>
 
             <div class="image-row">
@@ -373,7 +374,8 @@ const projectData = {
             <ul class="feature-list">
                 <li><strong>Maskot asistan:</strong> Günün durumuna (süren oturum, saat, ruh hali, bekleyen yanlışlar, plan) bakıp ne yapılacağını öneren kural tabanlı bir asistan. Hızlı mesajlar ve Türkçe serbest yazıyla konuşulabiliyor.</li>
                 <li><strong>Akıllı program:</strong> Öğrenci okul ders programını girer; uygulama o gün işlenen derslerin tekrarını, ertesi günün derslerine hazırlığı ve hafta sonu soru çözümünü haftaya kendisi yerleştirir.</li>
-                <li><strong>Çevrimdışı ve gizli:</strong> Tüm veri cihazda kalır; ilk açılıştan sonra internet gerekmez.</li>
+                <li><strong>Öğretmen ve veli:</strong> Öğretmen öğrencilerinin raporlarını görür, ödev ve duyuru gönderir. Veli, çocuğunun paylaştığı 6 haneli kodla bağlanıp çalışmalarını salt okunur izler.</li>
+                <li><strong>Çevrimdışı önce:</strong> Veri önce cihazda tutulur, internet gelince buluta eşitlenir; ilk açılıştan sonra uygulama internetsiz de kullanılabilir.</li>
             </ul>
 
             <div class="image-row">
@@ -390,7 +392,7 @@ const projectData = {
                 <img src="görseller/dersAsistanim/09-kronometre.webp" alt="DersAsistanım kronometre">
             </div>
 
-            <p><strong>Kronometre, yanlış defteri ve gelişim:</strong> Hedef süreli çalışma oturumları; yanlış sorular için 2 → 3 → 7 → 14 günlük aralıklı tekrar; haftalık süre ve 6 haftalık doğruluk grafikleri, LGS net hesabı.</p>
+            <p><strong>Kronometre, yanlış defteri ve gelişim:</strong> Öğrencinin kendisi başlatıp bitirdiği çalışma oturumları; yanlış sorular için 2 → 3 → 7 → 14 günlük aralıklı tekrar; haftalık süre ve 6 haftalık doğruluk grafikleri, LGS net hesabı.</p>
             <div class="image-row">
                 <img src="görseller/dersAsistanim/08-yanlis-defteri.webp" alt="DersAsistanım yanlış defteri">
                 <img src="görseller/dersAsistanim/07-gelisim.webp" alt="DersAsistanım gelişim grafikleri">
@@ -399,17 +401,24 @@ const projectData = {
             <p><strong>İlk açılış turu ve bildirimler:</strong> Gerçek ekran öğelerini vurgulayan 8 adımlık tanıtım turu; maskotun kendi sesiyle gönderdiği, uzun süre girilmeyince "Neredesin?" diye soran nazik hatırlatmalar.</p>
             <img src="görseller/dersAsistanim/10-uygulama-turu.webp" alt="DersAsistanım uygulama turu">
 
-            <p><strong>Güvenli güncelleme:</strong> Yeni sürüm arka planda iner, kullanıcı "Güncelle" deyince devreye girer. Kendine zarar verme ifadelerini algılayıp ders önerisini durduran bir güvenlik kuralı da var.</p>
+            <p><strong>Lise (YKS) modu:</strong> Sınıf, alan ve sınav tarihini soran kurulum; YKS geri sayımı, TYT/AYT puan hesaplayıcı, deneme sonuçları ve ders bazında konu takibi; 11 lise dersi ve 3 hazır lise programı. Öğretmen raporunda denemeler ve TYT gelişimi de görünür.</p>
+
+            <p><strong>Kişiselleştirme:</strong> Kedi, köpek ve baykuşun yanına Robo, Rex, Kral ile liseliler için Zeynep ve Emir eklendi; her maskotun 5 ruh hali ve kendi cümleleri var. Ayarlar'dan 8 açık ve 2 koyu renk teması seçilebilir.</p>
+
+            <p><strong>Yönetim paneli ve KVKK:</strong> <code>/admin/</code> altında kullanıcıları, öğretmen eklemeyi, askıya almayı ve işlem kayıtlarını yöneten ayrı bir panel. Kayıtta aydınlatma metni onayı ve "Hesabımı ve verilerimi sil" seçeneği; veritabanı erişimi satır düzeyi güvenlik (RLS) kurallarıyla sınırlı.</p>
+
+            <p><strong>Güvenli ve hafif güncelleme:</strong> Yeni sürüm arka planda iner, kullanıcı "Güncelle" deyince devreye girer; yalnızca değişen dosyalar indirilir ve ilk indirme 44 MB'tan 17,8 MB'a düşürüldü. Kendine zarar verme ifadelerini algılayıp ders önerisini durduran bir güvenlik kuralı da var.</p>
 
             <h3>Kullanılan Teknolojiler</h3>
             <ul class="tech-list">
                 <li>Flutter Dart</li>
                 <li>PWA</li>
                 <li>Service Worker</li>
+                <li>Supabase (Auth, Postgres, RLS, Edge Functions)</li>
                 <li>IndexedDB (Sembast)</li>
                 <li>fl_chart</li>
                 <li>Vercel</li>
-                <li>315 otomatik test</li>
+                <li>448 otomatik test</li>
             </ul>
         `
     }

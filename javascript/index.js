@@ -359,8 +359,8 @@ const projectData = {
             </p>
 
             <div class="image-row">
-                <img src="görseller/dersAsistanim/01-ana-sayfa.webp" alt="DersAsistanım ana sayfa">
-                <img src="görseller/dersAsistanim/02-ana-sayfa-plan.webp" alt="DersAsistanım bugünün planı ve seri">
+                <img src="görseller/dersAsistanim/01-ana-sayfa.webp" alt="DersAsistanım lise modunda ana sayfa ve YKS sayacı">
+                <img src="görseller/dersAsistanim/02-ana-sayfa-plan.webp" alt="DersAsistanım ortaokul modunda bugünün planı ve seri">
             </div>
 
             <h3>Problem</h3>
@@ -380,8 +380,8 @@ const projectData = {
 
             <div class="image-row">
                 <img src="görseller/dersAsistanim/04-derslerim.webp" alt="DersAsistanım Derslerim ve akıllı program">
-                <img src="görseller/dersAsistanim/05-ders-programi.webp" alt="DersAsistanım okul ders programı">
                 <img src="görseller/dersAsistanim/06-akilli-program.webp" alt="DersAsistanım akıllı program önizlemesi">
+                <img src="görseller/dersAsistanim/11-hazir-programlar.webp" alt="DersAsistanım hazır YKS programları">
             </div>
 
             <h3>Öne Çıkan Özellikler</h3>
@@ -402,8 +402,17 @@ const projectData = {
             <img src="görseller/dersAsistanim/10-uygulama-turu.webp" alt="DersAsistanım uygulama turu">
 
             <p><strong>Lise (YKS) modu:</strong> Sınıf, alan ve sınav tarihini soran kurulum; YKS geri sayımı, TYT/AYT puan hesaplayıcı, deneme sonuçları ve ders bazında konu takibi; 11 lise dersi ve 3 hazır lise programı. Öğretmen raporunda denemeler ve TYT gelişimi de görünür.</p>
+            <div class="image-row">
+                <img src="görseller/dersAsistanim/12-yks-puan.webp" alt="DersAsistanım YKS puan hesaplayıcı">
+                <img src="görseller/dersAsistanim/13-konu-takibi.webp" alt="DersAsistanım TYT ve AYT konu takibi">
+            </div>
 
             <p><strong>Kişiselleştirme:</strong> Kedi, köpek ve baykuşun yanına Robo, Rex, Kral ile liseliler için Zeynep ve Emir eklendi; her maskotun 5 ruh hali ve kendi cümleleri var. Ayarlar'dan 8 açık ve 2 koyu renk teması seçilebilir.</p>
+            <div class="image-row">
+                <img src="görseller/dersAsistanim/14-maskot-tema.webp" alt="DersAsistanım maskot ve tema seçimi">
+                <img src="görseller/dersAsistanim/16-koyu-ayarlar.webp" alt="DersAsistanım koyu temada ayarlar">
+                <img src="görseller/dersAsistanim/15-koyu-tema.webp" alt="DersAsistanım koyu temada ana sayfa">
+            </div>
 
             <p><strong>Yönetim paneli ve KVKK:</strong> <code>/admin/</code> altında kullanıcıları, öğretmen eklemeyi, askıya almayı ve işlem kayıtlarını yöneten ayrı bir panel. Kayıtta aydınlatma metni onayı ve "Hesabımı ve verilerimi sil" seçeneği; veritabanı erişimi satır düzeyi güvenlik (RLS) kurallarıyla sınırlı.</p>
 

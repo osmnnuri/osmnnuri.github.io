@@ -11,7 +11,7 @@
 <p class="contact">linkedin.com/in/osman-nuri-yaşar-59901a324 | github.com/osmnnuri | osmnnuri.github.io</p>
 
 <h2>Summary</h2>
-<p>Computer Engineering student at İnönü University (expected graduation 2028), focused on Android and cross-platform mobile development. Experienced in building Android apps with Kotlin and Jetpack Compose and Flutter apps with Firebase, including a live website for a real business and an offline-first education app backed by automated tests. R&amp;D Team Lead at the university's Cyber Security Community. Seeking a software development internship in mobile development.</p>
+<p>Computer Engineering student at İnönü University (expected graduation 2028), focused on Android and cross-platform mobile development. Experienced in building Android apps with Kotlin and Jetpack Compose and Flutter apps with Firebase, including a live website for a real business and an education app with student, teacher and parent accounts, cloud sync and automated tests. R&amp;D Team Lead at the university's Cyber Security Community. Seeking a software development internship in mobile development.</p>
 
 <h2>Education</h2>
 <p><b>İnönü University</b>, B.Sc. in Computer Engineering | Malatya, Türkiye | 2024 – 2028 (expected)</p>
@@ -40,11 +40,12 @@
 
 <div class="project">
 <p><b>DersAsistanım, Study Assistant App (live)</b> | 2026</p>
-<p class="tech">Flutter, Dart, PWA, Service Worker, IndexedDB (Sembast), Vercel</p>
+<p class="tech">Flutter, Dart, PWA, Supabase (Auth, PostgreSQL, RLS, Edge Functions), IndexedDB (Sembast), Service Worker, Vercel</p>
 <ul>
-<li>Built and shipped an offline-first study app with a mascot assistant for middle school and LGS students; it needs no account or server.</li>
-<li>Developed a rule-based planner that generates a weekly study plan from the school timetable, an assistant that understands free Turkish text, and a wrong-answer notebook with spaced repetition.</li>
-<li>Wrote a custom service worker for offline caching and a user-approved update flow; verified rule engines and screen flows with 315 automated tests.</li>
+<li>Built and shipped an offline-first study app with a mascot assistant for middle school (LGS) and high school (YKS) students.</li>
+<li>Implemented student, teacher and parent roles, device-to-cloud sync and a separate admin panel on Supabase; restricted data access with row-level security (RLS) and added KVKK consent and account deletion.</li>
+<li>Developed a rule-based planner that generates a weekly plan from the school timetable, an assistant that understands free Turkish text, a spaced-repetition wrong-answer notebook, and a YKS score calculator with topic tracking.</li>
+<li>Wrote a custom service worker that downloads only changed files with a user-approved update flow (first download cut from 44 MB to 17.8 MB); verified rule engines, sync and screen flows with 448 automated tests.</li>
 </ul>
 </div>
 
@@ -92,7 +93,7 @@
 <li><b>Languages:</b> Kotlin, Java, Dart, Python, C, JavaScript, HTML, CSS</li>
 <li><b>Mobile:</b> Android SDK, Jetpack Compose, XML layouts, Room, Navigation, ViewBinding, Flutter, Riverpod, Provider</li>
 <li><b>Web and PWA:</b> Responsive web design, PWA, Service Workers, SEO, Google Search Console</li>
-<li><b>Backend and Cloud:</b> Firebase (Firestore, Cloud Functions, Hosting), Node.js, REST APIs, Vercel</li>
+<li><b>Backend and Cloud:</b> Firebase (Firestore, Cloud Functions, Hosting), Supabase (PostgreSQL, RLS, Edge Functions), Node.js, REST APIs, Vercel</li>
 <li><b>Quality:</b> Unit and widget testing (flutter_test), branch and pull request workflow with Git</li>
 <li><b>Tools:</b> Git, GitHub, Android Studio, IntelliJ IDEA, Visual Studio Code, Cursor</li>
 </ul>

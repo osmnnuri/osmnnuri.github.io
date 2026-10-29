@@ -554,6 +554,21 @@ if (hamburger && navLinks && navOverlay) {
     });
 }
 
+// --- Bölüm linkleri: adres çubuğuna #bolum eklemeden kaydır ---
+document.addEventListener("click", (event) => {
+    const link = event.target.closest('a[href^="#"]');
+    if (!link || event.defaultPrevented) return;
+    const target = document.getElementById(link.getAttribute("href").slice(1));
+    if (!target) return;
+    event.preventDefault();
+    target.scrollIntoView(); // scroll-behavior ve scroll-padding-top CSS'ten gelir
+});
+
+// Sayfa #bolum ile açıldıysa adresi temizle (konum korunur)
+if (window.location.hash) {
+    history.replaceState(null, "", window.location.pathname + window.location.search);
+}
+
 // --- Etkileşimli terminal ---
 const termOutputs = {
     hakkimda: `<p><b>Osman Nuri Yaşar</b></p>

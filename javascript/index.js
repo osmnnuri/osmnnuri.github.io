@@ -644,6 +644,22 @@ filterButtons.forEach(button => {
     });
 });
 
+// --- Kartlarda imleci izleyen eğim ve ışık (yalnızca fareyle) ---
+if (!reduceMotion && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    document.querySelectorAll(".project-card").forEach(card => {
+        const maxTilt = card.classList.contains("feature") ? 2.5 : 6;
+        card.addEventListener("pointermove", (event) => {
+            const rect = card.getBoundingClientRect();
+            const x = (event.clientX - rect.left) / rect.width;
+            const y = (event.clientY - rect.top) / rect.height;
+            card.style.setProperty("--mx", `${x * 100}%`);
+            card.style.setProperty("--my", `${y * 100}%`);
+            card.style.transform = `perspective(1000px) rotateX(${(0.5 - y) * maxTilt}deg) rotateY(${(x - 0.5) * maxTilt}deg)`;
+        });
+        card.addEventListener("pointerleave", () => { card.style.transform = ""; });
+    });
+}
+
 if ("IntersectionObserver" in window) {
     // --- Kaydırınca görünme ---
     const revealObserver = new IntersectionObserver((entries) => {

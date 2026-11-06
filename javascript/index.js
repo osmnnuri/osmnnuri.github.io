@@ -311,8 +311,8 @@ const projectData = {
                 ve 8 kart dönüşümlü kullanılır. Her turda hem eldeki hem sıradaki kartları düşünüp MP'yi hangi karta harcayacağına karar vermek gerekir.
             </p>
             <div class="image-row">
-                <img src="görseller/aetherWorld/04-savas.webp" alt="Aether World savaş başlangıcı">
-                <img src="görseller/aetherWorld/05-savas-hamle.webp" alt="Aether World rakibin hamlesi">
+                <img src="görseller/aetherWorld/04-savas.webp" alt="Aether World savaş ekranı">
+                <img src="görseller/aetherWorld/05-gunluk-giris.webp" alt="Aether World günlük giriş ödülleri">
             </div>
 
             <h3>Öne Çıkan Özellikler</h3>

@@ -318,11 +318,15 @@ const projectData = {
             <h3>Öne Çıkan Özellikler</h3>
             <ul class="feature-list">
                 <li><strong>Kart sistemi:</strong> Beceri, büyü ve pasif kartlar; MP maliyeti, şarj süresi, geri tepme ve savunma mekanikleri; D'den EX/LG'ye uzanan rank sistemi.</li>
-                <li><strong>Ekipman:</strong> Kask, göğüslük, pantolon, bot ve el slotları; eşyalar can, savunma ve güç verir, yeni kartların kilidini açar.</li>
+                <li><strong>Ekipman ve efsun:</strong> Kask, göğüslük, pantolon, bot, el ve kolye slotları; eşyalar can, savunma ve güç verir, set etkileri taşır ve yeni kartların kilidini açar. Eşyalar Mana Taşı ile efsunlanır; başarı şansı sunucuda, güce ve Demircilik seviyesine göre hesaplanır.</li>
                 <li><strong>Yapay zekâ rakip:</strong> Her turda olası hamleleri puanlayıp en iyisini seçer; gerektiğinde güçlü bir kart için MP biriktirir.</li>
-                <li><strong>Hikâye modu:</strong> 20 bölüm boyunca bir yan savaşçının gözünden ilerleyen, yeni kart ve eşyaların açıldığı anlatı.</li>
-                <li><strong>Çevrimiçi mod:</strong> Oda oluştur, kodu arkadaşınla paylaş, karşılıklı savaş.</li>
-                <li><strong>Yönetim paneli:</strong> Kart düzenleyici, denge ayarları, oyuncu yönetimi ve ödül kodları; içerik uygulamayı güncellemeden sunucudan değiştirilebiliyor.</li>
+                <li><strong>Hikâye modu:</strong> Baştan sona bir senaryoyu izleyen 100 bölüm; 56'sı savaş, kalanı okunan anlatı. İlerledikçe yeni kart ve eşyalar açılır, her bölümün ne kazandırdığı Kazanımlar listesinde görünür.</li>
+                <li><strong>Yan hikâyeler:</strong> Ana hikâyeden ayrı ilerleyen, seçimlere göre dallanan ve her biri üç farklı sonla biten görevler.</li>
+                <li><strong>Günlük oyun döngüsü:</strong> Seri ödüllü günlük giriş, şans çarkı, her gün değişen Günün Fırsatı ve günlük puan sınırı olan antrenman mini oyunları.</li>
+                <li><strong>Sosyal:</strong> Arkadaş arama ve ekleme, oda koduyla çevrimiçi savaş ve savaş içi emojiler.</li>
+                <li><strong>Görsel ve ses:</strong> Mor, kırmızı ve siyah tonlarında katmanlı arayüz; rütbeye göre değişen kart tasarımları, her seviyeye özel 3D sandık animasyonları, gerçek kayıtlı savaş sesleri ve retro müzik.</li>
+                <li><strong>Çoklu dil:</strong> Türkçe, İngilizce ve Çince arayüz.</li>
+                <li><strong>Yönetim paneli:</strong> Etki kurucusuyla kart düzenleme, denge ölçümü, oyuncu yönetimi, bildirimler, etkinlikler, raporlar, güncelleme notları ve geri alma; içerik uygulamayı güncellemeden sunucudan değiştirilebiliyor.</li>
             </ul>
             <div class="image-row">
                 <img src="görseller/aetherWorld/03-hikaye-modu.webp" alt="Aether World hikâye modu bölümleri">
@@ -343,7 +347,9 @@ const projectData = {
                 <li>Zod</li>
                 <li>Firebase</li>
                 <li>Vercel</li>
+                <li>Netlify (API vekil sunucusu)</li>
                 <li>PWA</li>
+                <li>Çoklu dil (i18n)</li>
                 <li>AI ile Görsel Oluşturma</li>
             </ul>
         `

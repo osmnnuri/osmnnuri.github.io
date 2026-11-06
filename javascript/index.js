@@ -358,64 +358,82 @@ const projectData = {
         title: 'DersAsistanım: Maskotlu Ders Çalışma Asistanı',
         content: `
             <p>
-                <strong>DersAsistanım</strong>; ortaokul ve LGS öğrencilerinin ders çalışmayı planlamasına, takip etmesine
-                ve sürdürmesine yardım eden, maskotlu bir asistanı olan ve internetsiz çalışan bir web uygulamasıdır (PWA).
-                Telefonda "Ana ekrana ekle" ile uygulama gibi kurulur; hesap, sunucu ya da ücret gerektirmez.
+                <strong>DersAsistanım</strong>; ilkokul, ortaokul (LGS) ve lise (YKS) öğrencilerinin ders çalışmayı planlamasına,
+                takip etmesine ve sürdürmesine yardım eden, maskotlu bir asistanı olan web uygulamasıdır (PWA). Telefonda
+                "Ana ekrana ekle" ile uygulama gibi kurulur ve internetsiz çalışır. Öğrenci hesabının yanında öğretmen ve veli
+                hesapları da var; veri önce cihazda tutulur, hesapla buluta eşitlenir.
             </p>
 
             <div class="image-row">
-                <img src="görseller/dersAsistanim/01-ana-sayfa.webp" alt="DersAsistanım ana sayfa">
-                <img src="görseller/dersAsistanim/02-ana-sayfa-plan.webp" alt="DersAsistanım bugünün planı ve seri">
+                <img src="görseller/dersAsistanim/01-ana-sayfa.webp" alt="DersAsistanım ana sayfa ve maskot asistan">
+                <img src="görseller/dersAsistanim/02-ogretmenden.webp" alt="DersAsistanım öğretmenden duyuru, ödev ve günün özeti">
             </div>
 
             <h3>Problem</h3>
             <p>
                 Öğrenciler için ders çalışmanın en zor kısmı çoğu zaman başlamak ve devam ettirmek. Planlama uygulamaları
-                öğrenciden her şeyi kendisinin kurmasını bekliyor; bir süre sonra uygulama bırakılıyor. Amacım baskı kurmadan,
-                küçük adımlarla çalışmaya yönlendiren ve planı öğrencinin yerine hazırlayan bir asistan yapmaktı.
+                öğrenciden her şeyi kendisinin kurmasını bekliyor; bir süre sonra uygulama bırakılıyor. Öğretmen ve veli ise
+                öğrencinin evde ne kadar çalıştığını göremiyor. Amacım baskı kurmadan küçük adımlarla çalışmaya yönlendiren,
+                planı öğrencinin yerine hazırlayan ve öğretmenle veliyi aynı tabloya baktıran bir asistan yapmaktı.
             </p>
 
             <h3>Ürettiğim Çözüm</h3>
             <ul class="feature-list">
-                <li><strong>Maskot asistan:</strong> Günün durumuna (süren oturum, saat, ruh hali, bekleyen yanlışlar, plan) bakıp ne yapılacağını öneren kural tabanlı bir asistan. Hızlı mesajlar ve Türkçe serbest yazıyla konuşulabiliyor.</li>
-                <li><strong>Akıllı program:</strong> Öğrenci okul ders programını girer; uygulama o gün işlenen derslerin tekrarını, ertesi günün derslerine hazırlığı ve hafta sonu soru çözümünü haftaya kendisi yerleştirir.</li>
-                <li><strong>Çevrimdışı ve gizli:</strong> Tüm veri cihazda kalır; ilk açılıştan sonra internet gerekmez.</li>
+                <li><strong>Maskot asistan:</strong> Günün durumuna (süren oturum, saat, ruh hali, bekleyen yanlışlar, plan) bakıp ne yapılacağını öneren kural tabanlı bir asistan. Hızlı mesajlar ve Türkçe serbest yazıyla konuşulabiliyor; 8 maskot arasından seçiliyor.</li>
+                <li><strong>Akıllı program:</strong> Öğrenci okul ve koçluk ders programını tablo olarak girer; uygulama o gün işlenen derslerin tekrarını, ertesi günün derslerine hazırlığı ve hafta sonu soru çözümünü haftaya kendisi yerleştirir.</li>
+                <li><strong>Üç hesap türü:</strong> Öğrenci kendisi kaydolur; öğretmen hesabını okul yöneticisi yönetim panelinden açar; veli kendisi kaydolup çocuğunun 6 haneli koduyla bağlanır.</li>
+                <li><strong>Önce çevrimdışı, sonra bulut:</strong> Uygulama internetsiz çalışır; bağlantı gelince veri Supabase'e (PostgreSQL, satır düzeyi güvenlik) eşitlenir.</li>
             </ul>
 
             <div class="image-row">
-                <img src="görseller/dersAsistanim/04-derslerim.webp" alt="DersAsistanım Derslerim ve akıllı program">
-                <img src="görseller/dersAsistanim/05-ders-programi.webp" alt="DersAsistanım okul ders programı">
-                <img src="görseller/dersAsistanim/06-akilli-program.webp" alt="DersAsistanım akıllı program önizlemesi">
+                <img src="görseller/dersAsistanim/04-akilli-program.webp" alt="DersAsistanım akıllı program ve derslerim">
+                <img src="görseller/dersAsistanim/05-ders-programi.webp" alt="DersAsistanım okul ders programı tablosu">
+                <img src="görseller/dersAsistanim/03-haftalik-plan.webp" alt="DersAsistanım haftalık plan">
             </div>
 
             <h3>Öne Çıkan Özellikler</h3>
 
-            <p><strong>Haftalık plan ve hazır programlar:</strong> Tek dokunuşla tamamlama, erteleme ve hafifletme; LGS hazırlık, sayısal/sözel ağırlıklı gibi 9 hazır program.</p>
+            <p><strong>Kronometre, yanlış defteri ve gelişim:</strong> Hedef süreli çalışma oturumları; fotoğraflı yanlış sorular için 2 → 3 → 7 → 14 günlük aralıklı tekrar; haftalık süre, ders bazında dağılım ve 6 haftalık doğruluk grafikleri.</p>
             <div class="image-row">
-                <img src="görseller/dersAsistanim/03-haftalik-plan.webp" alt="DersAsistanım haftalık plan">
-                <img src="görseller/dersAsistanim/09-kronometre.webp" alt="DersAsistanım kronometre">
+                <img src="görseller/dersAsistanim/06-kronometre.webp" alt="DersAsistanım kronometre">
+                <img src="görseller/dersAsistanim/07-yanlis-defteri.webp" alt="DersAsistanım yanlış defteri">
+                <img src="görseller/dersAsistanim/08-gelisim.webp" alt="DersAsistanım gelişim grafikleri">
             </div>
 
-            <p><strong>Kronometre, yanlış defteri ve gelişim:</strong> Hedef süreli çalışma oturumları; yanlış sorular için 2 → 3 → 7 → 14 günlük aralıklı tekrar; haftalık süre ve 6 haftalık doğruluk grafikleri, LGS net hesabı.</p>
+            <p><strong>Lise ve YKS:</strong> Lise öğrencisinde arayüz değişir: YKS geri sayımı, TYT/AYT puan hesaplayıcı (alan seçimi ve OBP katkısıyla), deneme sınavı kaydı ve net gelişimi grafiği, ders ders TYT/AYT konu takibi.</p>
             <div class="image-row">
-                <img src="görseller/dersAsistanim/08-yanlis-defteri.webp" alt="DersAsistanım yanlış defteri">
-                <img src="görseller/dersAsistanim/07-gelisim.webp" alt="DersAsistanım gelişim grafikleri">
+                <img src="görseller/dersAsistanim/11-yks-sayaci.webp" alt="DersAsistanım YKS geri sayımı">
+                <img src="görseller/dersAsistanim/12-yks-puan.webp" alt="DersAsistanım YKS puan hesaplayıcı">
+            </div>
+            <div class="image-row">
+                <img src="görseller/dersAsistanim/13-denemeler.webp" alt="DersAsistanım denemelerim ve net gelişimi">
+                <img src="görseller/dersAsistanim/14-konu-takibi.webp" alt="DersAsistanım konu takibi">
             </div>
 
-            <p><strong>İlk açılış turu ve bildirimler:</strong> Gerçek ekran öğelerini vurgulayan 8 adımlık tanıtım turu; maskotun kendi sesiyle gönderdiği, uzun süre girilmeyince "Neredesin?" diye soran nazik hatırlatmalar.</p>
-            <img src="görseller/dersAsistanim/10-uygulama-turu.webp" alt="DersAsistanım uygulama turu">
+            <p><strong>Öğretmen ve veli:</strong> Öğretmen, koduyla bağlanan öğrencilerinin çalışmasını görür, ödev verir ve duyuru yapar. Veli, çocuğunun çalışmalarını, planını, yanlış defterini, ders programlarını ve ödevlerini salt okunur raporda izler. Bir öğrencinin aynı anda bir öğretmeni ve birden çok velisi olabilir.</p>
+            <div class="image-row">
+                <img src="görseller/dersAsistanim/15-ogretmen-paneli.webp" alt="DersAsistanım öğretmen paneli">
+                <img src="görseller/dersAsistanim/16-veli-raporu.webp" alt="DersAsistanım öğrenci raporu">
+            </div>
 
-            <p><strong>Güvenli güncelleme:</strong> Yeni sürüm arka planda iner, kullanıcı "Güncelle" deyince devreye girer. Kendine zarar verme ifadelerini algılayıp ders önerisini durduran bir güvenlik kuralı da var.</p>
+            <p><strong>Kişiselleştirme:</strong> 8 maskot ve ikisi koyu olmak üzere 10 renk teması; maskotun kendi sesiyle gönderdiği, uzun süre girilmeyince "Neredesin?" diye soran nazik hatırlatmalar.</p>
+            <div class="image-row">
+                <img src="görseller/dersAsistanim/09-maskot-tema.webp" alt="DersAsistanım maskot ve tema seçimi">
+                <img src="görseller/dersAsistanim/10-koyu-tema.webp" alt="DersAsistanım koyu tema">
+            </div>
+
+            <p><strong>Gizlilik ve güvenlik:</strong> Çocuk verisi işlendiği için KVKK aydınlatma metni, kayıtta zorunlu onay ve "Hesabımı ve verilerimi sil" akışı var. Kendine zarar verme ifadelerini algılayıp ders önerisini durduran bir güvenlik kuralı ve arka planda inip "Güncelle" denince devreye giren güvenli güncelleme de bulunuyor.</p>
 
             <h3>Kullanılan Teknolojiler</h3>
             <ul class="tech-list">
                 <li>Flutter Dart</li>
                 <li>PWA</li>
                 <li>Service Worker</li>
+                <li>Supabase (PostgreSQL, RLS)</li>
                 <li>IndexedDB (Sembast)</li>
                 <li>fl_chart</li>
                 <li>Vercel</li>
-                <li>315 otomatik test</li>
+                <li>454 otomatik test</li>
             </ul>
         `
     }

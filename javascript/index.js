@@ -828,7 +828,7 @@ async function loadBlogPreview() {
     try {
         posts = await window.sbGet("posts?select=slug,title,excerpt,kind,cover_url,published_at,reading_minutes,file_name&status=eq.published&order=published_at.desc&limit=3");
     } catch {
-        return;
+        return; // "Yakında" kartı kalır
     }
     if (!posts.length) return;
     list.innerHTML = posts.map(post => `
@@ -841,9 +841,7 @@ async function loadBlogPreview() {
                 ${post.file_name ? `<span class="post-file">Ek: ${esc(post.file_name)}</span>` : ""}
             </div>
         </a>`).join("");
-    section.hidden = false;
-    section.querySelectorAll(".reveal").forEach(observeReveal);
-    if (window.sectionObserver) window.sectionObserver.observe(section);
+    list.querySelectorAll(".reveal").forEach(observeReveal);
 }
 
 loadProjects();

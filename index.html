@@ -17,7 +17,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@1,9..144,300..700,100&family=Figtree:ital,wght@0,400..700;1,400..700&display=swap">
-    <link rel="stylesheet" href="style.css?v=12">
+    <link rel="stylesheet" href="style.css?v=13">
 </head>
 <body>
     <nav class="navbar">
@@ -30,7 +30,7 @@
                 <li><a href="#projects">Projeler</a></li>
                 <li><a href="#about">Hakkımda</a></li>
                 <li><a href="#experience">Deneyim &amp; Eğitim</a></li>
-                <li><a href="blog/">Blog</a></li>
+                <li><a href="#blog">Blog</a></li>
                 <li><a href="#contact" class="nav-btn">İletişim</a></li>
             </ul>
         </div>
@@ -396,14 +396,22 @@
         </section>
 
         <!-- ===== BLOG ===== -->
-        <section id="blog" class="alt" hidden>
+        <section id="blog" class="alt">
             <div class="wrap">
                 <div class="section-head reveal">
                     <p class="eyebrow">Blog</p>
                     <h2>Yazılar ve raporlar</h2>
                     <p>Projelerimden notlar, öğrendiklerim ve hazırladığım raporlar.</p>
                 </div>
-                <div class="post-grid" id="blogPreview"></div>
+                <div class="post-grid" id="blogPreview">
+                    <div class="post-card post-empty reveal">
+                        <div class="post-card-body">
+                            <div class="meta"><span class="year">Yakında</span></div>
+                            <h3>İlk yazılar hazırlanıyor</h3>
+                            <p>Mobil geliştirme, siber güvenlik ve yapay zekâ üzerine notlarımı ve raporlarımı burada paylaşacağım.</p>
+                        </div>
+                    </div>
+                </div>
                 <p class="blog-more reveal"><a href="blog/" class="btn">Tüm yazılar &rarr;</a></p>
             </div>
         </section>
@@ -449,6 +457,6 @@
 
     <script src="javascript/supabase-config.js?v=1"></script>
     <script src="javascript/faaliyetler.js?v=10"></script>
-    <script src="javascript/index.js?v=13"></script>
+    <script src="javascript/index.js?v=14"></script>
 </body>
 </html>

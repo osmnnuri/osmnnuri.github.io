@@ -1,0 +1,14 @@
+{
+    "name": "ONY Yönetim Paneli",
+    "short_name": "ONY Panel",
+    "description": "Portfolyo yönetimi ve kişisel haber ağı",
+    "start_url": "./#haberler",
+    "scope": "./",
+    "display": "standalone",
+    "background_color": "#0e1313",
+    "theme_color": "#0e1313",
+    "lang": "tr",
+    "icons": [
+        { "src": "../g%C3%B6rseller/icons/favicon.png", "sizes": "48x48", "type": "image/png" }
+    ]
+}

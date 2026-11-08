@@ -17,7 +17,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@1,9..144,300..700,100&family=Figtree:ital,wght@0,400..700;1,400..700&display=swap">
-    <link rel="stylesheet" href="style.css?v=11">
+    <link rel="stylesheet" href="style.css?v=12">
 </head>
 <body>
     <nav class="navbar">
@@ -30,6 +30,7 @@
                 <li><a href="#projects">Projeler</a></li>
                 <li><a href="#about">Hakkımda</a></li>
                 <li><a href="#experience">Deneyim &amp; Eğitim</a></li>
+                <li><a href="blog/">Blog</a></li>
                 <li><a href="#contact" class="nav-btn">İletişim</a></li>
             </ul>
         </div>
@@ -65,7 +66,7 @@
             </div>
             <div class="wrap">
                 <ul class="stats">
-                    <li><strong>13</strong><span>tamamlanan proje</span></li>
+                    <li><strong id="projectCount">13</strong><span>tamamlanan proje</span></li>
                     <li><strong>2</strong><span>INUFEST proje sunumu</span></li>
                     <li><strong>6</strong><span>programlama dili</span></li>
                 </ul>
@@ -81,7 +82,7 @@
                     <p>Detayları, ekran görüntülerini ve kullanılan teknolojileri görmek için bir projeye tıklayın.</p>
                 </div>
 
-                <div class="featured">
+                <div class="featured" id="featuredList">
                     <article class="feature project-card reveal" onclick="openProject('FinansDefteri')" role="button" tabindex="0">
                         <div class="feature-media">
                             <img src="görseller/finansDefteri/04-ana-ekran.webp" alt="Finans Defteri ana ekran" loading="lazy" width="1080" height="2400">
@@ -189,7 +190,7 @@
                     </div>
                 </div>
 
-                <div class="project-grid">
+                <div class="project-grid" id="projectGrid">
                     <article class="p-card project-card reveal" data-type="app" onclick="openProject('MangaApp')" role="button" tabindex="0">
                         <div class="p-cover phone"><img src="görseller/mangaApp/mangaapp1.webp" alt="" loading="lazy" width="357" height="753"></div>
                         <div class="p-body">
@@ -394,6 +395,19 @@
             </div>
         </section>
 
+        <!-- ===== BLOG ===== -->
+        <section id="blog" class="alt" hidden>
+            <div class="wrap">
+                <div class="section-head reveal">
+                    <p class="eyebrow">Blog</p>
+                    <h2>Yazılar ve raporlar</h2>
+                    <p>Projelerimden notlar, öğrendiklerim ve hazırladığım raporlar.</p>
+                </div>
+                <div class="post-grid" id="blogPreview"></div>
+                <p class="blog-more reveal"><a href="blog/" class="btn">Tüm yazılar &rarr;</a></p>
+            </div>
+        </section>
+
         <!-- ===== İLETİŞİM ===== -->
         <section id="contact">
             <div class="wrap">
@@ -427,12 +441,14 @@
                 <a href="https://github.com/osmnnuri" target="_blank" rel="noopener">GitHub</a>
                 <a href="https://www.linkedin.com/in/osman-nuri-yaşar-59901a324/" target="_blank" rel="noopener">LinkedIn</a>
                 <a href="mailto:osmannuriyasar57@gmail.com">E-posta</a>
+                <a href="blog/">Blog</a>
                 <a href="#top">Yukarı çık &uarr;</a>
             </nav>
         </div>
     </footer>
 
+    <script src="javascript/supabase-config.js?v=1"></script>
     <script src="javascript/faaliyetler.js?v=10"></script>
-    <script src="javascript/index.js?v=12"></script>
+    <script src="javascript/index.js?v=13"></script>
 </body>
 </html>

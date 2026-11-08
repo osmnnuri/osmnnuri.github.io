@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#0e1313">
+    <title>Yönetim Paneli | ONY</title>
+    <link rel="icon" type="image/png" href="../görseller/icons/favicon.png">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@1,9..144,300..700,100&family=Figtree:ital,wght@0,400..700;1,400..700&display=swap">
+    <link rel="stylesheet" href="admin.css?v=1">
+</head>
+<body>
+    <!-- ===== Giriş ===== -->
+    <section class="login" id="loginView" hidden>
+        <form class="login-card" id="loginForm">
+            <span class="brand">ONY <em>Panel</em></span>
+            <h1>Yönetim paneline giriş</h1>
+            <p class="muted">Yalnızca site sahibi giriş yapabilir.</p>
+            <label>E-posta<input type="email" name="email" autocomplete="username" required></label>
+            <label>Şifre<input type="password" name="password" autocomplete="current-password" required></label>
+            <button type="submit" class="btn primary block">Giriş yap</button>
+            <button type="button" class="link-btn" id="forgotBtn">Şifremi unuttum</button>
+            <p class="form-msg" id="loginMsg" role="alert"></p>
+        </form>
+        <form class="login-card" id="newPassForm" hidden>
+            <span class="brand">ONY <em>Panel</em></span>
+            <h1>Yeni şifre belirle</h1>
+            <label>Yeni şifre<input type="password" name="password" autocomplete="new-password" minlength="10" required></label>
+            <button type="submit" class="btn primary block">Şifreyi kaydet</button>
+            <p class="form-msg" id="newPassMsg" role="alert"></p>
+        </form>
+    </section>
+
+    <!-- ===== Uygulama ===== -->
+    <div class="app" id="appView" hidden>
+        <aside class="sidebar">
+            <a class="brand" href="#haberler">ONY <em>Panel</em></a>
+            <nav class="side-nav" aria-label="Panel bölümleri">
+                <a href="#haberler" data-view="haberler"><span class="ico" aria-hidden="true">◉</span><span>Haber Ağı</span><b class="badge" id="newsBadge" hidden></b></a>
+                <a href="#projeler" data-view="projeler"><span class="ico" aria-hidden="true">▣</span><span>Projeler</span></a>
+                <a href="#blog" data-view="blog"><span class="ico" aria-hidden="true">✎</span><span>Blog</span></a>
+                <a href="#kaynaklar" data-view="kaynaklar"><span class="ico" aria-hidden="true">⚙</span><span>Kaynaklar</span></a>
+            </nav>
+            <div class="side-foot">
+                <a href="../" target="_blank" rel="noopener" class="side-link">Siteyi aç &nearr;</a>
+                <span class="muted small" id="userEmail"></span>
+                <button type="button" class="link-btn" id="logoutBtn">Çıkış yap</button>
+            </div>
+        </aside>
+
+        <main class="main" id="main">
+            <!-- Haber ağı -->
+            <section class="view" data-view="haberler" hidden>
+                <header class="view-head">
+                    <div>
+                        <h1>Haber Ağı</h1>
+                        <p class="muted">İlgi alanlarına göre puanlanmış haberler, ilanlar ve fırsatlar. Saatte bir kendiliğinden yenilenir.</p>
+                    </div>
+                    <div class="head-actions">
+                        <button type="button" class="btn" id="markAllRead">Tümünü okundu say</button>
+                        <button type="button" class="btn primary" id="refreshNews">Şimdi yenile</button>
+                    </div>
+                </header>
+
+                <ul class="stat-row" id="newsStats"></ul>
+
+                <div class="toolbar">
+                    <div class="seg" role="group" aria-label="Tür" id="newsKinds">
+                        <button type="button" data-kind="all" aria-pressed="true">Tümü</button>
+                        <button type="button" data-kind="haber" aria-pressed="false">Haberler</button>
+                        <button type="button" data-kind="ilan" aria-pressed="false">İlanlar</button>
+                        <button type="button" data-kind="firsat" aria-pressed="false">Fırsatlar</button>
+                        <button type="button" data-kind="saved" aria-pressed="false">★ Kaydedilenler</button>
+                    </div>
+                    <div class="toolbar-right">
+                        <input type="search" id="newsSearch" class="input" placeholder="Ara..." aria-label="Haberlerde ara">
+                        <select id="newsSort" class="input" aria-label="Sıralama">
+                            <option value="rank">Önceliğe göre</option>
+                            <option value="new">En yeni</option>
+                        </select>
+                        <label class="check"><input type="checkbox" id="newsRelevant" checked> Yalnızca ilgili</label>
+                    </div>
+                </div>
+                <div class="chips" id="interestChips" role="group" aria-label="İlgi alanı filtresi"></div>
+
+                <div class="news-list" id="newsList" aria-live="polite"></div>
+                <button type="button" class="btn block" id="newsMore" hidden>Daha fazla göster</button>
+            </section>
+
+            <!-- Projeler -->
+            <section class="view" data-view="projeler" hidden>
+                <div id="projectListPane">
+                    <header class="view-head">
+                        <div>
+                            <h1>Projeler</h1>
+                            <p class="muted">Portfolyodaki projeler. Sıralamayı oklarla değiştirin; "Öne çıkan" projeler üstteki büyük kartlarda görünür.</p>
+                        </div>
+                        <div class="head-actions"><button type="button" class="btn primary" id="newProject">+ Yeni proje</button></div>
+                    </header>
+                    <div class="table-wrap"><table class="table" id="projectTable"></table></div>
+                </div>
+
+                <div id="projectEditorPane" hidden>
+                    <header class="view-head">
+                        <div>
+                            <button type="button" class="link-btn" data-back="projeler">&larr; Projelere dön</button>
+                            <h1 id="projectEditorTitle">Yeni proje</h1>
+                        </div>
+                        <div class="head-actions">
+                            <button type="button" class="btn danger" id="deleteProject">Sil</button>
+                            <button type="button" class="btn primary" id="saveProject">Kaydet</button>
+                        </div>
+                    </header>
+
+                    <div class="editor-grid">
+                        <form class="form" id="projectForm" autocomplete="off">
+                            <div class="card">
+                                <h2>Temel bilgiler</h2>
+                                <div class="row">
+                                    <label>Kart başlığı<input name="title" class="input" required></label>
+                                    <label>Kimlik (adres)<input name="id" class="input" pattern="[A-Za-z0-9_\-]+" required><small>Sonradan değiştirilemez. Örn. FinansDefteri</small></label>
+                                </div>
+                                <label>Detay penceresi başlığı<input name="modal_title" class="input" placeholder="Boş bırakılırsa kart başlığı kullanılır"></label>
+                                <div class="row three">
+                                    <label>Yıl<input name="year" class="input" placeholder="2026"></label>
+                                    <label>Tür etiketi<input name="type_label" class="input" placeholder="Mobil Uygulama · PWA"></label>
+                                    <label>Kategori
+                                        <select name="category" class="input">
+                                            <option value="app">Mobil Uygulama</option>
+                                            <option value="game">Mobil Oyun</option>
+                                            <option value="web">Web</option>
+                                            <option value="other">Diğer</option>
+                                        </select>
+                                    </label>
+                                </div>
+                                <label>Kısa açıklama<textarea name="summary" class="input" rows="2"></textarea></label>
+                                <label>Öne çıkan maddeler <small>(her satıra bir madde; yalnızca öne çıkan kartta görünür)</small><textarea name="highlights" class="input" rows="3"></textarea></label>
+                                <label>Etiketler <small>(virgülle ayırın)</small><input name="tags" class="input" placeholder="Flutter, Dart, Firebase"></label>
+                                <div class="row">
+                                    <label class="check"><input type="checkbox" name="featured"> Öne çıkan proje</label>
+                                    <label class="check"><input type="checkbox" name="published" checked> Sitede yayında</label>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <h2>Kapak görselleri</h2>
+                                <label>Görsel düzeni
+                                    <select name="cover_kind" class="input">
+                                        <option value="phone">Telefon ekranı (dikey)</option>
+                                        <option value="square">Kare</option>
+                                        <option value="landscape">Yatay (web sitesi)</option>
+                                    </select>
+                                </label>
+                                <div class="cover-list" id="coverList"></div>
+                                <div class="btn-row">
+                                    <label class="btn file-btn">Görsel yükle<input type="file" accept="image/*" multiple id="coverUpload" hidden></label>
+                                    <button type="button" class="btn" id="coverAddUrl">Adresle ekle</button>
+                                </div>
+                                <small class="muted">Öne çıkan kartta ilk 3, diğer kartlarda ilk görsel gösterilir.</small>
+                            </div>
+
+                            <div class="card">
+                                <h2>Detay içeriği</h2>
+                                <div class="snippet-bar" id="htmlSnippets">
+                                    <button type="button" data-snippet="p">Paragraf</button>
+                                    <button type="button" data-snippet="h3">Başlık</button>
+                                    <button type="button" data-snippet="ul">Madde listesi</button>
+                                    <button type="button" data-snippet="row">Görsel satırı</button>
+                                    <button type="button" data-snippet="tech">Teknolojiler</button>
+                                    <label class="file-snippet">Görsel yükle ve ekle<input type="file" accept="image/*" multiple id="contentUpload" hidden></label>
+                                </div>
+                                <textarea name="content_html" class="input code" rows="18" spellcheck="false"></textarea>
+                            </div>
+
+                            <div class="card">
+                                <h2>Bağlantılar</h2>
+                                <label>GitHub deposu<input name="repo_url" type="url" class="input" placeholder="https://github.com/..."></label>
+                                <div class="row">
+                                    <label>Canlı site / demo<input name="live_url" type="url" class="input" placeholder="https://..."></label>
+                                    <label>Buton yazısı<input name="live_label" class="input" placeholder="Canlı siteyi aç"></label>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div class="preview-pane">
+                            <div class="seg small" role="group" aria-label="Önizleme" id="projectPreviewMode">
+                                <button type="button" data-mode="card" aria-pressed="true">Kart</button>
+                                <button type="button" data-mode="detail" aria-pressed="false">Detay</button>
+                            </div>
+                            <iframe class="preview-frame" id="projectPreview" title="Proje önizlemesi"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Blog -->
+            <section class="view" data-view="blog" hidden>
+                <div id="postListPane">
+                    <header class="view-head">
+                        <div>
+                            <h1>Blog</h1>
+                            <p class="muted">Yazılar, raporlar ve notlar. Yazarak oluşturabilir ya da Markdown, Word, PDF dosyası yükleyebilirsiniz.</p>
+                        </div>
+                        <div class="head-actions"><button type="button" class="btn primary" id="newPost">+ Yeni yazı</button></div>
+                    </header>
+                    <div class="table-wrap"><table class="table" id="postTable"></table></div>
+                </div>
+
+                <div id="postEditorPane" hidden>
+                    <header class="view-head">
+                        <div>
+                            <button type="button" class="link-btn" data-back="blog">&larr; Yazılara dön</button>
+                            <h1 id="postEditorTitle">Yeni yazı</h1>
+                            <span class="status-pill" id="postStatus"></span>
+                        </div>
+                        <div class="head-actions">
+                            <button type="button" class="btn danger" id="deletePost">Sil</button>
+                            <button type="button" class="btn" id="unpublishPost">Yayından kaldır</button>
+                            <button type="button" class="btn" id="saveDraft">Taslak kaydet</button>
+                            <button type="button" class="btn primary" id="publishPost">Yayınla</button>
+                        </div>
+                    </header>
+
+                    <div class="editor-grid">
+                        <form class="form" id="postForm" autocomplete="off">
+                            <div class="card">
+                                <label>Başlık<input name="title" class="input big" required></label>
+                                <div class="row three">
+                                    <label>Adres (slug)<input name="slug" class="input" pattern="[a-z0-9]+(-[a-z0-9]+)*" required></label>
+                                    <label>Tür
+                                        <select name="kind" class="input">
+                                            <option value="yazi">Yazı</option>
+                                            <option value="rapor">Rapor</option>
+                                            <option value="not">Not</option>
+                                        </select>
+                                    </label>
+                                    <label>Etiketler<input name="tags" class="input" placeholder="siber güvenlik, rapor"></label>
+                                </div>
+                                <label>Özet <small>(liste ve paylaşım önizlemesinde görünür)</small><textarea name="excerpt" class="input" rows="2"></textarea></label>
+                                <div class="cover-field">
+                                    <img id="postCoverImg" alt="" hidden>
+                                    <div class="btn-row">
+                                        <label class="btn file-btn">Kapak görseli yükle<input type="file" accept="image/*" id="postCoverUpload" hidden></label>
+                                        <button type="button" class="btn" id="postCoverRemove" hidden>Kapağı kaldır</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="seg" role="group" aria-label="İçerik ekleme yolu" id="postModes">
+                                    <button type="button" data-mode="write" aria-pressed="true">Yazarak</button>
+                                    <button type="button" data-mode="file" aria-pressed="false">Dosyadan</button>
+                                </div>
+
+                                <div id="postWrite">
+                                    <div class="snippet-bar" id="mdToolbar">
+                                        <button type="button" data-md="bold" title="Kalın"><b>K</b></button>
+                                        <button type="button" data-md="italic" title="İtalik"><i>İ</i></button>
+                                        <button type="button" data-md="h2">Başlık</button>
+                                        <button type="button" data-md="h3">Alt başlık</button>
+                                        <button type="button" data-md="link">Bağlantı</button>
+                                        <button type="button" data-md="ul">Liste</button>
+                                        <button type="button" data-md="quote">Alıntı</button>
+                                        <button type="button" data-md="code">Kod</button>
+                                        <label class="file-snippet">Görsel<input type="file" accept="image/*" id="mdImageUpload" hidden></label>
+                                    </div>
+                                    <p class="note" id="htmlNote" hidden>Bu içerik bir dosyadan HTML olarak aktarıldı. Doğrudan HTML olarak düzenleyebilirsiniz. <button type="button" class="link-btn" id="toMarkdown">Boş Markdown'a dön</button></p>
+                                    <textarea name="body" class="input code" rows="22" placeholder="Markdown ile yazın. # Başlık, **kalın**, - liste, [bağlantı](https://...)"></textarea>
+                                </div>
+
+                                <div id="postFile" hidden>
+                                    <label class="dropzone" id="dropzone">
+                                        <input type="file" id="postFileInput" accept=".md,.markdown,.txt,.html,.htm,.docx,.pdf,.pptx,.xlsx,.zip" hidden>
+                                        <strong>Dosyayı buraya sürükleyin ya da seçin</strong>
+                                        <span>.md / .txt: metin olarak içeri aktarılır · .docx: Word içeriği yazıya çevrilir · .pdf ve diğerleri: yazıya ek olarak eklenir</span>
+                                    </label>
+                                    <label class="check"><input type="checkbox" id="keepOriginal" checked> Word dosyasının aslını da indirilebilir ek olarak koy</label>
+                                </div>
+
+                                <div class="attachment" id="attachmentBox" hidden>
+                                    <div><strong id="attachmentName"></strong><span class="muted small" id="attachmentInfo"></span></div>
+                                    <button type="button" class="btn small" id="attachmentRemove">Eki kaldır</button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div class="preview-pane">
+                            <span class="muted small">Canlı önizleme</span>
+                            <iframe class="preview-frame tall" id="postPreview" title="Yazı önizlemesi"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Kaynaklar & ilgi alanları -->
+            <section class="view" data-view="kaynaklar" hidden>
+                <header class="view-head">
+                    <div>
+                        <h1>Kaynaklar ve ilgi alanları</h1>
+                        <p class="muted">Haber ağının neyi, nereden çektiğini ve nasıl sıraladığını buradan yönetin.</p>
+                    </div>
+                </header>
+
+                <div class="card">
+                    <div class="card-head">
+                        <div>
+                            <h2>İlgi alanları</h2>
+                            <p class="muted small">Başlıkta geçen anahtar kelime 3, özette geçen 1 puan; toplam ilgi alanının ağırlığıyla çarpılır. Değişiklikten sonra mevcut haberler yeniden puanlanır.</p>
+                        </div>
+                        <div class="btn-row">
+                            <button type="button" class="btn" id="addInterest">+ İlgi alanı</button>
+                            <button type="button" class="btn primary" id="saveInterests">Kaydet ve yeniden puanla</button>
+                        </div>
+                    </div>
+                    <div class="interest-list" id="interestList"></div>
+                </div>
+
+                <div class="card">
+                    <div class="card-head">
+                        <div>
+                            <h2>Kaynaklar</h2>
+                            <p class="muted small">RSS veya Atom akışları. Ağırlık (−5…+5) kaynağın tüm öğelerine eklenir. Google Haberler arama adresleriyle Türkçe arama akışı da oluşturabilirsiniz.</p>
+                        </div>
+                    </div>
+                    <form class="add-source" id="addSourceForm">
+                        <input name="name" class="input" placeholder="Kaynak adı" required>
+                        <input name="url" type="url" class="input grow" placeholder="https://.../feed" required>
+                        <select name="kind" class="input">
+                            <option value="haber">Haber</option>
+                            <option value="ilan">İlan</option>
+                            <option value="firsat">Fırsat</option>
+                        </select>
+                        <button type="submit" class="btn primary">Ekle ve test et</button>
+                    </form>
+                    <div class="table-wrap"><table class="table" id="sourceTable"></table></div>
+                </div>
+
+                <div class="card soon">
+                    <h2>Mobil bildirimler <span class="status-pill">Sonraki adım</span></h2>
+                    <p class="muted">Yüksek öncelikli haber, ilan ve fırsatlar telefonunuza bildirim olarak gelecek. Altyapı hazır: her öğede bildirim durumu tutuluyor (<code>notified_at</code>) ve panel ana ekrana eklenebilen bir uygulama olarak kurulabiliyor. Bildirim kanalı ve eşik ilk sürümden sonra bağlanacak.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div class="toast-stack" id="toasts" aria-live="polite"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mammoth@1.8.0/mammoth.browser.min.js" defer></script>
+    <script src="../javascript/supabase-config.js?v=1"></script>
+    <script type="module" src="admin.js?v=1"></script>
+</body>
+</html>

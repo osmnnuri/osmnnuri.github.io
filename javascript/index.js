@@ -1,4 +1,4 @@
-const projectData = {
+const projectData = { // Statik yedek: veritabanına ulaşılamazsa kullanılır
     'izeka': {
         title: 'IZeka Mobil Eğitim Uygulaması',
         content: `
@@ -517,6 +517,14 @@ document.addEventListener("keydown", (event) => {
     }
 });
 
+// Detay içindeki <a data-project="..."> bağlantıları ilgili projeyi açar
+document.addEventListener("click", (event) => {
+    const link = event.target.closest("#modal-body [data-project]");
+    if (!link) return;
+    event.preventDefault();
+    openProject(link.dataset.project);
+});
+
 // Kapatma butonu ve dışarı tıklama olayları
 const closeBtn = document.querySelector(".close-button");
 if (closeBtn) closeBtn.onclick = closeModal;
@@ -527,12 +535,17 @@ window.onclick = (event) => {
 };
 
 // Kartlar klavyeyle de açılabilsin (Enter / Boşluk)
-document.querySelectorAll(".project-card[onclick]").forEach(card => {
-    card.addEventListener("keydown", (event) => {
-        if (event.key !== "Enter" && event.key !== " ") return;
-        event.preventDefault();
-        card.click();
-    });
+document.addEventListener("keydown", (event) => {
+    const card = event.target.closest && event.target.closest(".project-card");
+    if (!card || event.target !== card || (event.key !== "Enter" && event.key !== " ")) return;
+    event.preventDefault();
+    card.click();
+});
+
+// Veritabanından çizilen kartlar data-open niteliğiyle açılır
+document.addEventListener("click", (event) => {
+    const card = event.target.closest(".project-card[data-open]");
+    if (card) openProject(card.dataset.open);
 });
 
 // --- Hamburger Menü (Mobil Navigasyon) ---
@@ -669,8 +682,11 @@ filterButtons.forEach(button => {
 });
 
 // --- Kartlarda imleci izleyen eğim ve ışık (yalnızca fareyle) ---
-if (!reduceMotion && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
-    document.querySelectorAll(".project-card").forEach(card => {
+const canTilt = !reduceMotion && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+function bindTilt(card) {
+    if (!canTilt) return;
+    {
         const maxTilt = card.classList.contains("feature") ? 2.5 : 6;
         card.addEventListener("pointermove", (event) => {
             const rect = card.getBoundingClientRect();
@@ -681,12 +697,21 @@ if (!reduceMotion && window.matchMedia("(hover: hover) and (pointer: fine)").mat
             card.style.transform = `perspective(1000px) rotateX(${(0.5 - y) * maxTilt}deg) rotateY(${(x - 0.5) * maxTilt}deg)`;
         });
         card.addEventListener("pointerleave", () => { card.style.transform = ""; });
-    });
+    }
+}
+
+document.querySelectorAll(".project-card").forEach(bindTilt);
+
+let revealObserver = null;
+
+function observeReveal(el) {
+    if (revealObserver) revealObserver.observe(el);
+    else el.classList.add("in");
 }
 
 if ("IntersectionObserver" in window) {
     // --- Kaydırınca görünme ---
-    const revealObserver = new IntersectionObserver((entries) => {
+    revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (!entry.isIntersecting) return;
             entry.target.classList.add("in");
@@ -704,9 +729,125 @@ if ("IntersectionObserver" in window) {
         });
     }, { rootMargin: "-45% 0px -50% 0px" });
     document.querySelectorAll("main section[id]").forEach(section => sectionObserver.observe(section));
+    window.sectionObserver = sectionObserver;
 } else {
     document.querySelectorAll(".reveal").forEach(el => el.classList.add("in"));
 }
+
+// --- Projeler ve blog: admin panelinden yönetilen içerik (Supabase) ---
+// Veritabanına ulaşılamazsa sayfadaki statik kartlar ve yukarıdaki projectData kullanılmaya devam eder.
+const esc = window.escapeHtml;
+
+function coverImages(p, limit) {
+    return (p.cover_images || []).slice(0, limit).map(img =>
+        `<img src="${esc(img.src)}" alt="${esc(img.alt || "")}" loading="lazy"${img.width ? ` width="${img.width}" height="${img.height}"` : ""}>`
+    ).join("");
+}
+
+function tagsHtml(tags) {
+    return `<div class="tags">${(tags || []).map(t => `<span>${esc(t)}</span>`).join("")}</div>`;
+}
+
+function featureCard(p) {
+    const highlights = (p.highlights || []).length ? `<ul>${p.highlights.map(h => `<li>${esc(h)}</li>`).join("")}</ul>` : "";
+    return `<article class="feature project-card reveal" data-open="${esc(p.id)}" role="button" tabindex="0">
+        <div class="feature-media${p.cover_kind === "landscape" ? " web" : ""}">${coverImages(p, p.cover_kind === "landscape" ? 1 : 3)}</div>
+        <div class="feature-body">
+            <div class="meta"><span class="year">${esc(p.year)}</span><span class="type">${esc(p.type_label)}</span></div>
+            <h3>${esc(p.title)}</h3>
+            <p>${esc(p.summary)}</p>
+            ${highlights}
+            ${tagsHtml(p.tags)}
+            <span class="more">Detayları gör &rarr;</span>
+        </div>
+    </article>`;
+}
+
+function gridCard(p) {
+    const cover = p.cover_kind === "landscape" ? "" : ` ${p.cover_kind}`;
+    return `<article class="p-card project-card reveal" data-type="${esc(p.category)}" data-open="${esc(p.id)}" role="button" tabindex="0">
+        <div class="p-cover${cover}">${coverImages(p, 1)}</div>
+        <div class="p-body">
+            <div class="meta"><span class="year">${esc(p.year)}</span><span class="type">${esc(p.type_label)}</span></div>
+            <h4>${esc(p.title)}</h4>
+            <p>${esc(p.summary)}</p>
+            ${tagsHtml(p.tags)}
+        </div>
+    </article>`;
+}
+
+async function loadProjects() {
+    let rows;
+    try {
+        rows = await window.sbGet("projects?select=*&published=eq.true&order=sort_order.asc,created_at.asc");
+    } catch {
+        return; // statik içerik kalır
+    }
+    if (!Array.isArray(rows) || !rows.length) return;
+
+    const featured = rows.filter(p => p.featured);
+    const others = rows.filter(p => !p.featured);
+    const featuredList = document.getElementById("featuredList");
+    const grid = document.getElementById("projectGrid");
+    featuredList.innerHTML = featured.map(featureCard).join("");
+    grid.innerHTML = others.map(gridCard).join("");
+
+    Object.keys(projectData).forEach(k => delete projectData[k]);
+    Object.keys(projectLinks).forEach(k => delete projectLinks[k]);
+    rows.forEach(p => {
+        projectData[p.id] = { title: esc(p.modal_title || p.title), content: p.content_html };
+        if (p.repo_url || p.live_url) projectLinks[p.id] = { repo: p.repo_url, live: p.live_url, liveLabel: p.live_label };
+    });
+
+    // Seçili filtreyi koru
+    const active = document.querySelector('.filters button[aria-pressed="true"]');
+    if (active && active.dataset.filter !== "all") {
+        grid.querySelectorAll(".p-card").forEach(card => { card.hidden = card.dataset.type !== active.dataset.filter; });
+    }
+
+    document.querySelectorAll("#featuredList .project-card, #projectGrid .project-card").forEach(card => {
+        bindTilt(card);
+        observeReveal(card);
+    });
+
+    const count = document.getElementById("projectCount");
+    if (count) count.textContent = rows.length;
+
+    termOutputs.projeler = `<p>Öne çıkan projeler (açmak için tıklayın):</p>
+        ${featured.map(p => `<p><button type="button" onclick="openProject('${p.id}')">→ ${esc(p.title)}</button> <span class="dim">${esc((p.tags || []).slice(0, 2).join(" · "))}</span></p>`).join("")}
+        <p><a href="#projects">${rows.length} projenin tümünü gör ↓</a></p>`;
+}
+
+const POST_KINDS = { yazi: "Yazı", rapor: "Rapor", not: "Not" };
+
+async function loadBlogPreview() {
+    const section = document.getElementById("blog");
+    const list = document.getElementById("blogPreview");
+    if (!section || !list) return;
+    let posts;
+    try {
+        posts = await window.sbGet("posts?select=slug,title,excerpt,kind,cover_url,published_at,reading_minutes,file_name&status=eq.published&order=published_at.desc&limit=3");
+    } catch {
+        return;
+    }
+    if (!posts.length) return;
+    list.innerHTML = posts.map(post => `
+        <a class="post-card reveal" href="blog/yazi.html?s=${encodeURIComponent(post.slug)}">
+            ${post.cover_url ? `<img src="${esc(post.cover_url)}" alt="" loading="lazy">` : ""}
+            <div class="post-card-body">
+                <div class="meta"><span class="year">${POST_KINDS[post.kind] || "Yazı"}</span><span>${window.formatDateTr(post.published_at)}</span>${post.reading_minutes ? `<span>${post.reading_minutes} dk okuma</span>` : ""}</div>
+                <h3>${esc(post.title)}</h3>
+                ${post.excerpt ? `<p>${esc(post.excerpt)}</p>` : ""}
+                ${post.file_name ? `<span class="post-file">Ek: ${esc(post.file_name)}</span>` : ""}
+            </div>
+        </a>`).join("");
+    section.hidden = false;
+    section.querySelectorAll(".reveal").forEach(observeReveal);
+    if (window.sectionObserver) window.sectionObserver.observe(section);
+}
+
+loadProjects();
+loadBlogPreview();
 
 // --- Güncel sürüm kontrolü: eski önbelleği yok sayan service worker ---
 if ("serviceWorker" in navigator) {

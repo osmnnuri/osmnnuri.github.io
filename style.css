@@ -741,6 +741,8 @@ section { padding: 96px 0; }
 
 .post-card p { margin: 0; color: var(--muted); font-size: 0.92rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
+.post-empty { border-style: dashed; background: transparent; }
+
 .post-file { margin-top: auto; padding-top: 6px; color: var(--accent); font-size: 0.82rem; }
 
 .blog-more { margin: 32px 0 0; text-align: center; }

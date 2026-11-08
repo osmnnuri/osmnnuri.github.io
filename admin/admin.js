@@ -134,6 +134,7 @@ async function enterApp() {
     $("#appView").hidden = false;
     route();
     refreshNewsBadge();
+    syncPushSubscription();
 }
 
 $("#loginForm").addEventListener("submit", async (event) => {
@@ -194,7 +195,7 @@ async function boot() {
 }
 
 // ===== Yönlendirme =====
-const VIEWS = ["haberler", "projeler", "blog", "kaynaklar"];
+const VIEWS = ["haberler", "projeler", "blog", "kaynaklar", "bildirimler"];
 
 function route() {
     if ($("#appView").hidden) return;
@@ -208,7 +209,7 @@ function route() {
     currentView = name;
     $$(".view").forEach(v => { v.hidden = v.dataset.view !== name; });
     $$(".side-nav a").forEach(a => a.classList.toggle("current", a.dataset.view === name));
-    ({ haberler: openNews, projeler: openProjectList, blog: openPostList, kaynaklar: openSources })[name]();
+    ({ haberler: openNews, projeler: openProjectList, blog: openPostList, kaynaklar: openSources, bildirimler: openNotifications })[name]();
     window.scrollTo(0, 0);
 }
 
@@ -1175,5 +1176,242 @@ $("#addSourceForm").addEventListener("submit", async (event) => {
     await loadSources();
     testSource(data.id, button);
 });
+
+// ===== Bildirimler (Web Push) =====
+const pushSupported = "serviceWorker" in navigator && "PushManager" in window && "Notification" in window;
+const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+const isStandalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+let swRegistration = null;
+
+async function getRegistration() {
+    if (!("serviceWorker" in navigator)) return null;
+    if (!swRegistration) swRegistration = await navigator.serviceWorker.register("sw.js", { scope: "./", updateViaCache: "none" });
+    await navigator.serviceWorker.ready;
+    return swRegistration;
+}
+
+function base64UrlToBytes(value) {
+    const b64 = (value + "=".repeat((4 - value.length % 4) % 4)).replace(/-/g, "+").replace(/_/g, "/");
+    return Uint8Array.from(atob(b64), c => c.charCodeAt(0));
+}
+
+function deviceName() {
+    const ua = navigator.userAgent;
+    const os = /iPhone/.test(ua) ? "iPhone" : /iPad/.test(ua) || isIOS ? "iPad" : /Android/.test(ua) ? "Android" : /Windows/.test(ua) ? "Windows" : /Mac/.test(ua) ? "Mac" : /Linux/.test(ua) ? "Linux" : "Cihaz";
+    const browser = /Edg\//.test(ua) ? "Edge" : /SamsungBrowser/.test(ua) ? "Samsung Internet" : /Firefox|FxiOS/.test(ua) ? "Firefox" : /Chrome|CriOS/.test(ua) ? "Chrome" : /Safari/.test(ua) ? "Safari" : "Tarayıcı";
+    return `${os} · ${browser}${isStandalone ? " (uygulama)" : ""}`;
+}
+
+async function saveSubscription(sub) {
+    const j = sub.toJSON();
+    const { error } = await sb.from("push_subscriptions").upsert(
+        { endpoint: j.endpoint, p256dh: j.keys.p256dh, auth: j.keys.auth, device: deviceName(), failure_count: 0 },
+        { onConflict: "endpoint" },
+    );
+    if (error) throw error;
+}
+
+// Panel her açıldığında: service worker'ı kaydet, tarayıcının yenilediği aboneliği veritabanına yaz
+async function syncPushSubscription() {
+    if (!pushSupported) return;
+    try {
+        const reg = await getRegistration();
+        const sub = reg && await reg.pushManager.getSubscription();
+        if (sub && Notification.permission === "granted") await saveSubscription(sub);
+    } catch (error) {
+        console.warn("Bildirim aboneliği eşitlenemedi", error);
+    }
+}
+
+async function enablePush(button) {
+    await busy(button, async () => {
+        const permission = await Notification.requestPermission();
+        if (permission !== "granted") {
+            toast(permission === "denied" ? "Bildirim izni reddedildi. Tarayıcı ya da telefon ayarlarından bu site için izni açmanız gerekiyor." : "Bildirim izni verilmedi.", "err");
+            return;
+        }
+        try {
+            let { data: key, error } = await sb.rpc("get_vapid_public_key");
+            if (error) throw error;
+            if (!key) {
+                // Anahtar çifti ilk çağrıda üretilir: hiçbir cihaza gitmeyen boş bir test çağrısı yap
+                await sb.functions.invoke("send-push", { body: { mode: "test", endpoint: "-" } });
+                ({ data: key } = await sb.rpc("get_vapid_public_key"));
+                if (!key) throw new Error("Bildirim anahtarı oluşturulamadı.");
+            }
+            const reg = await getRegistration();
+            const options = { userVisibleOnly: true, applicationServerKey: base64UrlToBytes(key) };
+            let sub = await reg.pushManager.getSubscription();
+            if (!sub) sub = await reg.pushManager.subscribe(options);
+            else if (sub.options?.applicationServerKey) {
+                // Eski bir anahtarla yapılmış abonelikse yenile
+                const current = new Uint8Array(sub.options.applicationServerKey);
+                const wanted = options.applicationServerKey;
+                if (current.length !== wanted.length || current.some((b, i) => b !== wanted[i])) {
+                    await sub.unsubscribe();
+                    sub = await reg.pushManager.subscribe(options);
+                }
+            }
+            await saveSubscription(sub);
+            toast("Bu cihaz kaydedildi. Test bildirimi gönderiliyor...");
+            await sendTestPush(null, sub.endpoint);
+        } catch (error) {
+            fail(error, "Bildirimler açılamadı");
+        }
+    });
+    renderPushStatus();
+    loadDevices();
+}
+
+async function disablePush(button) {
+    await busy(button, async () => {
+        const reg = await getRegistration();
+        const sub = reg && await reg.pushManager.getSubscription();
+        if (sub) {
+            await sb.from("push_subscriptions").delete().eq("endpoint", sub.endpoint);
+            await sub.unsubscribe();
+        }
+        toast("Bu cihazda bildirimler kapatıldı.");
+    });
+    renderPushStatus();
+    loadDevices();
+}
+
+async function sendTestPush(button, endpoint) {
+    return busy(button, async () => {
+        const { data, error } = await sb.functions.invoke("send-push", { body: { mode: "test", endpoint } });
+        if (error) return fail(error, "Test bildirimi gönderilemedi");
+        if (data.sent) toast(`Test bildirimi ${data.sent} cihaza gönderildi.`);
+        else toast(data.devices ? `Gönderilemedi: ${data.errors?.[0] || "bilinmeyen hata"}` : "Kayıtlı cihaz yok.", "err");
+        loadNotifyLog();
+        loadDevices();
+    });
+}
+
+async function renderPushStatus() {
+    const status = $("#pushStatus");
+    const show = (id, on) => { $(id).hidden = !on; };
+    $("#iosHint").hidden = !(isIOS && !isStandalone);
+    $("#androidHint").hidden = !(/Android/.test(navigator.userAgent) && !isStandalone);
+    if (!pushSupported) {
+        status.textContent = isIOS && !isStandalone
+            ? "iPhone'da bildirim için panelin ana ekrana eklenmesi gerekiyor."
+            : "Bu tarayıcı Web Push bildirimlerini desteklemiyor.";
+        ["#pushEnable", "#pushDisable", "#pushTest"].forEach(id => show(id, false));
+        return;
+    }
+    const reg = await getRegistration().catch(() => null);
+    const sub = reg && await reg.pushManager.getSubscription();
+    const granted = Notification.permission === "granted";
+    if (sub && granted) status.textContent = `Açık: ${deviceName()} bildirim alıyor.`;
+    else if (Notification.permission === "denied") status.textContent = "Bildirim izni reddedilmiş. Tarayıcı ya da telefon ayarlarından bu site için izni açın, sonra sayfayı yenileyin.";
+    else status.textContent = "Kapalı: bu cihaz henüz bildirim almıyor.";
+    show("#pushEnable", !(sub && granted) && Notification.permission !== "denied");
+    show("#pushDisable", !!sub);
+    show("#pushTest", !!(sub && granted));
+}
+
+$("#pushEnable").addEventListener("click", (e) => enablePush(e.currentTarget));
+$("#pushDisable").addEventListener("click", (e) => disablePush(e.currentTarget));
+$("#pushTest").addEventListener("click", async (e) => {
+    const button = e.currentTarget;
+    const reg = await getRegistration();
+    const sub = reg && await reg.pushManager.getSubscription();
+    sendTestPush(button, sub?.endpoint);
+});
+
+const notifyForm = $("#notifyForm");
+notifyForm.digest_hour.innerHTML = Array.from({ length: 24 }, (_, h) => `<option value="${h}">${String(h).padStart(2, "0")}:00</option>`).join("");
+notifyForm.instant_threshold.addEventListener("input", (e) => { $("#thresholdOut").textContent = e.target.value; });
+
+async function loadNotifySettings() {
+    const { data, error } = await sb.from("notification_settings").select("*").eq("id", 1).single();
+    if (error) return fail(error, "Bildirim ayarları yüklenemedi");
+    const f = notifyForm;
+    f.enabled.checked = data.enabled;
+    f.instant_enabled.checked = data.instant_enabled;
+    f.instant_threshold.value = data.instant_threshold;
+    $("#thresholdOut").textContent = data.instant_threshold;
+    ["haber", "ilan", "firsat"].forEach(k => { f[`kind_${k}`].checked = data.instant_kinds.includes(k); });
+    f.max_per_hour.value = data.max_per_hour;
+    f.digest_enabled.checked = data.digest_enabled;
+    f.digest_hour.value = data.digest_hour;
+    f.digest_count.value = data.digest_count;
+}
+
+notifyForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const f = notifyForm;
+    if (!f.reportValidity()) return;
+    const kinds = ["haber", "ilan", "firsat"].filter(k => f[`kind_${k}`].checked);
+    await busy(f.querySelector("button[type=submit]"), async () => {
+        const { data, error } = await sb.from("notification_settings").update({
+            enabled: f.enabled.checked,
+            instant_enabled: f.instant_enabled.checked,
+            instant_threshold: Number(f.instant_threshold.value),
+            instant_kinds: kinds,
+            max_per_hour: Number(f.max_per_hour.value),
+            digest_enabled: f.digest_enabled.checked,
+            digest_hour: Number(f.digest_hour.value),
+            digest_count: Number(f.digest_count.value),
+        }).eq("id", 1).select("id");
+        if (error || !data?.length) return fail(error || new Error("Yetki yok. Oturumunuzu yenileyin."), "Kaydedilemedi");
+        toast("Bildirim ayarları kaydedildi.");
+    });
+});
+
+$("#digestNow").addEventListener("click", (event) => busy(event.currentTarget, async () => {
+    const { data, error } = await sb.functions.invoke("send-push", { body: { mode: "digest" } });
+    if (error) return fail(error, "Özet gönderilemedi");
+    const d = data.digest || {};
+    if (d.skipped) toast(`Özet gönderilmedi: ${d.skipped}`);
+    else if (d.sent) toast(`Özet ${d.sent} cihaza gönderildi (${d.items} öğe).`);
+    else toast(d.devices ? `Gönderilemedi: ${d.errors?.[0] || "bilinmeyen hata"}` : "Kayıtlı cihaz yok.", "err");
+    loadNotifyLog();
+}));
+
+async function loadDevices() {
+    const { data, error } = await sb.from("push_subscriptions").select("id, device, created_at, last_success_at, failure_count, endpoint").order("created_at", { ascending: false });
+    if (error) return fail(error, "Cihazlar yüklenemedi");
+    const reg = pushSupported ? await getRegistration().catch(() => null) : null;
+    const mine = reg ? (await reg.pushManager.getSubscription())?.endpoint : null;
+    $("#deviceTable").innerHTML = data.length ? `<thead><tr><th>Cihaz</th><th>Eklendi</th><th>Son başarılı gönderim</th><th></th></tr></thead><tbody>
+        ${data.map(d => `<tr data-id="${d.id}">
+            <td class="title-cell"><strong>${esc(d.device || "Bilinmeyen cihaz")}</strong>${d.endpoint === mine ? `<span>bu cihaz</span>` : ""}${d.failure_count ? `<span> · ${d.failure_count} başarısız deneme</span>` : ""}</td>
+            <td class="muted">${timeAgo(d.created_at)}</td>
+            <td class="muted">${d.last_success_at ? timeAgo(d.last_success_at) : "henüz yok"}</td>
+            <td><div class="actions"><button type="button" class="btn small danger" data-remove-device>Kaldır</button></div></td>
+        </tr>`).join("")}</tbody>`
+        : `<tbody><tr><td class="empty">Henüz kayıtlı cihaz yok. Telefonunuzdan paneli açıp "Bu cihazda bildirimleri aç" düğmesine basın.</td></tr></tbody>`;
+}
+
+$("#deviceTable").addEventListener("click", async (event) => {
+    if (!event.target.closest("[data-remove-device]")) return;
+    const row = event.target.closest("tr[data-id]");
+    if (!confirm("Bu cihaz bildirim listesinden kaldırılsın mı?")) return;
+    const { data, error } = await sb.from("push_subscriptions").delete().eq("id", row.dataset.id).select("id");
+    if (error || !data?.length) return fail(error || new Error("Yetki yok."), "Kaldırılamadı");
+    toast("Cihaz kaldırıldı.");
+    loadDevices();
+    renderPushStatus();
+});
+
+const NOTIFY_KIND_LABELS = { instant: "Anında", digest: "Günlük özet", test: "Test" };
+
+async function loadNotifyLog() {
+    const { data, error } = await sb.from("notification_log").select("*").order("created_at", { ascending: false }).limit(20);
+    if (error) return fail(error, "Bildirim geçmişi yüklenemedi");
+    $("#notifyLog").innerHTML = data.length ? data.map(l => `
+        <div class="log-item">
+            <span class="status-pill ${l.kind === "digest" ? "featured" : l.kind === "test" ? "" : "ok"}">${NOTIFY_KIND_LABELS[l.kind]}</span>
+            <div><strong>${esc(l.title)}</strong>${l.body ? `<p class="muted small">${esc(l.body).replace(/\n/g, "<br>")}</p>` : ""}</div>
+            <span class="muted small">${timeAgo(l.created_at)} · ${l.sent} gönderildi${l.failed ? `, ${l.failed} hata` : ""}</span>
+        </div>`).join("")
+        : `<p class="empty">Henüz bildirim gönderilmedi.</p>`;
+}
+
+async function openNotifications() {
+    await Promise.all([renderPushStatus(), loadNotifySettings(), loadDevices(), loadNotifyLog()]);
+}
 
 boot();

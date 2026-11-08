@@ -8,10 +8,13 @@
     <title>Yönetim Paneli | ONY</title>
     <link rel="icon" type="image/png" href="../görseller/icons/favicon.png">
     <link rel="manifest" href="manifest.webmanifest">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="ONY Panel">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@1,9..144,300..700,100&family=Figtree:ital,wght@0,400..700;1,400..700&display=swap">
-    <link rel="stylesheet" href="admin.css?v=1">
+    <link rel="stylesheet" href="admin.css?v=2">
 </head>
 <body>
     <!-- ===== Giriş ===== -->
@@ -44,6 +47,7 @@
                 <a href="#projeler" data-view="projeler"><span class="ico" aria-hidden="true">▣</span><span>Projeler</span></a>
                 <a href="#blog" data-view="blog"><span class="ico" aria-hidden="true">✎</span><span>Blog</span></a>
                 <a href="#kaynaklar" data-view="kaynaklar"><span class="ico" aria-hidden="true">⚙</span><span>Kaynaklar</span></a>
+                <a href="#bildirimler" data-view="bildirimler"><span class="ico" aria-hidden="true">⚑</span><span>Bildirimler</span></a>
             </nav>
             <div class="side-foot">
                 <a href="../" target="_blank" rel="noopener" class="side-link">Siteyi aç &nearr;</a>
@@ -339,9 +343,75 @@
                     <div class="table-wrap"><table class="table" id="sourceTable"></table></div>
                 </div>
 
-                <div class="card soon">
-                    <h2>Mobil bildirimler <span class="status-pill">Sonraki adım</span></h2>
-                    <p class="muted">Yüksek öncelikli haber, ilan ve fırsatlar telefonunuza bildirim olarak gelecek. Altyapı hazır: her öğede bildirim durumu tutuluyor (<code>notified_at</code>) ve panel ana ekrana eklenebilen bir uygulama olarak kurulabiliyor. Bildirim kanalı ve eşik ilk sürümden sonra bağlanacak.</p>
+            </section>
+            <!-- Bildirimler -->
+            <section class="view" data-view="bildirimler" hidden>
+                <header class="view-head">
+                    <div>
+                        <h1>Bildirimler</h1>
+                        <p class="muted">Yüksek öncelikli haber, ilan ve fırsatlar telefonunuza anında, en iyileri de her gün özet olarak gelir.</p>
+                    </div>
+                </header>
+
+                <div class="card device-card">
+                    <div class="card-head">
+                        <div>
+                            <h2>Bu cihaz</h2>
+                            <p class="muted small" id="pushStatus">Kontrol ediliyor...</p>
+                        </div>
+                        <div class="btn-row">
+                            <button type="button" class="btn primary" id="pushEnable" hidden>Bu cihazda bildirimleri aç</button>
+                            <button type="button" class="btn" id="pushTest" hidden>Test bildirimi gönder</button>
+                            <button type="button" class="btn danger" id="pushDisable" hidden>Bu cihazda kapat</button>
+                        </div>
+                    </div>
+                    <p class="note" id="iosHint" hidden>iPhone'da bildirim alabilmek için paneli önce uygulama olarak kurun: Safari'de <strong>Paylaş → Ana Ekrana Ekle</strong>, ardından ana ekrandaki "ONY Panel" simgesinden açıp bu düğmeye basın (iOS 16.4 veya üstü).</p>
+                    <p class="note" id="androidHint" hidden>İpucu: Chrome menüsünden <strong>Uygulamayı yükle / Ana ekrana ekle</strong> ile paneli uygulama olarak kurarsanız bildirimler "ONY Panel" adıyla gelir.</p>
+                </div>
+
+                <form class="card form-card" id="notifyForm">
+                    <div class="card-head">
+                        <div>
+                            <h2>Ne zaman bildirim gelsin?</h2>
+                            <p class="muted small">Kontrol saatte bir yapılır (haber çekiminden birkaç dakika sonra).</p>
+                        </div>
+                        <label class="check"><input type="checkbox" name="enabled"> Bildirimler açık</label>
+                    </div>
+                    <fieldset class="notify-group">
+                        <legend><label class="check"><input type="checkbox" name="instant_enabled"> Anında bildirim</label></legend>
+                        <label class="weight">Öncelik puanı eşiği <output id="thresholdOut"></output>
+                            <input type="range" name="instant_threshold" min="20" max="150" step="5">
+                            <small>Panelde gördüğünüz puan. 60 ve üstü genelde doğrudan ilgi alanınıza giren öğelerdir.</small>
+                        </label>
+                        <div class="kind-checks">
+                            <span class="muted small">Türler:</span>
+                            <label class="check"><input type="checkbox" name="kind_haber"> Haber</label>
+                            <label class="check"><input type="checkbox" name="kind_ilan"> İlan</label>
+                            <label class="check"><input type="checkbox" name="kind_firsat"> Fırsat</label>
+                        </div>
+                        <label>Saatte en fazla bildirim<input type="number" name="max_per_hour" class="input narrow" min="1" max="20"><small>Fazlası tek bir "N öğe daha" bildiriminde toplanır.</small></label>
+                    </fieldset>
+                    <fieldset class="notify-group">
+                        <legend><label class="check"><input type="checkbox" name="digest_enabled"> Günlük özet</label></legend>
+                        <div class="row">
+                            <label>Saat (Türkiye)<select name="digest_hour" class="input"></select></label>
+                            <label>Özetteki öğe sayısı<input type="number" name="digest_count" class="input" min="1" max="10"></label>
+                        </div>
+                    </fieldset>
+                    <div class="btn-row">
+                        <button type="submit" class="btn primary">Ayarları kaydet</button>
+                        <button type="button" class="btn" id="digestNow">Özeti şimdi gönder</button>
+                    </div>
+                </form>
+
+                <div class="card">
+                    <h2>Kayıtlı cihazlar</h2>
+                    <div class="table-wrap"><table class="table" id="deviceTable"></table></div>
+                </div>
+
+                <div class="card">
+                    <h2>Son bildirimler</h2>
+                    <div class="log-list" id="notifyLog"></div>
                 </div>
             </section>
         </main>
@@ -353,6 +423,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mammoth@1.8.0/mammoth.browser.min.js" defer></script>
     <script src="../javascript/supabase-config.js?v=1"></script>
-    <script type="module" src="admin.js?v=1"></script>
+    <script type="module" src="admin.js?v=2"></script>
 </body>
 </html>

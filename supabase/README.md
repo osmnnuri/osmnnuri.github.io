@@ -30,6 +30,11 @@ Sıralama puanı: `(ilgi + kaynak ağırlığı × 2 + ilan/fırsat bonusu 4) ×
 2. **Authentication → Sign In / Providers**: "Allow new users to sign up" kapatılmalı (panelde kayıt yok; yetki zaten `admins` tablosuna bağlı).
 3. **Authentication → URL Configuration**: Site URL `https://osmnnuri.github.io/admin/` (şifre sıfırlama bağlantıları buraya döner).
 
-## Mobil bildirimler (sonraki adım)
+## Mobil bildirimler (Web Push)
 
-`news_items.notified_at` alanı hazır. Plan: yüksek puanlı yeni öğeler için `fetch-news` sonunda bildirim gönderip `notified_at` işaretlemek; kanal (Web Push / ntfy / Telegram) seçilince bağlanacak.
+- Panelin **Bildirimler** sekmesinden her cihaz ayrı ayrı abone olur (`push_subscriptions`). iPhone'da önce Safari → Paylaş → Ana Ekrana Ekle gerekir (iOS 16.4+).
+- `send-push` edge function'ı her saatin 12. dakikasında `pg_cron` ile çalışır:
+  - **Anında:** son 3 saatte gelen, `status = 'new'`, puanı eşiği aşan ve henüz bildirilmemiş öğeler. Saatlik sınırı aşan kısım tek bir "N öğe daha" bildiriminde toplanır, öğeler `notified_at` ile işaretlenir.
+  - **Günlük özet:** ayarlanan saatte (Türkiye saati) son 24 saatin en yüksek puanlı öğeleri, günde bir kez.
+- Ayarlar `notification_settings` tablosunda (tek satır); geçmiş `notification_log` tablosunda.
+- VAPID anahtar çifti fonksiyon ilk çalıştığında üretilip yalnızca Vault'a yazıldı (`vapid_public_key`, `vapid_private_key`). Push servisi 404/410 döndüren abonelikler kendiliğinden silinir.

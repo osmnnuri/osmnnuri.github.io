@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@1,9..144,300..700,100&family=Figtree:ital,wght@0,400..700;1,400..700&display=swap">
-    <link rel="stylesheet" href="admin.css?v=2">
+    <link rel="stylesheet" href="admin.css?v=3">
 </head>
 <body>
     <!-- ===== Giriş ===== -->
@@ -71,6 +71,21 @@
                 </header>
 
                 <ul class="stat-row" id="newsStats"></ul>
+
+                <article class="card report-card" id="reportCard" hidden>
+                    <div class="card-head">
+                        <div>
+                            <p class="report-eyebrow">Günün haber raporu · <span id="reportMeta"></span></p>
+                            <h2 id="reportTitle"></h2>
+                        </div>
+                        <select id="reportSelect" class="input" aria-label="Rapor tarihi"></select>
+                    </div>
+                    <p class="report-summary" id="reportSummary"></p>
+                    <details id="reportDetails">
+                        <summary>Raporun tamamını oku</summary>
+                        <div class="report-body" id="reportBody"></div>
+                    </details>
+                </article>
 
                 <div class="toolbar">
                     <div class="seg" role="group" aria-label="Tür" id="newsKinds">
@@ -195,7 +210,7 @@
                                 <button type="button" data-mode="card" aria-pressed="true">Kart</button>
                                 <button type="button" data-mode="detail" aria-pressed="false">Detay</button>
                             </div>
-                            <iframe class="preview-frame" id="projectPreview" title="Proje önizlemesi"></iframe>
+                            <iframe class="preview-frame" id="projectPreview" title="Proje önizlemesi" sandbox="allow-popups allow-popups-to-escape-sandbox"></iframe>
                         </div>
                     </div>
                 </div>
@@ -392,15 +407,16 @@
                         <label>Saatte en fazla bildirim<input type="number" name="max_per_hour" class="input narrow" min="1" max="20"><small>Fazlası tek bir "N öğe daha" bildiriminde toplanır.</small></label>
                     </fieldset>
                     <fieldset class="notify-group">
-                        <legend><label class="check"><input type="checkbox" name="digest_enabled"> Günlük özet</label></legend>
+                        <legend><label class="check"><input type="checkbox" name="digest_enabled"> Günlük haber raporu</label></legend>
+                        <p class="muted small">Son 24 saatin haberleri yapay zekayla özetlenip tek bir rapor olarak gönderilir; raporun tamamı Haber Ağı'nın üstünde durur. İlan ve fırsatlar yukarıdaki anında bildirimle gelmeye devam eder.</p>
                         <div class="row">
                             <label>Saat (Türkiye)<select name="digest_hour" class="input"></select></label>
-                            <label>Özetteki öğe sayısı<input type="number" name="digest_count" class="input" min="1" max="10"></label>
+                            <label>Yedek listedeki öğe sayısı<input type="number" name="digest_count" class="input" min="1" max="10"><small>Rapor yazılamazsa gönderilen başlık listesi için.</small></label>
                         </div>
                     </fieldset>
                     <div class="btn-row">
                         <button type="submit" class="btn primary">Ayarları kaydet</button>
-                        <button type="button" class="btn" id="digestNow">Özeti şimdi gönder</button>
+                        <button type="button" class="btn" id="digestNow">Raporu şimdi oluştur ve gönder</button>
                     </div>
                 </form>
 
@@ -419,10 +435,10 @@
 
     <div class="toast-stack" id="toasts" aria-live="polite"></div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mammoth@1.8.0/mammoth.browser.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js" integrity="sha384-/TQbtLCAerC3jgaim+N78RZSDYV7ryeoBCVqTuzRrFec2akfBkHS7ACQ3PQhvMVi" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js" integrity="sha384-+VfUPEb0PdtChMwmBcBmykRMDd+v6D/oFmB3rZM/puCMDYcIvF968OimRh4KQY9a" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mammoth@1.8.0/mammoth.browser.min.js" integrity="sha384-/cXAMbzovUIKbBERjPmR3SnPTh8siWr5lsvFYj1Uq4XP0yaJUZJmsh0YXyGv5P0y" crossorigin="anonymous" defer></script>
     <script src="../javascript/supabase-config.js?v=1"></script>
-    <script type="module" src="admin.js?v=2"></script>
+    <script type="module" src="admin.js?v=4"></script>
 </body>
 </html>

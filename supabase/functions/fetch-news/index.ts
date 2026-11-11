@@ -6,7 +6,6 @@ import { XMLParser } from "npm:fast-xml-parser@4.5.0";
 
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
 const SERVICE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-const ANON_KEY = Deno.env.get("SUPABASE_ANON_KEY")!;
 
 // Haberler 14 günden, ilan ve fırsatlar 30 günden eskiyse alınmaz
 const maxAgeDays = (kind: string) => (kind === "haber" ? 14 : 30);
@@ -27,17 +26,26 @@ const admin = createClient(SUPABASE_URL, SERVICE_KEY, { auth: { persistSession: 
 async function authorized(req: Request): Promise<boolean> {
     const secret = req.headers.get("x-cron-secret");
     if (secret) {
-        const { data } = await admin.rpc("check_cron_secret", { p_secret: secret });
+        const { data, error } = await admin.rpc("check_cron_secret", { p_secret: secret });
+        if (error) console.error("check_cron_secret hatası:", error.message);
         return data === true;
     }
-    const auth = req.headers.get("Authorization");
-    if (!auth) return false;
-    const user = createClient(SUPABASE_URL, ANON_KEY, {
-        global: { headers: { Authorization: auth } },
-        auth: { persistSession: false },
-    });
-    const { data } = await user.rpc("is_admin");
-    return data === true;
+    // Paneldeki yönetici: JWT'yi doğrula, e-postası onaylı ve admins tablosunda mı bak (is_admin() ile aynı kural).
+    // Anon anahtarına bağlı değildir; eski API anahtarları kapatılsa da çalışır.
+    const token = (req.headers.get("Authorization") ?? "").replace(/^Bearer\s+/i, "");
+    if (!token) return false;
+    const { data: { user }, error: userError } = await admin.auth.getUser(token);
+    if (userError || !user?.email || !user.email_confirmed_at) {
+        if (userError) console.error("Oturum doğrulanamadı:", userError.message);
+        return false;
+    }
+    const { data: admins, error } = await admin.from("admins").select("email");
+    if (error) {
+        console.error("admins okunamadı:", error.message);
+        return false;
+    }
+    const email = user.email.toLowerCase();
+    return (admins ?? []).some((a) => String(a.email).toLowerCase() === email);
 }
 
 const parser = new XMLParser({

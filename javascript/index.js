@@ -562,11 +562,12 @@ function openMenu() {
 }
 
 function closeMenu() {
+    if (!navLinks.classList.contains("active")) return; // menü kapalıyken modalın kaydırma kilidine dokunma
     hamburger.classList.remove("active");
     navLinks.classList.remove("active");
     navOverlay.classList.remove("active");
     hamburger.setAttribute("aria-expanded", "false");
-    document.body.style.overflow = "auto";
+    document.body.style.overflow = "";
 }
 
 if (hamburger && navLinks && navOverlay) {
@@ -849,11 +850,5 @@ loadBlogPreview();
 
 // --- Güncel sürüm kontrolü: eski önbelleği yok sayan service worker ---
 if ("serviceWorker" in navigator) {
-    // İlk kurulumda sayfa hâlâ eski önbellekten gelmiş olabilir; bir kez yenileyerek güncel sürüme geç
-    const hadController = Boolean(navigator.serviceWorker.controller);
-    navigator.serviceWorker.addEventListener("controllerchange", () => {
-        if (!hadController) window.location.reload();
-    });
-
     navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).catch(() => {});
 }

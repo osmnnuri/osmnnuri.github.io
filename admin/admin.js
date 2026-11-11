@@ -314,7 +314,41 @@ async function loadNews(append = false) {
     $("#newsMore").hidden = data.length < PAGE;
 }
 
+// --- Günlük haber raporu (send-push fonksiyonu yazar) ---
+let reports = [];
+
+function showReport(id) {
+    const r = reports.find(x => String(x.id) === String(id)) || reports[0];
+    if (!r) return;
+    const today = new Date().toLocaleDateString("en-CA", { timeZone: "Europe/Istanbul" });
+    $("#reportMeta").textContent = `${new Date(`${r.report_date}T12:00:00`).toLocaleDateString("tr-TR", { day: "numeric", month: "long", weekday: "long" })} · ${r.item_ids.length} haber`;
+    $("#reportTitle").textContent = r.title;
+    $("#reportSummary").textContent = r.summary;
+    const body = $("#reportBody");
+    body.innerHTML = renderBodyHtml(r.body_md, "markdown");
+    body.querySelectorAll("a[href]").forEach(a => { a.target = "_blank"; a.rel = "noopener"; });
+    $("#reportDetails").open = r.report_date === today && reports[0] === r && !localStorage.getItem(`report-read-${r.id}`);
+}
+
+async function loadReports() {
+    const card = $("#reportCard");
+    const { data, error } = await sb.from("news_reports").select("id, report_date, title, summary, body_md, item_ids").order("report_date", { ascending: false }).limit(30);
+    if (error || !data.length) { card.hidden = true; return; } // tablo henüz yoksa ya da rapor yazılmadıysa kart görünmez
+    reports = data;
+    $("#reportSelect").innerHTML = reports.map(r => `<option value="${r.id}">${new Date(`${r.report_date}T12:00:00`).toLocaleDateString("tr-TR", { day: "numeric", month: "short" })}</option>`).join("");
+    card.hidden = false;
+    showReport(reports[0].id);
+}
+
+$("#reportSelect").addEventListener("change", e => showReport(e.target.value));
+$("#reportDetails").addEventListener("toggle", (e) => {
+    // Okunan rapor bir sonraki açılışta kapalı gelsin
+    const r = reports.find(x => String(x.id) === $("#reportSelect").value);
+    if (r && !e.target.open) { try { localStorage.setItem(`report-read-${r.id}`, "1"); } catch { /* depolama kapalı */ } }
+});
+
 async function openNews() {
+    loadReports();
     await Promise.all([loadInterestChips(), loadNewsStats()]);
     loadNews();
 }
@@ -461,6 +495,8 @@ async function openProjectList() {
         </tr>`).join("")}</tbody>`;
 }
 
+let reordering = false;
+
 $("#projectTable").addEventListener("click", async (event) => {
     const row = event.target.closest("tr[data-id]");
     if (!row) return;
@@ -468,21 +504,28 @@ $("#projectTable").addEventListener("click", async (event) => {
     if (event.target.closest("[data-edit]")) return openProjectEditor(p);
     const move = event.target.closest("[data-move]");
     if (move) {
+        if (reordering) return; // önceki sıralama bitmeden yenisi başlamasın
         const i = projects.indexOf(p);
         const j = i + Number(move.dataset.move);
-        const other = projects[j];
-        if (!other) return;
-        // Sıra numaralarını yeniden dağıt ve iki projeyi yer değiştir
-        [projects[i], projects[j]] = [projects[j], projects[i]];
-        const updates = projects.map((x, k) => ({ id: x.id, sort_order: (k + 1) * 10 })).filter((u, k) => projects[k].sort_order !== u.sort_order);
+        if (!projects[j]) return;
+        // Sıra numaralarını yeniden dağıt ve iki projeyi yer değiştir (yerel dizi ancak yeniden yüklemeyle değişir)
+        const next = [...projects];
+        [next[i], next[j]] = [next[j], next[i]];
+        const updates = next.map((x, k) => ({ id: x.id, sort_order: (k + 1) * 10 })).filter((u, k) => next[k].sort_order !== u.sort_order);
+        reordering = true;
         try {
             for (const u of updates) {
                 const { data, error } = await sb.from("projects").update({ sort_order: u.sort_order }).eq("id", u.id).select("id");
                 if (error) throw error;
                 if (!data.length) throw new Error("Yetki yok. Oturumunuzu yenileyin.");
             }
+        } catch (error) {
+            fail(error, "Sıralama kaydedilemedi");
+        } finally {
+            reordering = false;
+            // Hata olsa da listeyi veritabanındaki gerçek durumla eşitle
             openProjectList();
-        } catch (error) { fail(error, "Sıralama kaydedilemedi"); }
+        }
     }
 });
 
@@ -922,6 +965,9 @@ async function handlePostFile(file) {
             if (!slugTouched) form.slug.value = slugify(form.title.value);
         }
     };
+    // İçe aktarılan metin mevcut gövdenin yerine geçer; yazılmış bir taslak varsa önce sor
+    const replacesBody = ["md", "markdown", "txt", "html", "htm", "docx"].includes(ext);
+    if (replacesBody && form.body.value.trim() && !confirm(`"${file.name}" içeriği mevcut yazı metninin yerine geçecek. Devam edilsin mi?`)) return;
     toast(`"${file.name}" işleniyor...`);
     if (["md", "markdown", "txt"].includes(ext)) {
         const text = await file.text();
@@ -1362,11 +1408,12 @@ notifyForm.addEventListener("submit", async (event) => {
 
 $("#digestNow").addEventListener("click", (event) => busy(event.currentTarget, async () => {
     const { data, error } = await sb.functions.invoke("send-push", { body: { mode: "digest" } });
-    if (error) return fail(error, "Özet gönderilemedi");
+    if (error) return fail(error, "Rapor gönderilemedi");
     const d = data.digest || {};
-    if (d.skipped) toast(`Özet gönderilmedi: ${d.skipped}`);
-    else if (d.sent) toast(`Özet ${d.sent} cihaza gönderildi (${d.items} öğe).`);
-    else toast(d.devices ? `Gönderilemedi: ${d.errors?.[0] || "bilinmeyen hata"}` : "Kayıtlı cihaz yok.", "err");
+    if (d.report_error) toast(`Rapor yazılamadı, başlık listesi gönderildi: ${d.report_error}`, "err");
+    if (d.skipped) toast(`Rapor gönderilmedi: ${d.skipped}`);
+    else if (d.sent) toast(`${d.report ? "Rapor" : "Başlık listesi"} ${d.sent} cihaza gönderildi (${d.items} haber).`);
+    else toast(d.devices ? `Gönderilemedi: ${d.errors?.[0] || "bilinmeyen hata"}` : d.report ? "Rapor oluşturuldu ama kayıtlı cihaz yok." : "Kayıtlı cihaz yok.", "err");
     loadNotifyLog();
 }));
 
@@ -1396,7 +1443,7 @@ $("#deviceTable").addEventListener("click", async (event) => {
     renderPushStatus();
 });
 
-const NOTIFY_KIND_LABELS = { instant: "Anında", digest: "Günlük özet", test: "Test" };
+const NOTIFY_KIND_LABELS = { instant: "Anında", digest: "Günlük rapor", test: "Test" };
 
 async function loadNotifyLog() {
     const { data, error } = await sb.from("notification_log").select("*").order("created_at", { ascending: false }).limit(20);

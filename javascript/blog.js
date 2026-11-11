@@ -75,8 +75,15 @@ async function initList() {
 // --- Yazı sayfası ---
 function renderBody(post) {
     if (!post.body || !post.body.trim()) return "";
-    const html = post.body_format === "html" ? post.body : window.marked.parse(post.body, { gfm: true, breaks: false });
-    return window.DOMPurify.sanitize(html, { ADD_ATTR: ["target"] });
+    // Kütüphaneler CDN'den gelemediyse (ağ engeli, kesinti) yazı yine de düz metin olarak okunabilsin
+    const plain = () => `<p style="white-space:pre-wrap">${esc(post.body_format === "html" ? post.body.replace(/<[^>]+>/g, " ") : post.body)}</p>`;
+    if (!window.DOMPurify || (post.body_format !== "html" && !window.marked)) return plain();
+    try {
+        const html = post.body_format === "html" ? post.body : window.marked.parse(post.body, { gfm: true, breaks: false });
+        return window.DOMPurify.sanitize(html, { ADD_ATTR: ["target"] });
+    } catch {
+        return plain();
+    }
 }
 
 async function initPost() {

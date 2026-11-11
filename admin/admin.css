@@ -251,6 +251,22 @@ label small { color: var(--muted); font-weight: 400; }
 
 .news-list { display: grid; gap: 10px; }
 
+/* Günlük haber raporu */
+.report-card { border-color: var(--accent); background: linear-gradient(var(--accent-soft), transparent 140px), var(--surface); }
+.report-card .card-head { margin-bottom: 10px; }
+.report-card .input { width: auto; }
+.report-eyebrow { margin: 0 0 6px; color: var(--accent); font-size: 0.74rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+.report-summary { margin: 0 0 12px; max-width: 72ch; }
+.report-card summary { width: fit-content; color: var(--accent); cursor: pointer; font-size: 0.88rem; font-weight: 600; }
+.report-card summary:hover { color: var(--accent-hover); }
+.report-body { max-width: 72ch; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 0.94rem; line-height: 1.65; overflow-wrap: anywhere; }
+.report-body h2 { margin: 20px 0 6px; font-size: 1.02rem; }
+.report-body h2:first-child { margin-top: 0; }
+.report-body p { margin: 0 0 10px; }
+.report-body ul, .report-body ol { margin: 0 0 10px; padding-left: 20px; }
+.report-body li { margin-bottom: 4px; }
+.report-body a { color: var(--accent); }
+
 .news-item {
     display: grid;
     grid-template-columns: 52px minmax(0, 1fr) auto;

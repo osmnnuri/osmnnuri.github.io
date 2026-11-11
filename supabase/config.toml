@@ -1,0 +1,10 @@
+# Edge function ayarları.
+# İki fonksiyon da kimlik doğrulamayı kendi içinde yapar (x-cron-secret ya da yönetici JWT'si).
+# Saatlik pg_cron çağrıları Authorization başlığı göndermediği için gateway'in JWT kontrolü kapalı olmalı;
+# aksi halde `supabase functions deploy` sonrası cron istekleri 401 alır ve haber çekimi ile bildirimler durur.
+
+[functions.fetch-news]
+verify_jwt = false
+
+[functions.send-push]
+verify_jwt = false

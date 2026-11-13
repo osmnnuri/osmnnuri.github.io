@@ -35,6 +35,6 @@ Sıralama puanı: `(ilgi + kaynak ağırlığı × 2 + ilan/fırsat bonusu 4) ×
 - Panelin **Bildirimler** sekmesinden her cihaz ayrı ayrı abone olur (`push_subscriptions`). iPhone'da önce Safari → Paylaş → Ana Ekrana Ekle gerekir (iOS 16.4+).
 - `send-push` edge function'ı her saatin 12. dakikasında `pg_cron` ile çalışır:
   - **Anında:** son 3 saatte gelen, `status = 'new'`, puanı eşiği aşan ve henüz bildirilmemiş öğeler. Saatlik sınırı aşan kısım tek bir "N öğe daha" bildiriminde toplanır, öğeler `notified_at` ile işaretlenir.
-  - **Günlük özet:** ayarlanan saatte (Türkiye saati) son 24 saatin en yüksek puanlı öğeleri, günde bir kez.
+  - **Günlük rapor:** ayarlanan saatte (Türkiye saati) son 24 saatin haberleri Gemini ile özetlenir, `news_reports` tablosuna yazılır ve bildirilir; günde bir kez. Gemini yanıt vermezse (zaman aşımı, 503) sonraki 3 saatlik çalıştırmada yeniden denenir, son denemede de olmazsa en yüksek puanlı öğelerin başlık listesi gönderilir.
 - Ayarlar `notification_settings` tablosunda (tek satır); geçmiş `notification_log` tablosunda.
 - VAPID anahtar çifti fonksiyon ilk çalıştığında üretilip yalnızca Vault'a yazıldı (`vapid_public_key`, `vapid_private_key`). Push servisi 404/410 döndüren abonelikler kendiliğinden silinir.

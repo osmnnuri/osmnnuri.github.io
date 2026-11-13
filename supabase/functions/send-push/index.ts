@@ -14,6 +14,11 @@ const KIND_LABELS: Record<string, string> = { haber: "Haber", ilan: "İlan", fir
 const GEMINI_KEY = Deno.env.get("GEMINI_API_KEY");
 const GEMINI_MODEL = Deno.env.get("GEMINI_MODEL") ?? "gemini-3.8-flash";
 const REPORT_MAX_ITEMS = 30;
+// Gemini bu girdiyle 30-40 sn'de yanıt veriyor, yoğun saatlerde daha da yavaşlıyor ya da 503 dönüyor.
+// Tek çağrıya tanınan toplam süre (fonksiyonun 150 sn'lik sınırının altında kalmalı):
+const REPORT_BUDGET_MS = 100_000;
+// Rapor yazılamazsa sonraki saatlik çalıştırmalarda yeniden denenir; bu kadar saat sonra başlık listesine düşülür.
+const REPORT_RETRY_HOURS = 3;
 
 const cors = {
     "Access-Control-Allow-Origin": "*",
@@ -182,13 +187,28 @@ async function writeReport(items: ReportItem[]): Promise<Report> {
         `[${i + 1}] ${n.title}\nKaynak: ${n.source_name ?? "bilinmiyor"}${n.matched?.length ? ` | İlgi: ${n.matched.join(", ")}` : ""}\n${(n.summary ?? "").replace(/\s+/g, " ").slice(0, 600)}`
     ).join("\n\n");
 
+    // Geçici hatalarda (429/5xx) süre elverdikçe yeniden dene; zaman aşımı sonraki saatlik çalıştırmaya kalır
+    const deadline = Date.now() + REPORT_BUDGET_MS;
+    for (let attempt = 1; ; attempt++) {
+        try {
+            return await askGemini(input, deadline - Date.now());
+        } catch (e) {
+            const wait = attempt * 4000;
+            if (!(e as { retryable?: boolean }).retryable || attempt >= 3 || deadline - Date.now() < wait + 30_000) throw e;
+            console.error(`Gemini denemesi ${attempt} başarısız, yeniden denenecek:`, (e as Error).message.slice(0, 120));
+            await new Promise((r) => setTimeout(r, wait));
+        }
+    }
+}
+
+async function askGemini(input: string, timeoutMs: number): Promise<Report> {
     const ctrl = new AbortController();
-    const timer = setTimeout(() => ctrl.abort(), 45000);
+    const timer = setTimeout(() => ctrl.abort(), timeoutMs);
     try {
         const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`, {
             method: "POST",
             signal: ctrl.signal,
-            headers: { "Content-Type": "application/json", "x-goog-api-key": GEMINI_KEY },
+            headers: { "Content-Type": "application/json", "x-goog-api-key": GEMINI_KEY! },
             body: JSON.stringify({
                 systemInstruction: { parts: [{ text: REPORT_SYSTEM }] },
                 contents: [{ role: "user", parts: [{ text: `Bugünün haberleri:\n\n${input}` }] }],
@@ -203,7 +223,9 @@ async function writeReport(items: ReportItem[]): Promise<Report> {
                 },
             }),
         });
-        if (!res.ok) throw new Error(`Gemini HTTP ${res.status}: ${(await res.text()).slice(0, 200)}`);
+        if (!res.ok) {
+            throw Object.assign(new Error(`Gemini HTTP ${res.status}: ${(await res.text()).slice(0, 200)}`), { retryable: res.status === 429 || res.status >= 500 });
+        }
         const data = await res.json();
         const text = (data.candidates?.[0]?.content?.parts ?? []).map((p: { text?: string }) => p.text ?? "").join("");
         if (!text) throw new Error(`Gemini boş yanıt döndü (${data.candidates?.[0]?.finishReason ?? data.promptFeedback?.blockReason ?? "neden bilinmiyor"})`);
@@ -231,7 +253,11 @@ function istanbulNow() {
 
 async function runDigest(s: Record<string, unknown>, force = false) {
     const now = istanbulNow();
-    if (!force && now.hour !== s.digest_hour) return { skipped: "özet saati değil" };
+    // Özet saatinden itibaren birkaç saatlik pencere: rapor yazılamadıysa ya da o saatin çalıştırması kaçtıysa telafi edilir.
+    // Günde bir kez gönderilmesini aşağıdaki notification_log kontrolü sağlar.
+    const digestHour = s.digest_hour as number;
+    if (!force && (now.hour < digestHour || now.hour > digestHour + REPORT_RETRY_HOURS)) return { skipped: "özet saati değil" };
+    const lastChance = force || now.hour >= Math.min(digestHour + REPORT_RETRY_HOURS, 23);
     // Türkiye UTC+3 sabit: günün başlangıcı UTC'de bir önceki gün 21:00
     const dayStart = new Date(`${now.date}T00:00:00+03:00`).toISOString();
     if (!force) {
@@ -275,6 +301,9 @@ async function runDigest(s: Record<string, unknown>, force = false) {
         } catch (e) {
             reportError = (e as Error).message.slice(0, 300);
             console.error("Rapor oluşturulamadı:", reportError);
+            // Başlık listesi gönderilirse günün özeti "gönderildi" sayılır ve rapor o gün bir daha yazılmaz;
+            // bu yüzden son denemeye kadar hiçbir şey gönderme, sonraki saat yeniden dene.
+            if (!lastChance) return { skipped: "rapor yazılamadı, sonraki saat yeniden denenecek", report_error: reportError };
         }
     }
 

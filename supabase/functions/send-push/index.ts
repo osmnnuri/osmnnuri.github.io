@@ -13,10 +13,12 @@ const KIND_LABELS: Record<string, string> = { haber: "Haber", ilan: "İlan", fir
 // Günlük haber raporu için. Anahtar: `supabase secrets set GEMINI_API_KEY=...` (Google AI Studio'dan alınır)
 const GEMINI_KEY = Deno.env.get("GEMINI_API_KEY");
 const GEMINI_MODEL = Deno.env.get("GEMINI_MODEL") ?? "gemini-3.8-flash";
+// Asıl model yoğun saatlerde 503 dönüyor ya da hiç yanıt vermiyor; o zaman sırayla bu yedekler denenir.
+const GEMINI_MODELS = [...new Set([GEMINI_MODEL, "gemini-3.6-flash", "gemini-3.5-flash-lite"])];
 const REPORT_MAX_ITEMS = 30;
-// Gemini bu girdiyle 30-40 sn'de yanıt veriyor, yoğun saatlerde daha da yavaşlıyor ya da 503 dönüyor.
-// Tek çağrıya tanınan toplam süre (fonksiyonun 150 sn'lik sınırının altında kalmalı):
+// Rapor yazımına tanınan toplam süre (fonksiyonun 150 sn'lik sınırının altında kalmalı) ve son model dışındakilerin payı:
 const REPORT_BUDGET_MS = 100_000;
+const MODEL_TIMEOUT_MS = 40_000;
 // Rapor yazılamazsa sonraki saatlik çalıştırmalarda yeniden denenir; bu kadar saat sonra başlık listesine düşülür.
 const REPORT_RETRY_HOURS = 3;
 
@@ -167,7 +169,7 @@ async function runInstant(s: Record<string, unknown>) {
 
 // --- Günlük haber raporu (Gemini) ---
 type ReportItem = Item & { summary: string | null };
-type Report = { title: string; summary: string; body_md: string };
+type Report = { title: string; summary: string; body_md: string; model: string };
 
 const REPORT_SYSTEM = `Sen bir yazılım geliştiricinin kişisel teknoloji editörüsün. Sana son 24 saatin numaralı haberleri verilecek.
 Görevin bunları tek tek sıralamak değil, okuyup sentezlemek: aynı konudaki haberleri birleştir, neyin gerçekten önemli olduğunu ayıkla, tekrarları ve reklam niteliğindeki içeriği at.
@@ -187,25 +189,29 @@ async function writeReport(items: ReportItem[]): Promise<Report> {
         `[${i + 1}] ${n.title}\nKaynak: ${n.source_name ?? "bilinmiyor"}${n.matched?.length ? ` | İlgi: ${n.matched.join(", ")}` : ""}\n${(n.summary ?? "").replace(/\s+/g, " ").slice(0, 600)}`
     ).join("\n\n");
 
-    // Geçici hatalarda (429/5xx) süre elverdikçe yeniden dene; zaman aşımı sonraki saatlik çalıştırmaya kalır
+    // Model yanıt vermezse (503 "yüksek talep", zaman aşımı) sıradaki modele geç. Son modele kalan sürenin tamamı verilir;
+    // hiçbiri yazamazsa runDigest sonraki saatlik çalıştırmada yeniden dener.
     const deadline = Date.now() + REPORT_BUDGET_MS;
-    for (let attempt = 1; ; attempt++) {
+    const errors: string[] = [];
+    for (const [i, model] of GEMINI_MODELS.entries()) {
+        const remaining = deadline - Date.now();
+        if (remaining < 10_000) break;
+        const isLast = i === GEMINI_MODELS.length - 1;
         try {
-            return await askGemini(input, deadline - Date.now());
+            return { ...await askGemini(model, input, isLast ? remaining : Math.min(MODEL_TIMEOUT_MS, remaining)), model };
         } catch (e) {
-            const wait = attempt * 4000;
-            if (!(e as { retryable?: boolean }).retryable || attempt >= 3 || deadline - Date.now() < wait + 30_000) throw e;
-            console.error(`Gemini denemesi ${attempt} başarısız, yeniden denenecek:`, (e as Error).message.slice(0, 120));
-            await new Promise((r) => setTimeout(r, wait));
+            errors.push(`${model}: ${(e as Error).message.replace(/\s+/g, " ").slice(0, 110)}`);
+            console.error("Gemini denemesi başarısız:", errors[errors.length - 1]);
         }
     }
+    throw new Error(errors.join(" | "));
 }
 
-async function askGemini(input: string, timeoutMs: number): Promise<Report> {
+async function askGemini(model: string, input: string, timeoutMs: number): Promise<Omit<Report, "model">> {
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), timeoutMs);
     try {
-        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`, {
+        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
             method: "POST",
             signal: ctrl.signal,
             headers: { "Content-Type": "application/json", "x-goog-api-key": GEMINI_KEY! },
@@ -214,6 +220,8 @@ async function askGemini(input: string, timeoutMs: number): Promise<Report> {
                 contents: [{ role: "user", parts: [{ text: `Bugünün haberleri:\n\n${input}` }] }],
                 generationConfig: {
                     temperature: 0.4,
+                    // Özetleme için "low" düşünme yeterli; varsayılan "medium" yanıtı gereksiz yere uzatıyor
+                    thinkingConfig: { thinkingLevel: "low" },
                     responseMimeType: "application/json",
                     responseSchema: {
                         type: "OBJECT",
@@ -223,13 +231,11 @@ async function askGemini(input: string, timeoutMs: number): Promise<Report> {
                 },
             }),
         });
-        if (!res.ok) {
-            throw Object.assign(new Error(`Gemini HTTP ${res.status}: ${(await res.text()).slice(0, 200)}`), { retryable: res.status === 429 || res.status >= 500 });
-        }
+        if (!res.ok) throw new Error(`Gemini HTTP ${res.status}: ${(await res.text()).slice(0, 200)}`);
         const data = await res.json();
         const text = (data.candidates?.[0]?.content?.parts ?? []).map((p: { text?: string }) => p.text ?? "").join("");
         if (!text) throw new Error(`Gemini boş yanıt döndü (${data.candidates?.[0]?.finishReason ?? data.promptFeedback?.blockReason ?? "neden bilinmiyor"})`);
-        const report = JSON.parse(text) as Report;
+        const report = JSON.parse(text) as Omit<Report, "model">;
         if (!report.title?.trim() || !report.body_md?.trim()) throw new Error("Gemini yanıtında başlık ya da gövde eksik");
         return {
             title: report.title.trim().slice(0, 100),
@@ -285,7 +291,7 @@ async function runDigest(s: Record<string, unknown>, force = false) {
                 summary: report.summary,
                 body_md: `${report.body_md.trim()}\n\n## Kaynaklar\n\n${newsList.map((n, i) => `${i + 1}. [${n.title.replace(/[\[\]]/g, "")}](<${n.url}>)${n.source_name ? ` · ${n.source_name}` : ""}`).join("\n")}`,
                 item_ids: newsList.map((n) => n.id),
-                model: GEMINI_MODEL,
+                model: report.model,
                 created_at: new Date().toISOString(),
             }, { onConflict: "report_date" });
             if (error) throw new Error(`Rapor kaydedilemedi: ${error.message}`);

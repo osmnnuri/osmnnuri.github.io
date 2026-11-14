@@ -5,6 +5,7 @@ const initialHash = location.hash; // davet / şifre sıfırlama bağlantıları
 const { url: SB_URL, key: SB_KEY } = window.SUPABASE_CONFIG;
 const sb = createClient(SB_URL, SB_KEY);
 const SITE_ROOT = new URL("../", location.href).href;
+window.panel = { sb }; // hud.js ve assistant.js aynı oturumu kullanır
 
 // ===== Yardımcılar =====
 const $ = (sel, root = document) => root.querySelector(sel);
@@ -210,7 +211,13 @@ function route() {
     $$(".view").forEach(v => { v.hidden = v.dataset.view !== name; });
     $$(".side-nav a").forEach(a => a.classList.toggle("current", a.dataset.view === name));
     ({ haberler: openNews, projeler: openProjectList, blog: openPostList, kaynaklar: openSources, bildirimler: openNotifications })[name]();
-    window.scrollTo(0, 0);
+    toTop();
+}
+
+// Sayfa kaymaz; her bölüm kendi penceresinin içinde kayar (space.js)
+function toTop() {
+    const body = $(".view:not([hidden])")?.closest(".win-body");
+    if (body) body.scrollTop = 0; else window.scrollTo(0, 0);
 }
 
 window.addEventListener("hashchange", route);
@@ -551,7 +558,7 @@ function openProjectEditor(p) {
     $("#projectEditorPane").hidden = false;
     dirty = false;
     updateProjectPreview();
-    window.scrollTo(0, 0);
+    toTop();
 }
 
 function readProjectForm() {
@@ -822,7 +829,7 @@ async function openPostEditor(p, preset = {}) {
     $("#postEditorPane").hidden = false;
     dirty = !!preset.title;
     updatePostPreview();
-    window.scrollTo(0, 0);
+    toTop();
 }
 
 function updatePostStatus(status) {

@@ -30,6 +30,13 @@ Sıralama puanı: `(ilgi + kaynak ağırlığı × 2 + ilan/fırsat bonusu 4) ×
 2. **Authentication → Sign In / Providers**: "Allow new users to sign up" kapatılmalı (panelde kayıt yok; yetki zaten `admins` tablosuna bağlı).
 3. **Authentication → URL Configuration**: Site URL `https://osmnnuri.github.io/admin/` (şifre sıfırlama bağlantıları buraya döner).
 
+## Panel asistanı
+
+- Paneldeki sesli asistan bilinen komutları tarayıcıda çözer (`admin/assistant.js`); tanımadığı cümleleri `assistant` edge function'ına yollar.
+- Fonksiyon yalnızca yönetici oturumuyla çalışır, `send-push` ile aynı `GEMINI_API_KEY` anahtarını ve model sırasını kullanır, veritabanına yazmaz. Yanıtı söylenecek metin ve panelin uygulayacağı izinli eylemlerdir; silme ve yayınlama eylemi yoktur.
+- Yayına almak için: `supabase functions deploy assistant`. Deploy edilmeden önce asistan yalnızca sabit komutları anlar.
+- Asistanın adı, sesi ve arayüz rengi panelin sağ üstündeki ayarlardan değişir ve cihazda (`localStorage`) saklanır.
+
 ## Mobil bildirimler (Web Push)
 
 - Panelin **Bildirimler** sekmesinden her cihaz ayrı ayrı abone olur (`push_subscriptions`). iPhone'da önce Safari → Paylaş → Ana Ekrana Ekle gerekir (iOS 16.4+).

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
-    <meta name="theme-color" content="#0e1313">
+    <meta name="theme-color" content="#070b14">
     <title>Yönetim Paneli | ONY</title>
     <link rel="icon" type="image/png" href="../görseller/icons/favicon.png">
     <link rel="manifest" href="manifest.webmanifest">
@@ -13,10 +13,24 @@
     <meta name="apple-mobile-web-app-title" content="ONY Panel">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@1,9..144,300..700,100&family=Figtree:ital,wght@0,400..700;1,400..700&display=swap">
-    <link rel="stylesheet" href="admin.css?v=3">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Exo+2:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400;500&display=swap">
+    <link rel="stylesheet" href="admin.css?v=5">
+    <link rel="stylesheet" href="hud.css?v=2">
+    <link rel="stylesheet" href="space.css?v=1">
+    <script src="hud.js?v=1"></script>
 </head>
 <body>
+    <!-- ===== Açılış ekranı (hud.js kaldırır) ===== -->
+    <div class="boot" id="boot" aria-hidden="true">
+        <div class="boot-ring"></div>
+        <ul class="boot-lines">
+            <li>Çekirdek başlatılıyor</li>
+            <li>Arayüz katmanı yükleniyor</li>
+            <li>Güvenli bağlantı kuruluyor</li>
+            <li>Sistem hazır</li>
+        </ul>
+    </div>
+
     <!-- ===== Giriş ===== -->
     <section class="login" id="loginView" hidden>
         <form class="login-card" id="loginForm">
@@ -40,24 +54,45 @@
 
     <!-- ===== Uygulama ===== -->
     <div class="app" id="appView" hidden>
-        <aside class="sidebar">
+        <!-- Durum şeridi -->
+        <header class="hud-bar">
             <a class="brand" href="#haberler">ONY <em>Panel</em></a>
-            <nav class="side-nav" aria-label="Panel bölümleri">
-                <a href="#haberler" data-view="haberler"><span class="ico" aria-hidden="true">◉</span><span>Haber Ağı</span><b class="badge" id="newsBadge" hidden></b></a>
-                <a href="#projeler" data-view="projeler"><span class="ico" aria-hidden="true">▣</span><span>Projeler</span></a>
-                <a href="#blog" data-view="blog"><span class="ico" aria-hidden="true">✎</span><span>Blog</span></a>
-                <a href="#kaynaklar" data-view="kaynaklar"><span class="ico" aria-hidden="true">⚙</span><span>Kaynaklar</span></a>
-                <a href="#bildirimler" data-view="bildirimler"><span class="ico" aria-hidden="true">⚑</span><span>Bildirimler</span></a>
-            </nav>
-            <div class="side-foot">
-                <a href="../" target="_blank" rel="noopener" class="side-link">Siteyi aç &nearr;</a>
+            <div class="hud-id"><i class="hud-dot" id="hudDot"></i><span id="hudSector">Sektör 01</span><strong id="hudView">Haber Ağı</strong></div>
+            <div class="hud-ticks" aria-hidden="true"></div>
+            <ul class="hud-readouts">
+                <li><span>Okunmamış</span><b id="hudUnread">0</b></li>
+                <li><span>Son tarama</span><b id="hudSync">—</b></li>
+                <li><span>Bağlantı</span><b id="hudLink">Çevrimiçi</b></li>
+            </ul>
+            <time class="hud-clock" id="hudClock"></time>
+            <button type="button" class="hud-btn" id="spaceBtn" aria-pressed="false" aria-label="Genel görünüm" title="Genel görünüm (Alt+G)">⧉</button>
+            <button type="button" class="hud-btn" id="hudSettingsBtn" aria-label="Arayüz ayarları" title="Arayüz ayarları">◈</button>
+            <button type="button" class="hud-btn" id="userMenuBtn" popovertarget="userMenu" aria-label="Hesap" title="Hesap">◍</button>
+            <div class="user-menu" id="userMenu" popover>
                 <span class="muted small" id="userEmail"></span>
+                <a href="../" target="_blank" rel="noopener" class="side-link">Siteyi aç &nearr;</a>
                 <button type="button" class="link-btn" id="logoutBtn">Çıkış yap</button>
             </div>
-        </aside>
+        </header>
 
-        <main class="main" id="main">
+        <!-- Klavye için bölüm listesi: odaklanınca görünür. Pencere yönetimi ve asistan da bu bağlantılardaki .current sınıfını okur. -->
+        <nav class="side-nav" aria-label="Panel bölümleri">
+            <a href="#haberler" data-view="haberler"><span class="ico" aria-hidden="true">◉</span><span>Haber Ağı</span></a>
+            <a href="#projeler" data-view="projeler"><span class="ico" aria-hidden="true">▣</span><span>Projeler</span></a>
+            <a href="#blog" data-view="blog"><span class="ico" aria-hidden="true">✎</span><span>Blog</span></a>
+            <a href="#kaynaklar" data-view="kaynaklar"><span class="ico" aria-hidden="true">⚙</span><span>Kaynaklar</span></a>
+            <a href="#bildirimler" data-view="bildirimler"><span class="ico" aria-hidden="true">⚑</span><span>Bildirimler</span></a>
+        </nav>
+
+        <!-- Uzay: her bölüm bir pencere; öndeki, admin.js'nin açtığı bölümdür (space.js) -->
+        <main class="space" id="main">
             <!-- Haber ağı -->
+            <div class="win" data-win="haberler" role="region" aria-labelledby="winT-haberler">
+            <header class="win-bar">
+                <button type="button" class="win-title" id="winT-haberler"><span class="win-ico" aria-hidden="true">◉</span><span class="win-sector">S·01</span><span class="win-name">Haber Ağı</span><b class="badge" id="newsBadge" hidden></b></button>
+                <span class="win-state" aria-hidden="true"></span><span class="win-grip" aria-hidden="true"></span>
+            </header>
+            <div class="win-body">
             <section class="view" data-view="haberler" hidden>
                 <header class="view-head">
                     <div>
@@ -109,8 +144,16 @@
                 <div class="news-list" id="newsList" aria-live="polite"></div>
                 <button type="button" class="btn block" id="newsMore" hidden>Daha fazla göster</button>
             </section>
+            </div>
+            </div>
 
             <!-- Projeler -->
+            <div class="win" data-win="projeler" role="region" aria-labelledby="winT-projeler">
+            <header class="win-bar">
+                <button type="button" class="win-title" id="winT-projeler"><span class="win-ico" aria-hidden="true">▣</span><span class="win-sector">S·02</span><span class="win-name">Projeler</span></button>
+                <span class="win-state" aria-hidden="true"></span><span class="win-grip" aria-hidden="true"></span>
+            </header>
+            <div class="win-body">
             <section class="view" data-view="projeler" hidden>
                 <div id="projectListPane">
                     <header class="view-head">
@@ -215,8 +258,16 @@
                     </div>
                 </div>
             </section>
+            </div>
+            </div>
 
             <!-- Blog -->
+            <div class="win" data-win="blog" role="region" aria-labelledby="winT-blog">
+            <header class="win-bar">
+                <button type="button" class="win-title" id="winT-blog"><span class="win-ico" aria-hidden="true">✎</span><span class="win-sector">S·03</span><span class="win-name">Blog</span></button>
+                <span class="win-state" aria-hidden="true"></span><span class="win-grip" aria-hidden="true"></span>
+            </header>
+            <div class="win-body">
             <section class="view" data-view="blog" hidden>
                 <div id="postListPane">
                     <header class="view-head">
@@ -314,8 +365,16 @@
                     </div>
                 </div>
             </section>
+            </div>
+            </div>
 
             <!-- Kaynaklar & ilgi alanları -->
+            <div class="win" data-win="kaynaklar" role="region" aria-labelledby="winT-kaynaklar">
+            <header class="win-bar">
+                <button type="button" class="win-title" id="winT-kaynaklar"><span class="win-ico" aria-hidden="true">⚙</span><span class="win-sector">S·04</span><span class="win-name">Kaynaklar</span></button>
+                <span class="win-state" aria-hidden="true"></span><span class="win-grip" aria-hidden="true"></span>
+            </header>
+            <div class="win-body">
             <section class="view" data-view="kaynaklar" hidden>
                 <header class="view-head">
                     <div>
@@ -359,7 +418,16 @@
                 </div>
 
             </section>
+            </div>
+            </div>
+
             <!-- Bildirimler -->
+            <div class="win" data-win="bildirimler" role="region" aria-labelledby="winT-bildirimler">
+            <header class="win-bar">
+                <button type="button" class="win-title" id="winT-bildirimler"><span class="win-ico" aria-hidden="true">⚑</span><span class="win-sector">S·05</span><span class="win-name">Bildirimler</span></button>
+                <span class="win-state" aria-hidden="true"></span><span class="win-grip" aria-hidden="true"></span>
+            </header>
+            <div class="win-body">
             <section class="view" data-view="bildirimler" hidden>
                 <header class="view-head">
                     <div>
@@ -430,15 +498,91 @@
                     <div class="log-list" id="notifyLog"></div>
                 </div>
             </section>
+            </div>
+            </div>
+
+            <!-- Genel görünümde altta duran ipucu şeridi -->
+            <div class="space-hint" id="spaceHint" hidden>
+                <span><b>Genel görünüm</b><i class="hint-more"> · Bir pencere seçin, sürükleyerek yerini değiştirin · Esc ile dönün</i></span>
+                <button type="button" class="btn small" data-space-reset>Düzeni sıfırla</button>
+            </div>
         </main>
     </div>
 
     <div class="toast-stack" id="toasts" aria-live="polite"></div>
 
+    <!-- ===== Arayüz ayarları ===== -->
+    <dialog class="hud-dialog" id="hudSettings" aria-labelledby="hudSettingsTitle">
+        <form method="dialog" id="hudSettingsForm">
+            <header>
+                <h2 id="hudSettingsTitle">Arayüz ayarları</h2>
+                <button type="submit" class="btn small">Kapat</button>
+            </header>
+
+            <fieldset>
+                <legend>Renk</legend>
+                <div class="swatches" id="hudSwatches" role="group" aria-label="Hazır renkler"></div>
+                <label>Özel ton<input type="range" class="hue-range" name="hue" min="0" max="360" step="1"></label>
+            </fieldset>
+
+            <fieldset>
+                <legend>Asistan</legend>
+                <div class="row">
+                    <label>Asistanın adı<input name="name" class="input" maxlength="24" autocomplete="off" required></label>
+                    <label>Ses<select name="voice" class="input"></select></label>
+                </div>
+                <label>Konuşma hızı<input type="range" name="rate" min="0.7" max="1.5" step="0.05"></label>
+                <label class="check"><input type="checkbox" name="speak"> Yanıtları sesli oku</label>
+                <label class="check"><input type="checkbox" name="sfx"> Ses efektleri</label>
+                <label class="check"><input type="checkbox" name="wake"> <span>"Hey <span data-ai-name></span>" deyince uyan</span></label>
+                <small class="muted" id="hudVoiceNote"></small>
+            </fieldset>
+
+            <fieldset>
+                <legend>Hareket</legend>
+                <label class="check"><input type="checkbox" name="motion"> Animasyonlar açık</label>
+            </fieldset>
+
+            <fieldset>
+                <legend>Pencereler</legend>
+                <p class="muted small">Pencereleri başlık çubuğundan sürükleyerek uzayda istediğiniz yere taşıyabilirsiniz. Yerleri bu cihazda saklanır.</p>
+                <div class="btn-row"><button type="button" class="btn small" data-space-reset>Pencere düzenini sıfırla</button></div>
+            </fieldset>
+        </form>
+    </dialog>
+
+    <!-- ===== Sesli asistan ===== -->
+    <div class="ai" id="ai" data-state="idle" hidden>
+        <section class="ai-panel" id="aiPanel" aria-label="Asistan" hidden>
+            <header class="ai-head">
+                <span class="ai-name" data-ai-name></span>
+                <span class="ai-status" id="aiStatus">Hazır</span>
+                <button type="button" id="aiClose" aria-label="Asistanı kapat">✕</button>
+            </header>
+            <div class="ai-stage"><canvas class="ai-holo" id="aiHolo"></canvas></div>
+            <div class="ai-log" id="aiLog" aria-live="polite"></div>
+            <p class="ai-interim" id="aiInterim"></p>
+            <form class="ai-form" id="aiForm" autocomplete="off">
+                <input class="input" id="aiInput" placeholder="Komut yazın..." aria-label="Asistana komut yazın">
+                <button type="button" id="aiMic" aria-label="Sesle komut ver" aria-pressed="false" title="Sesle komut ver (Ctrl+Boşluk)">●</button>
+                <button type="submit" aria-label="Gönder">➤</button>
+            </form>
+            <div class="ai-hints" id="aiHints">
+                <button type="button" class="chip" data-say="Durum raporu ver">Durum raporu</button>
+                <button type="button" class="chip" data-say="Raporu özetle">Raporu özetle</button>
+                <button type="button" class="chip" data-say="En önemli haberleri oku">Öne çıkanlar</button>
+                <button type="button" class="chip" data-say="Ne yapabilirsin?">Komutlar</button>
+            </div>
+        </section>
+        <button type="button" class="ai-orb" id="aiOrb" aria-label="Asistanı aç" aria-expanded="false" title="Asistan (Ctrl+Boşluk)"><canvas id="aiOrbCanvas"></canvas></button>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js" integrity="sha384-/TQbtLCAerC3jgaim+N78RZSDYV7ryeoBCVqTuzRrFec2akfBkHS7ACQ3PQhvMVi" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js" integrity="sha384-+VfUPEb0PdtChMwmBcBmykRMDd+v6D/oFmB3rZM/puCMDYcIvF968OimRh4KQY9a" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/mammoth@1.8.0/mammoth.browser.min.js" integrity="sha384-/cXAMbzovUIKbBERjPmR3SnPTh8siWr5lsvFYj1Uq4XP0yaJUZJmsh0YXyGv5P0y" crossorigin="anonymous" defer></script>
     <script src="../javascript/supabase-config.js?v=1"></script>
-    <script type="module" src="admin.js?v=4"></script>
+    <script type="module" src="admin.js?v=6"></script>
+    <script src="space.js?v=1" defer></script>
+    <script src="assistant.js?v=2" defer></script>
 </body>
 </html>

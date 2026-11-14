@@ -211,7 +211,13 @@ function route() {
     $$(".view").forEach(v => { v.hidden = v.dataset.view !== name; });
     $$(".side-nav a").forEach(a => a.classList.toggle("current", a.dataset.view === name));
     ({ haberler: openNews, projeler: openProjectList, blog: openPostList, kaynaklar: openSources, bildirimler: openNotifications })[name]();
-    window.scrollTo(0, 0);
+    toTop();
+}
+
+// Sayfa kaymaz; her bölüm kendi penceresinin içinde kayar (space.js)
+function toTop() {
+    const body = $(".view:not([hidden])")?.closest(".win-body");
+    if (body) body.scrollTop = 0; else window.scrollTo(0, 0);
 }
 
 window.addEventListener("hashchange", route);
@@ -552,7 +558,7 @@ function openProjectEditor(p) {
     $("#projectEditorPane").hidden = false;
     dirty = false;
     updateProjectPreview();
-    window.scrollTo(0, 0);
+    toTop();
 }
 
 function readProjectForm() {
@@ -823,7 +829,7 @@ async function openPostEditor(p, preset = {}) {
     $("#postEditorPane").hidden = false;
     dirty = !!preset.title;
     updatePostPreview();
-    window.scrollTo(0, 0);
+    toTop();
 }
 
 function updatePostStatus(status) {

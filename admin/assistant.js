@@ -280,7 +280,16 @@
         async navigate(view) {
             if (!VIEW_NAMES[view]) return "";
             await goTo(view);
+            window.SPACE?.overview(false);
             return `${VIEW_NAMES[view]} açıldı.`;
+        },
+        async overview(on) {
+            window.SPACE?.overview(on !== false && on !== "off");
+            return on === false || on === "off" ? "Pencereye döndüm." : "Genel görünüm açıldı. Bir pencere seçebilirsin.";
+        },
+        async reset_layout() {
+            window.SPACE?.reset();
+            return "Pencereler başlangıç yerlerine döndü.";
         },
         async filter_kind(kind) {
             if (!KIND_NAMES[kind]) return "";
@@ -380,8 +389,11 @@
             return "Arayüz ayarları açıldı.";
         },
         async scroll(direction) {
-            if (direction === "top") window.scrollTo({ top: 0, behavior: "smooth" });
-            else window.scrollBy({ top: innerHeight * 0.8 * (direction === "up" ? -1 : 1), behavior: "smooth" });
+            const box = window.SPACE?.scroller(); // öndeki pencere kendi içinde kayar
+            const target = box || window;
+            const height = box ? box.clientHeight : innerHeight;
+            if (direction === "top") target.scrollTo({ top: 0, behavior: "smooth" });
+            else target.scrollBy({ top: height * 0.8 * (direction === "up" ? -1 : 1), behavior: "smooth" });
             return "";
         },
     };
@@ -393,6 +405,7 @@
 • "Haberleri yenile", "Hepsini okundu say", "Raporu şimdi oluştur"
 • "İlanları göster", "Yapay zeka ara", "En yeniye göre sırala"
 • "Projelere git", "Yeni yazı aç", "Yeni proje aç"
+• "Genel görünüm", "Pencereleri sıfırla"
 • "Rengi kırmızı yap", "Arayüz ayarlarını aç"
 • "Adın Atlas olsun", "Sesi kapat", "Sus"
 Bunların dışındaki soruları yapay zekaya sorarım. Silme ve yayınlama işlemlerini yapmam.`;
@@ -432,6 +445,8 @@ Bunların dışındaki soruları yapay zekaya sorarım. Silme ve yayınlama işl
         [f => /en yeni|tarihe gore/.test(f), () => ACTIONS.sort_news("new")],
         [f => /oncelige gore|puana gore/.test(f), () => ACTIONS.sort_news("rank")],
         [(f, raw) => raw.match(/^(?:haberlerde\s+)?(.+?)\s+(?:ara|arat|bul)[.!]?$/i) || (/haber|goster|listele/.test(f) && raw.match(/^(.+?)\s+(?:ile ilgili|hakk[ıi]nda)\b/i)), m => ACTIONS.search_news(m[1])],
+        [f => /(pencere|duzen)\w* (sifirla|topla|toparla)|duzeni sifirla/.test(f), () => ACTIONS.reset_layout()],
+        [f => /genel gorunum|tum pencereler|pencereleri goster|kus bakisi/.test(f), (m, f) => ACTIONS.overview(!/kapat|cik/.test(f))],
         [f => /asagi/.test(f) && "down" || /en uste|basa don/.test(f) && "top" || /yukari/.test(f) && "up", d => ACTIONS.scroll(d)],
         [f => (NAV_VERB.test(f) || f.split(" ").length <= 2) && VIEW_WORDS.find(([, re]) => re.test(f)), v => ACTIONS.navigate(v[0])],
         [f => /saat kac/.test(f), () => `Saat ${new Date().toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" })}.`],
@@ -442,7 +457,7 @@ Bunların dışındaki soruları yapay zekaya sorarım. Silme ve yayınlama işl
     ];
 
     // Toplu değişiklik ve bildirim gönderen eylemler yalnızca açık sabit komutla çalışır; yapay zeka tetikleyemez
-    const LOCAL_ONLY = ["mark_all_read", "make_report", "scroll"];
+    const LOCAL_ONLY = ["mark_all_read", "make_report", "scroll", "overview", "reset_layout"];
 
     // Tanınmayan cümle: yapay zekaya sor, döndürdüğü izinli eylemleri uygula
     async function askAI(raw) {

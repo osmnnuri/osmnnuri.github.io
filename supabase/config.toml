@@ -8,3 +8,7 @@ verify_jwt = false
 
 [functions.send-push]
 verify_jwt = false
+
+# Panel asistanı: yalnızca yönetici JWT'siyle çalışır, doğrulamayı diğerleri gibi kendi içinde yapar.
+[functions.assistant]
+verify_jwt = false

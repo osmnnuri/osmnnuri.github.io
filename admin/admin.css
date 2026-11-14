@@ -1,27 +1,33 @@
 :root {
-    --bg: #0e1313;
-    --surface: #151c1c;
-    --surface-2: #1b2424;
-    --surface-3: #222d2d;
-    --border: rgba(255, 255, 255, 0.09);
-    --border-strong: rgba(255, 255, 255, 0.18);
-    --text: #e8eeee;
-    --text-2: #c3cdcd;
-    --muted: #94a3a3;
-    --accent: #11d6d6;
-    --accent-hover: #3fe3e3;
-    --accent-soft: rgba(17, 214, 214, 0.12);
-    --accent-ink: #052626;
+    /* Tema: bütün arayüz rengi bu üç değerden türer (ton, açıklık, doygunluk). hud.js ayarlardan günceller. */
+    --h: 245;
+    --al: 0.8;
+    --ac: 0.14;
+    --bg: oklch(0.13 0.025 var(--h));
+    --surface: oklch(0.175 0.035 var(--h));
+    --surface-2: oklch(0.215 0.042 var(--h));
+    --surface-3: oklch(0.265 0.05 var(--h));
+    --border: oklch(var(--al) var(--ac) var(--h) / 0.2);
+    --border-strong: oklch(var(--al) var(--ac) var(--h) / 0.42);
+    --text: oklch(0.955 0.018 var(--h));
+    --text-2: oklch(0.87 0.035 var(--h));
+    --muted: oklch(0.71 0.05 var(--h));
+    --accent: oklch(var(--al) var(--ac) var(--h));
+    --accent-hover: oklch(calc(var(--al) + 0.07) var(--ac) var(--h));
+    --accent-dim: oklch(var(--al) var(--ac) var(--h) / 0.55);
+    --accent-soft: oklch(var(--al) var(--ac) var(--h) / 0.13);
+    --accent-ink: oklch(0.16 0.04 var(--h));
+    --glow: 0 0 14px oklch(var(--al) var(--ac) var(--h) / 0.5);
     --warn: #f2c14e;
     --warn-soft: rgba(242, 193, 78, 0.14);
     --danger: #ff7a7a;
     --danger-soft: rgba(255, 122, 122, 0.12);
     --violet: #b9a3ff;
     --violet-soft: rgba(185, 163, 255, 0.14);
-    --radius: 12px;
-    --font-display: 'Fraunces', Georgia, serif;
-    --font-body: 'Figtree', 'Segoe UI', system-ui, Arial, sans-serif;
-    --font-mono: 'Cascadia Code', Consolas, 'Courier New', monospace;
+    --radius: 2px;
+    --font-display: 'Chakra Petch', 'Segoe UI', system-ui, sans-serif;
+    --font-body: 'Exo 2', 'Segoe UI', system-ui, Arial, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Cascadia Code', Consolas, 'Courier New', monospace;
     color-scheme: dark;
 }
 

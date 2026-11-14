@@ -5,6 +5,7 @@ const initialHash = location.hash; // davet / şifre sıfırlama bağlantıları
 const { url: SB_URL, key: SB_KEY } = window.SUPABASE_CONFIG;
 const sb = createClient(SB_URL, SB_KEY);
 const SITE_ROOT = new URL("../", location.href).href;
+window.panel = { sb }; // hud.js ve assistant.js aynı oturumu kullanır
 
 // ===== Yardımcılar =====
 const $ = (sel, root = document) => root.querySelector(sel);

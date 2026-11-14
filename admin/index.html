@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
-    <meta name="theme-color" content="#0e1313">
+    <meta name="theme-color" content="#070b14">
     <title>Yönetim Paneli | ONY</title>
     <link rel="icon" type="image/png" href="../görseller/icons/favicon.png">
     <link rel="manifest" href="manifest.webmanifest">
@@ -13,10 +13,23 @@
     <meta name="apple-mobile-web-app-title" content="ONY Panel">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@1,9..144,300..700,100&family=Figtree:ital,wght@0,400..700;1,400..700&display=swap">
-    <link rel="stylesheet" href="admin.css?v=3">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Exo+2:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400;500&display=swap">
+    <link rel="stylesheet" href="admin.css?v=4">
+    <link rel="stylesheet" href="hud.css?v=1">
+    <script src="hud.js?v=1"></script>
 </head>
 <body>
+    <!-- ===== Açılış ekranı (hud.js kaldırır) ===== -->
+    <div class="boot" id="boot" aria-hidden="true">
+        <div class="boot-ring"></div>
+        <ul class="boot-lines">
+            <li>Çekirdek başlatılıyor</li>
+            <li>Arayüz katmanı yükleniyor</li>
+            <li>Güvenli bağlantı kuruluyor</li>
+            <li>Sistem hazır</li>
+        </ul>
+    </div>
+
     <!-- ===== Giriş ===== -->
     <section class="login" id="loginView" hidden>
         <form class="login-card" id="loginForm">
@@ -57,6 +70,19 @@
         </aside>
 
         <main class="main" id="main">
+            <!-- Durum şeridi -->
+            <header class="hud-bar">
+                <div class="hud-id"><i class="hud-dot" id="hudDot"></i><span id="hudSector">Sektör 01</span><strong id="hudView">Haber Ağı</strong></div>
+                <div class="hud-ticks" aria-hidden="true"></div>
+                <ul class="hud-readouts">
+                    <li><span>Okunmamış</span><b id="hudUnread">0</b></li>
+                    <li><span>Son tarama</span><b id="hudSync">—</b></li>
+                    <li><span>Bağlantı</span><b id="hudLink">Çevrimiçi</b></li>
+                </ul>
+                <time class="hud-clock" id="hudClock"></time>
+                <button type="button" class="hud-btn" id="hudSettingsBtn" aria-label="Arayüz ayarları" title="Arayüz ayarları">◈</button>
+            </header>
+
             <!-- Haber ağı -->
             <section class="view" data-view="haberler" hidden>
                 <header class="view-head">
@@ -435,10 +461,71 @@
 
     <div class="toast-stack" id="toasts" aria-live="polite"></div>
 
+    <!-- ===== Arayüz ayarları ===== -->
+    <dialog class="hud-dialog" id="hudSettings" aria-labelledby="hudSettingsTitle">
+        <form method="dialog" id="hudSettingsForm">
+            <header>
+                <h2 id="hudSettingsTitle">Arayüz ayarları</h2>
+                <button type="submit" class="btn small">Kapat</button>
+            </header>
+
+            <fieldset>
+                <legend>Renk</legend>
+                <div class="swatches" id="hudSwatches" role="group" aria-label="Hazır renkler"></div>
+                <label>Özel ton<input type="range" class="hue-range" name="hue" min="0" max="360" step="1"></label>
+            </fieldset>
+
+            <fieldset>
+                <legend>Asistan</legend>
+                <div class="row">
+                    <label>Asistanın adı<input name="name" class="input" maxlength="24" autocomplete="off" required></label>
+                    <label>Ses<select name="voice" class="input"></select></label>
+                </div>
+                <label>Konuşma hızı<input type="range" name="rate" min="0.7" max="1.5" step="0.05"></label>
+                <label class="check"><input type="checkbox" name="speak"> Yanıtları sesli oku</label>
+                <label class="check"><input type="checkbox" name="sfx"> Ses efektleri</label>
+                <label class="check"><input type="checkbox" name="wake"> <span>"Hey <span data-ai-name></span>" deyince uyan</span></label>
+                <small class="muted" id="hudVoiceNote"></small>
+            </fieldset>
+
+            <fieldset>
+                <legend>Hareket</legend>
+                <label class="check"><input type="checkbox" name="motion"> Animasyonlar açık</label>
+            </fieldset>
+        </form>
+    </dialog>
+
+    <!-- ===== Sesli asistan ===== -->
+    <div class="ai" id="ai" data-state="idle" hidden>
+        <section class="ai-panel" id="aiPanel" aria-label="Asistan" hidden>
+            <header class="ai-head">
+                <span class="ai-name" data-ai-name></span>
+                <span class="ai-status" id="aiStatus">Hazır</span>
+                <button type="button" id="aiClose" aria-label="Asistanı kapat">✕</button>
+            </header>
+            <div class="ai-stage"><canvas class="ai-holo" id="aiHolo"></canvas></div>
+            <div class="ai-log" id="aiLog" aria-live="polite"></div>
+            <p class="ai-interim" id="aiInterim"></p>
+            <form class="ai-form" id="aiForm" autocomplete="off">
+                <input class="input" id="aiInput" placeholder="Komut yazın..." aria-label="Asistana komut yazın">
+                <button type="button" id="aiMic" aria-label="Sesle komut ver" aria-pressed="false" title="Sesle komut ver (Ctrl+Boşluk)">●</button>
+                <button type="submit" aria-label="Gönder">➤</button>
+            </form>
+            <div class="ai-hints" id="aiHints">
+                <button type="button" class="chip" data-say="Durum raporu ver">Durum raporu</button>
+                <button type="button" class="chip" data-say="Raporu özetle">Raporu özetle</button>
+                <button type="button" class="chip" data-say="En önemli haberleri oku">Öne çıkanlar</button>
+                <button type="button" class="chip" data-say="Ne yapabilirsin?">Komutlar</button>
+            </div>
+        </section>
+        <button type="button" class="ai-orb" id="aiOrb" aria-label="Asistanı aç" aria-expanded="false" title="Asistan (Ctrl+Boşluk)"><canvas id="aiOrbCanvas"></canvas></button>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js" integrity="sha384-/TQbtLCAerC3jgaim+N78RZSDYV7ryeoBCVqTuzRrFec2akfBkHS7ACQ3PQhvMVi" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js" integrity="sha384-+VfUPEb0PdtChMwmBcBmykRMDd+v6D/oFmB3rZM/puCMDYcIvF968OimRh4KQY9a" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/mammoth@1.8.0/mammoth.browser.min.js" integrity="sha384-/cXAMbzovUIKbBERjPmR3SnPTh8siWr5lsvFYj1Uq4XP0yaJUZJmsh0YXyGv5P0y" crossorigin="anonymous" defer></script>
     <script src="../javascript/supabase-config.js?v=1"></script>
-    <script type="module" src="admin.js?v=4"></script>
+    <script type="module" src="admin.js?v=5"></script>
+    <script src="assistant.js?v=1" defer></script>
 </body>
 </html>

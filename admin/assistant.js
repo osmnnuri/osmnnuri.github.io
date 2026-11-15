@@ -11,7 +11,10 @@
     const canSpeak = "speechSynthesis" in window;
     const isMobile = /Android|iPhone|iPad|iPod/.test(navigator.userAgent);
 
-    const ai = $("#ai"), panel = $("#aiPanel"), orb = $("#aiOrb"), logEl = $("#aiLog"), interimEl = $("#aiInterim"), micBtn = $("#aiMic");
+    // Asistan kokpitin alt ortasındaki konsolda yaşar: solda konuşma, ortada altıgen (konuş düğmesi), sağda seçenekler
+    const ai = $("#ai"), hexBtn = $("#aiHexBtn"), hexCanvas = $("#aiHex"), logEl = $("#aiLog"), interimEl = $("#aiInterim"), micBtn = $("#aiMic");
+    const logBtn = $("#aiLogBtn"), optsBtn = $("#conOptsBtn");
+    const narrow = matchMedia("(max-width: 760px)");
 
     // ===== Durum =====
     let state = "idle"; // idle | listening | thinking | speaking
@@ -131,7 +134,7 @@
     let color = "#5cc8ff";
     let phase = 0, level = 0.1, lastFrame = 0;
 
-    function readColor() { color = getComputedStyle(orb).color; }
+    function readColor() { color = getComputedStyle(hexBtn).color; }
 
     function draw(canvas, t) {
         const size = canvas.clientWidth;
@@ -191,8 +194,7 @@
     }
 
     function drawAll(t) {
-        draw($("#aiOrbCanvas"), t);
-        if (!panel.hidden) draw($("#aiHolo"), t);
+        draw(hexCanvas, t);
     }
 
     function frame(t) {
@@ -217,20 +219,37 @@
         drawAll(t);
     }
 
-    // ===== Panel ve kayıt =====
+    // ===== Konsol ve kayıt =====
     const history = []; // edge function'a bağlam olarak giden son konuşmalar
 
+    // Masaüstünde konuşma konsolun solunda hep görünür; mobilde alttan açılan sayfadadır
+    function setSheet(name) {
+        if (name) ai.dataset.sheet = name; else ai.removeAttribute("data-sheet");
+        optsBtn.setAttribute("aria-expanded", String(name === "opts"));
+    }
+
+    function setLog(on) {
+        ai.classList.toggle("is-log", on);
+        logBtn.setAttribute("aria-expanded", String(on));
+        logBtn.textContent = on ? "Kayıt ▾" : "Kayıt ▴";
+        logBtn.title = on ? "Konuşma kaydını küçült" : "Konuşma kaydını büyüt";
+        logEl.scrollTop = logEl.scrollHeight;
+    }
+
     function openPanel() {
-        if (!panel.hidden) return;
-        panel.hidden = false;
-        orb.setAttribute("aria-expanded", "true");
-        if (!logEl.children.length) say(`Merhaba, ben ${S.name}. Mikrofona basıp konuşabilir ya da yazabilirsin. Neler yapabildiğimi görmek için "Ne yapabilirsin?" de.`, false);
+        if (narrow.matches) setSheet("talk");
         if (!S.motion) drawAll(performance.now());
     }
 
+    const panelOpen = () => !!ai.dataset.sheet || ai.classList.contains("is-log");
+
     function closePanel() {
-        panel.hidden = true;
-        orb.setAttribute("aria-expanded", "false");
+        setSheet(null);
+        setLog(false);
+    }
+
+    function greet() {
+        if (!logEl.children.length) say(`Merhaba, ben ${S.name}. Altıgene basıp konuşabilir ya da yazabilirsin. Neler yapabildiğimi görmek için "Ne yapabilirsin?" de.`, false);
     }
 
     function addLine(kind, text) {
@@ -285,11 +304,15 @@
         },
         async overview(on) {
             window.SPACE?.overview(on !== false && on !== "off");
-            return on === false || on === "off" ? "Pencereye döndüm." : "Genel görünüm açıldı. Bir pencere seçebilirsin.";
+            return on === false || on === "off" ? "Kokpite döndüm." : "Genel görünüm açıldı. Bir sayfa seçebilirsin.";
         },
         async reset_layout() {
             window.SPACE?.reset();
-            return "Pencereler başlangıç yerlerine döndü.";
+            return "Kokpit düzeni başlangıç sırasına döndü.";
+        },
+        async rotate(direction) {
+            window.SPACE?.step(direction === "prev" ? -1 : 1);
+            return "";
         },
         async filter_kind(kind) {
             if (!KIND_NAMES[kind]) return "";
@@ -389,7 +412,7 @@
             return "Arayüz ayarları açıldı.";
         },
         async scroll(direction) {
-            const box = window.SPACE?.scroller(); // öndeki pencere kendi içinde kayar
+            const box = window.SPACE?.scroller(); // ortadaki ekran kendi içinde kayar
             const target = box || window;
             const height = box ? box.clientHeight : innerHeight;
             if (direction === "top") target.scrollTo({ top: 0, behavior: "smooth" });
@@ -405,7 +428,7 @@
 • "Haberleri yenile", "Hepsini okundu say", "Raporu şimdi oluştur"
 • "İlanları göster", "Yapay zeka ara", "En yeniye göre sırala"
 • "Projelere git", "Yeni yazı aç", "Yeni proje aç"
-• "Genel görünüm", "Pencereleri sıfırla"
+• "Sonraki ekran", "Önceki ekran", "Genel görünüm", "Düzeni sıfırla"
 • "Rengi kırmızı yap", "Arayüz ayarlarını aç"
 • "Adın Atlas olsun", "Sesi kapat", "Sus"
 Bunların dışındaki soruları yapay zekaya sorarım. Silme ve yayınlama işlemlerini yapmam.`;
@@ -445,8 +468,9 @@ Bunların dışındaki soruları yapay zekaya sorarım. Silme ve yayınlama işl
         [f => /en yeni|tarihe gore/.test(f), () => ACTIONS.sort_news("new")],
         [f => /oncelige gore|puana gore/.test(f), () => ACTIONS.sort_news("rank")],
         [(f, raw) => raw.match(/^(?:haberlerde\s+)?(.+?)\s+(?:ara|arat|bul)[.!]?$/i) || (/haber|goster|listele/.test(f) && raw.match(/^(.+?)\s+(?:ile ilgili|hakk[ıi]nda)\b/i)), m => ACTIONS.search_news(m[1])],
-        [f => /(pencere|duzen)\w* (sifirla|topla|toparla)|duzeni sifirla/.test(f), () => ACTIONS.reset_layout()],
-        [f => /genel gorunum|tum pencereler|pencereleri goster|kus bakisi/.test(f), (m, f) => ACTIONS.overview(!/kapat|cik/.test(f))],
+        [f => /(pencere|duzen|kokpit)\w* (sifirla|topla|toparla)|duzeni sifirla/.test(f), () => ACTIONS.reset_layout()],
+        [f => /genel gorunum|tum (pencereler|sayfalar|ekranlar)|(pencereleri|sayfalari|ekranlari) goster|kus bakisi/.test(f), (m, f) => ACTIONS.overview(!/kapat|cik/.test(f))],
+        [f => /\b(sonraki|onceki|sagdaki|soldaki) (ekran|sayfa)/.test(f) || /^(ileri|geri)$/.test(f), (m, f) => ACTIONS.rotate(/onceki|soldaki|geri/.test(f) ? "prev" : "next")],
         [f => /asagi/.test(f) && "down" || /en uste|basa don/.test(f) && "top" || /yukari/.test(f) && "up", d => ACTIONS.scroll(d)],
         [f => (NAV_VERB.test(f) || f.split(" ").length <= 2) && VIEW_WORDS.find(([, re]) => re.test(f)), v => ACTIONS.navigate(v[0])],
         [f => /saat kac/.test(f), () => `Saat ${new Date().toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" })}.`],
@@ -457,7 +481,7 @@ Bunların dışındaki soruları yapay zekaya sorarım. Silme ve yayınlama işl
     ];
 
     // Toplu değişiklik ve bildirim gönderen eylemler yalnızca açık sabit komutla çalışır; yapay zeka tetikleyemez
-    const LOCAL_ONLY = ["mark_all_read", "make_report", "scroll", "overview", "reset_layout"];
+    const LOCAL_ONLY = ["mark_all_read", "make_report", "scroll", "overview", "reset_layout", "rotate"];
 
     // Tanınmayan cümle: yapay zekaya sor, döndürdüğü izinli eylemleri uygula
     async function askAI(raw) {
@@ -602,10 +626,11 @@ Bunların dışındaki soruları yapay zekaya sorarım. Silme ve yayınlama işl
     }
 
     // ===== Olaylar =====
-    orb.addEventListener("click", () => {
-        if (panel.hidden) { openPanel(); sfx("on"); } else closePanel();
-    });
-    $("#aiClose").addEventListener("click", closePanel);
+    hexBtn.addEventListener("click", listen);
+    logBtn.addEventListener("click", () => setLog(!ai.classList.contains("is-log")));
+    optsBtn.addEventListener("click", () => setSheet(ai.dataset.sheet === "opts" ? null : "opts"));
+    document.querySelectorAll("[data-sheet-close]").forEach(b => b.addEventListener("click", closePanel));
+    narrow.addEventListener("change", closePanel);
     micBtn.addEventListener("click", listen);
     $("#aiForm").addEventListener("submit", (event) => {
         event.preventDefault();
@@ -622,8 +647,8 @@ Bunların dışındaki soruları yapay zekaya sorarım. Silme ve yayınlama işl
     document.addEventListener("keydown", (event) => {
         if (ai.hidden) return;
         if (event.ctrlKey && event.code === "Space") { event.preventDefault(); listen(); }
-        else if (event.key === "Escape" && !panel.hidden && !$("#hudSettings").open) {
-            if (state === "speaking") stopSpeaking(); else closePanel();
+        else if (event.key === "Escape" && !$("#hudSettings").open) {
+            if (state === "speaking") stopSpeaking(); else if (panelOpen()) closePanel();
         }
     });
 
@@ -636,7 +661,7 @@ Bunların dışındaki soruları yapay zekaya sorarım. Silme ve yayınlama işl
 
     function onApp(visible) {
         ai.hidden = !visible;
-        if (visible) { readColor(); startWake(); if (!S.motion) requestAnimationFrame(drawAll); }
+        if (visible) { readColor(); greet(); startWake(); if (!S.motion) requestAnimationFrame(drawAll); }
         else { stopWake(); stopSpeaking(); rec?.abort(); closePanel(); }
     }
     window.addEventListener("hud:app", (event) => onApp(event.detail));

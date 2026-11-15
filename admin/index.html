@@ -6,17 +6,17 @@
     <meta name="robots" content="noindex, nofollow">
     <meta name="theme-color" content="#070b14">
     <title>Yönetim Paneli | ONY</title>
-    <link rel="icon" type="image/png" href="../görseller/icons/favicon.png">
-    <link rel="manifest" href="manifest.webmanifest">
-    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    <link rel="icon" type="image/png" sizes="64x64" href="icons/favicon-64.png?v=2">
+    <link rel="manifest" href="manifest.webmanifest?v=2">
+    <link rel="apple-touch-icon" href="icons/icon-192.png?v=2">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="ONY Panel">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Exo+2:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400;500&display=swap">
     <link rel="stylesheet" href="admin.css?v=5">
-    <link rel="stylesheet" href="hud.css?v=2">
-    <link rel="stylesheet" href="space.css?v=1">
+    <link rel="stylesheet" href="hud.css?v=3">
+    <link rel="stylesheet" href="space.css?v=2">
     <script src="hud.js?v=1"></script>
 </head>
 <body>
@@ -54,20 +54,26 @@
 
     <!-- ===== Uygulama ===== -->
     <div class="app" id="appView" hidden>
-        <!-- Durum şeridi -->
-        <header class="hud-bar">
-            <a class="brand" href="#haberler">ONY <em>Panel</em></a>
-            <div class="hud-id"><i class="hud-dot" id="hudDot"></i><span id="hudSector">Sektör 01</span><strong id="hudView">Haber Ağı</strong></div>
-            <div class="hud-ticks" aria-hidden="true"></div>
-            <ul class="hud-readouts">
-                <li><span>Okunmamış</span><b id="hudUnread">0</b></li>
-                <li><span>Son tarama</span><b id="hudSync">—</b></li>
-                <li><span>Bağlantı</span><b id="hudLink">Çevrimiçi</b></li>
-            </ul>
-            <time class="hud-clock" id="hudClock"></time>
-            <button type="button" class="hud-btn" id="spaceBtn" aria-pressed="false" aria-label="Genel görünüm" title="Genel görünüm (Alt+G)">⧉</button>
-            <button type="button" class="hud-btn" id="hudSettingsBtn" aria-label="Arayüz ayarları" title="Arayüz ayarları">◈</button>
-            <button type="button" class="hud-btn" id="userMenuBtn" popovertarget="userMenu" aria-label="Hesap" title="Hesap">◍</button>
+        <!-- Vizör: kanatların arasında, ana ekranın üstünde asılı durum şeridi; alttaki Nova konsoluyla simetriktir -->
+        <header class="hud-bar visor">
+            <div class="visor-side visor-l">
+                <a class="brand" href="#haberler">ONY <em>Panel</em></a>
+                <div class="hud-id"><i class="hud-dot" id="hudDot"></i><span id="hudSector">Sektör 01</span><strong id="hudView">Haber Ağı</strong></div>
+            </div>
+            <div class="visor-core">
+                <time class="hud-clock" id="hudClock"></time>
+                <div class="ring-ticks" id="ringTicks" role="group" aria-label="Halkadaki sayfalar"></div>
+            </div>
+            <div class="visor-side visor-r">
+                <ul class="hud-readouts">
+                    <li><span>Okunmamış</span><b id="hudUnread">0</b></li>
+                    <li><span>Son tarama</span><b id="hudSync">—</b></li>
+                    <li><span>Bağlantı</span><b id="hudLink">Çevrimiçi</b></li>
+                </ul>
+                <button type="button" class="hud-btn" id="spaceBtn" data-overview aria-pressed="false" aria-label="Genel görünüm" title="Genel görünüm (Alt+G)">⧉</button>
+                <button type="button" class="hud-btn" id="hudSettingsBtn" aria-label="Arayüz ayarları" title="Arayüz ayarları">◈</button>
+                <button type="button" class="hud-btn" id="userMenuBtn" popovertarget="userMenu" aria-label="Hesap" title="Hesap">◍</button>
+            </div>
             <div class="user-menu" id="userMenu" popover>
                 <span class="muted small" id="userEmail"></span>
                 <a href="../" target="_blank" rel="noopener" class="side-link">Siteyi aç &nearr;</a>
@@ -84,8 +90,9 @@
             <a href="#bildirimler" data-view="bildirimler"><span class="ico" aria-hidden="true">⚑</span><span>Bildirimler</span></a>
         </nav>
 
-        <!-- Uzay: her bölüm bir pencere; öndeki, admin.js'nin açtığı bölümdür (space.js) -->
+        <!-- Kokpit: beş bölüm bir halkada; ortadaki ekran admin.js'nin açtığı bölümdür, kanatlar halkadaki komşularıdır (space.js) -->
         <main class="space" id="main">
+            <div class="ck-probe" id="ckProbe" aria-hidden="true"></div>
             <!-- Haber ağı -->
             <div class="win" data-win="haberler" role="region" aria-labelledby="winT-haberler">
             <header class="win-bar">
@@ -501,9 +508,13 @@
             </div>
             </div>
 
+            <!-- Mobilde kanatların yerini tutan kenar ışıkları: önceki / sonraki sayfa -->
+            <button type="button" class="sliver l" id="sliverPrev" aria-label="Önceki sayfa"></button>
+            <button type="button" class="sliver r" id="sliverNext" aria-label="Sonraki sayfa"></button>
+
             <!-- Genel görünümde altta duran ipucu şeridi -->
             <div class="space-hint" id="spaceHint" hidden>
-                <span><b>Genel görünüm</b><i class="hint-more"> · Bir pencere seçin, sürükleyerek yerini değiştirin · Esc ile dönün</i></span>
+                <span><b>Genel görünüm</b><i class="hint-more"> · Bir sayfa seçin, sürükleyerek halkadaki yerini değiştirin · Esc ile dönün</i></span>
                 <button type="button" class="btn small" data-space-reset>Düzeni sıfırla</button>
             </div>
         </main>
@@ -544,22 +555,22 @@
             </fieldset>
 
             <fieldset>
-                <legend>Pencereler</legend>
-                <p class="muted small">Pencereleri başlık çubuğundan sürükleyerek uzayda istediğiniz yere taşıyabilirsiniz. Yerleri bu cihazda saklanır.</p>
-                <div class="btn-row"><button type="button" class="btn small" data-space-reset>Pencere düzenini sıfırla</button></div>
+                <legend>Kokpit</legend>
+                <p class="muted small">Ekranlar arasında geçmek için sayfayı başlık çubuğundan ya da kanattan yana kaydırın (← / → tuşları da çalışır). Bir sayfayı başlığından basılı tutup başka bir ekrana bırakırsanız ikisi yer değiştirir. Düzen bu cihazda saklanır.</p>
+                <div class="btn-row"><button type="button" class="btn small" data-space-reset>Kokpit düzenini sıfırla</button></div>
             </fieldset>
         </form>
     </dialog>
 
-    <!-- ===== Sesli asistan ===== -->
-    <div class="ai" id="ai" data-state="idle" hidden>
-        <section class="ai-panel" id="aiPanel" aria-label="Asistan" hidden>
-            <header class="ai-head">
-                <span class="ai-name" data-ai-name></span>
-                <span class="ai-status" id="aiStatus">Hazır</span>
-                <button type="button" id="aiClose" aria-label="Asistanı kapat">✕</button>
+    <!-- ===== Nova konsolu: kokpitin alt ortası. Sol: konuşma, orta: altıgen (konuş düğmesi), sağ: sayfalar ve seçenekler.
+         Konuşma assistant.js'de, sayfa seçici ve daraltma space.js'de. Mobilde alt çubuk olur, iki yan bölüm alttan açılan sayfalara dönüşür. ===== -->
+    <section class="ai console" id="ai" data-state="idle" aria-label="Asistan konsolu" hidden>
+        <div class="con-talk" id="aiTalk">
+            <header class="con-head">
+                <span class="con-label"><span data-ai-name></span> · Kontrol paneli</span>
+                <button type="button" class="con-mini" id="aiLogBtn" aria-expanded="false" aria-controls="aiLog" title="Konuşma kaydını büyüt">Kayıt ▴</button>
+                <button type="button" class="con-mini con-close" data-sheet-close aria-label="Kapat">✕</button>
             </header>
-            <div class="ai-stage"><canvas class="ai-holo" id="aiHolo"></canvas></div>
             <div class="ai-log" id="aiLog" aria-live="polite"></div>
             <p class="ai-interim" id="aiInterim"></p>
             <form class="ai-form" id="aiForm" autocomplete="off">
@@ -567,22 +578,41 @@
                 <button type="button" id="aiMic" aria-label="Sesle komut ver" aria-pressed="false" title="Sesle komut ver (Ctrl+Boşluk)">●</button>
                 <button type="submit" aria-label="Gönder">➤</button>
             </form>
+        </div>
+
+        <div class="con-core">
+            <button type="button" class="hex" id="aiHexBtn" aria-label="Asistanla konuş" title="Konuş (Ctrl+Boşluk)"><canvas id="aiHex" aria-hidden="true"></canvas></button>
+            <span class="ai-name" data-ai-name></span>
+            <span class="ai-status" id="aiStatus">Hazır</span>
+        </div>
+
+        <div class="con-opts" id="aiOpts">
+            <header class="con-head">
+                <span class="con-label">Seçenekler</span>
+                <button type="button" class="con-mini" data-overview aria-pressed="false" title="Genel görünüm (Alt+G)">⧉ Genel</button>
+                <button type="button" class="con-mini" data-settings title="Arayüz ayarları">◈ Ayarlar</button>
+                <button type="button" class="con-mini con-close" data-sheet-close aria-label="Kapat">✕</button>
+            </header>
+            <div class="page-chips" id="pageChips" role="group" aria-label="Sayfalar: tıklayınca ortaya gelir, sürükleyip bir ekrana bırakılabilir"></div>
             <div class="ai-hints" id="aiHints">
                 <button type="button" class="chip" data-say="Durum raporu ver">Durum raporu</button>
                 <button type="button" class="chip" data-say="Raporu özetle">Raporu özetle</button>
                 <button type="button" class="chip" data-say="En önemli haberleri oku">Öne çıkanlar</button>
                 <button type="button" class="chip" data-say="Ne yapabilirsin?">Komutlar</button>
             </div>
-        </section>
-        <button type="button" class="ai-orb" id="aiOrb" aria-label="Asistanı aç" aria-expanded="false" title="Asistan (Ctrl+Boşluk)"><canvas id="aiOrbCanvas"></canvas></button>
-    </div>
+        </div>
+
+        <button type="button" class="con-mbtn" id="conPagesBtn" data-overview aria-pressed="false"><span aria-hidden="true">⧉</span> Sayfalar</button>
+        <button type="button" class="con-mbtn" id="conOptsBtn" aria-expanded="false" aria-controls="aiOpts"><span aria-hidden="true">☰</span> Seçenekler</button>
+        <button type="button" class="con-toggle" id="consoleToggle" aria-expanded="true" title="Konsolu daralt">▾</button>
+    </section>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js" integrity="sha384-/TQbtLCAerC3jgaim+N78RZSDYV7ryeoBCVqTuzRrFec2akfBkHS7ACQ3PQhvMVi" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js" integrity="sha384-+VfUPEb0PdtChMwmBcBmykRMDd+v6D/oFmB3rZM/puCMDYcIvF968OimRh4KQY9a" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/mammoth@1.8.0/mammoth.browser.min.js" integrity="sha384-/cXAMbzovUIKbBERjPmR3SnPTh8siWr5lsvFYj1Uq4XP0yaJUZJmsh0YXyGv5P0y" crossorigin="anonymous" defer></script>
     <script src="../javascript/supabase-config.js?v=1"></script>
     <script type="module" src="admin.js?v=6"></script>
-    <script src="space.js?v=1" defer></script>
-    <script src="assistant.js?v=2" defer></script>
+    <script src="space.js?v=2" defer></script>
+    <script src="assistant.js?v=3" defer></script>
 </body>
 </html>

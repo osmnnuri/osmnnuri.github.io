@@ -17,6 +17,7 @@ function toast(message, type = "ok") {
     el.className = `toast${type === "err" ? " err" : ""}`;
     el.textContent = message;
     $("#toasts").append(el);
+    window.SFX?.play(type === "err" ? "err" : "notify");
     setTimeout(() => el.remove(), type === "err" ? 7000 : 3500);
 }
 

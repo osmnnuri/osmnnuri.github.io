@@ -21,6 +21,7 @@
     const STATUS = { idle: "Hazır", listening: "Dinliyorum", thinking: "İşleniyor", speaking: "Konuşuyor" };
 
     function setState(next) {
+        if (next === "thinking" && state !== "thinking") sfx("think");
         state = next;
         ai.dataset.state = next;
         $("#aiStatus").textContent = next === "idle" && wakeRec ? `"Hey ${S.name}" bekleniyor` : STATUS[next];
@@ -48,25 +49,9 @@
     }
 
     // ===== Ses efektleri =====
-    let audio;
-    function sfx(kind) {
-        if (!S.sfx) return;
-        try {
-            audio ||= new AudioContext();
-            const notes = { on: [660, 990], off: [520, 390], ok: [880], err: [220, 170] }[kind];
-            notes.forEach((freq, i) => {
-                const osc = audio.createOscillator(), gain = audio.createGain();
-                const t = audio.currentTime + i * 0.09;
-                osc.frequency.value = freq;
-                gain.gain.setValueAtTime(0.0001, t);
-                gain.gain.linearRampToValueAtTime(0.06, t + 0.012);
-                gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.15);
-                osc.connect(gain).connect(audio.destination);
-                osc.start(t);
-                osc.stop(t + 0.17);
-            });
-        } catch { /* ses yoksa sessiz devam */ }
-    }
+    // Sesler sfx.js'te sentezlenir; ayardaki "Ses efektleri" orada denetlenir
+    let audio; // mikrofon seviyesi ölçümü için
+    const sfx = (kind) => window.SFX?.play(kind);
 
     // ===== Sesli yanıt =====
     let speakToken = 0;
@@ -97,7 +82,7 @@
                 u.lang = "tr-TR";
                 if (voice) u.voice = voice;
                 u.rate = S.rate;
-                u.onboundary = () => { speakPulse = 1; };
+                u.onboundary = () => { speakPulse = 1; sfx("chatter"); }; // her sözcükte dijital cıvıltı
                 u.onend = next;
                 u.onerror = () => resolve();
                 speechSynthesis.speak(u);
@@ -265,6 +250,7 @@
     // Yanıtı yazar; `aloud` verilirse onu, verilmezse metnin kendisini seslendirir
     function say(text, aloud = text) {
         addLine("bot", text);
+        sfx("reply"); // yanıt gelirken veri cıvıltısı
         return aloud === false ? Promise.resolve() : speak(aloud);
     }
 
@@ -496,7 +482,7 @@ Bunların dışındaki soruları yapay zekaya sorarım. Silme ve yayınlama işl
         }
         const parts = [String(data.say || "").trim()];
         for (const a of (data.actions || []).slice(0, 4)) {
-            if (Object.hasOwn(ACTIONS, a.type) && !LOCAL_ONLY.includes(a.type)) parts.push(await ACTIONS[a.type](a.value));
+            if (Object.hasOwn(ACTIONS, a.type) && !LOCAL_ONLY.includes(a.type)) { sfx("ok"); parts.push(await ACTIONS[a.type](a.value)); }
         }
         return parts.filter(Boolean).join(" ") || "Bunu anlayamadım.";
     }
@@ -514,6 +500,7 @@ Bunların dışındaki soruları yapay zekaya sorarım. Silme ve yayınlama işl
         openPanel();
         interimEl.textContent = "";
         addLine("you", raw);
+        sfx("send");
         setState("thinking");
         const f = fold(raw);
         try {
@@ -523,12 +510,12 @@ Bunların dışındaki soruları yapay zekaya sorarım. Silme ve yayınlama işl
                 const m = test(f, raw);
                 if (!m) continue;
                 matched = true;
+                sfx("ok");
                 reply = await run(m, f, raw);
                 break;
             }
             if (!matched) reply = await askAI(raw);
             if (reply) {
-                sfx("ok");
                 if (typeof reply === "string") await say(reply);
                 else await say(reply.text, reply.aloud);
             }
@@ -628,6 +615,7 @@ Bunların dışındaki soruları yapay zekaya sorarım. Silme ve yayınlama işl
     // ===== Olaylar =====
     hexBtn.addEventListener("click", listen);
     logBtn.addEventListener("click", () => setLog(!ai.classList.contains("is-log")));
+    ai.addEventListener("console:slim", () => setLog(false));
     optsBtn.addEventListener("click", () => setSheet(ai.dataset.sheet === "opts" ? null : "opts"));
     document.querySelectorAll("[data-sheet-close]").forEach(b => b.addEventListener("click", closePanel));
     narrow.addEventListener("change", closePanel);

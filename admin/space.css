@@ -620,11 +620,12 @@ html.in-space, html.in-space body { overflow: hidden; overscroll-behavior: none;
 .console.is-slim :is(.pc-name, .pc-slot) { display: none; }
 
 /* Konuşma kaydı büyütülünce konsol yukarı doğru uzar (ana ekranın üstüne biner, yerleşimi değiştirmez) */
-.console.is-log { height: min(72vh, calc(var(--ck-dock) + 360px)); animation: conRise 0.3s var(--ease-fly) both; }
+/* İnce çubukta kayıt büyütülmez: büyütme düğmesi orada gizli olduğundan konsol uzun kalır ve kapatılamazdı */
+.console.is-log:not(.is-slim) { height: min(72vh, calc(var(--ck-dock) + 360px)); animation: conRise 0.3s var(--ease-fly) both; }
 
-.console.is-log .con-opts { align-content: end; }
+.console.is-log:not(.is-slim) .con-opts { align-content: end; }
 
-.console.is-log .con-core { align-content: end; }
+.console.is-log:not(.is-slim) .con-core { align-content: end; }
 
 @keyframes conRise {
     from { transform: translateY(24px); opacity: 0.6; }

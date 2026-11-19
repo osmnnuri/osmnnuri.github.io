@@ -398,6 +398,7 @@
         on = !!on;
         if (on === overview) return;
         overview = on;
+        window.SFX?.play(on ? "open" : "close");
         space.classList.toggle("is-overview", on);
         hint.hidden = !on;
         $$("[data-overview]").forEach(b => b.setAttribute("aria-pressed", String(on)));
@@ -428,6 +429,8 @@
         dock.classList.toggle("is-slim", store.slim);
         toggle.setAttribute("aria-expanded", String(!store.slim));
         toggle.title = store.slim ? "Konsolu aç" : "Konsolu daralt";
+        window.SFX?.play(store.slim ? "close" : "open");
+        if (store.slim) dock.dispatchEvent(new CustomEvent("console:slim")); // açık konuşma kaydı da kapansın
         if (!G) return;
         layout();
         animateTo(Math.round(ringPos));

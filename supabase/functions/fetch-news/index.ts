@@ -161,12 +161,11 @@ async function fetchSource(src: Source) {
             .slice(0, MAX_PER_SOURCE)
             .map((i) => ({ ...i, url: i.url.trim(), title: i.title.slice(0, 300), source_id: src.id, kind: src.kind }));
 
+        // insert_news_items: url veya içerik anahtarı (dedup_key) daha önce görülmüşse satır eklenmez.
+        // Böylece aynı ilan/haber farklı URL ile gelse de yeniden eklenmez ve yeniden bildirilmez.
         let inserted = 0;
         if (rows.length) {
-            const { data, error } = await admin
-                .from("news_items")
-                .upsert(rows, { onConflict: "url", ignoreDuplicates: true })
-                .select("id");
+            const { data, error } = await admin.rpc("insert_news_items", { p_rows: rows });
             if (error) throw new Error(error.message);
             inserted = data?.length ?? 0;
         }

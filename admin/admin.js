@@ -132,6 +132,8 @@ async function enterApp() {
     }
     const { data: { user } } = await sb.auth.getUser();
     $("#userEmail").textContent = user?.email || "";
+    window.PREFS.attach(sb);
+    await window.PREFS.pull(); // tercihler panel açılmadan gelsin (en geç birkaç saniye; ulaşılamazsa önbellekle açılır)
     $("#loginView").hidden = true;
     $("#appView").hidden = false;
     route();
@@ -180,13 +182,14 @@ $("#newPassForm").addEventListener("submit", async (event) => {
 $("#logoutBtn").addEventListener("click", async () => {
     if (dirty && !confirm("Kaydedilmemiş değişiklikler var. Yine de çıkılsın mı?")) return;
     dirty = false;
+    await window.PREFS.flush(); // bekleyen tercih değişiklikleri oturum kapanmadan gitsin
     await sb.auth.signOut();
     showLogin();
 });
 
 sb.auth.onAuthStateChange((event) => {
     if (event === "PASSWORD_RECOVERY") showNewPassword();
-    if (event === "SIGNED_OUT") showLogin();
+    if (event === "SIGNED_OUT") { window.PREFS.detach(); showLogin(); }
 });
 
 async function boot() {
@@ -335,8 +338,25 @@ function showReport(id) {
     const body = $("#reportBody");
     body.innerHTML = renderBodyHtml(r.body_md, "markdown");
     body.querySelectorAll("a[href]").forEach(a => { a.target = "_blank"; a.rel = "noopener"; });
-    $("#reportDetails").open = r.report_date === today && reports[0] === r && !localStorage.getItem(`report-read-${r.id}`);
+    $("#reportDetails").open = r.report_date === today && reports[0] === r && !readReports().includes(r.id);
 }
+
+// Okunan raporlar merkezde tutulur (sync.js): bir cihazda okunan rapor diğerinde de kapalı gelir
+function readReports() {
+    try {
+        return Object.keys(localStorage).filter(k => k.startsWith("report-read-")).map(k => Number(k.slice(12))).filter(Number.isFinite).sort((a, b) => a - b);
+    } catch { return []; }
+}
+
+window.PREFS.register("reportsRead", {
+    get: () => readReports().slice(-60),
+    apply(ids) { // birleşim: iki cihazda okunanların hepsi okunmuş sayılır
+        if (!Array.isArray(ids)) return;
+        try { ids.filter(Number.isFinite).forEach(id => localStorage.setItem(`report-read-${id}`, "1")); } catch { /* depolama kapalı */ }
+        const all = readReports().slice(-60);
+        if (JSON.stringify(all) !== JSON.stringify(ids)) window.PREFS.push("reportsRead", all);
+    },
+});
 
 async function loadReports() {
     const card = $("#reportCard");
@@ -352,7 +372,10 @@ $("#reportSelect").addEventListener("change", e => showReport(e.target.value));
 $("#reportDetails").addEventListener("toggle", (e) => {
     // Okunan rapor bir sonraki açılışta kapalı gelsin
     const r = reports.find(x => String(x.id) === $("#reportSelect").value);
-    if (r && !e.target.open) { try { localStorage.setItem(`report-read-${r.id}`, "1"); } catch { /* depolama kapalı */ } }
+    if (r && !e.target.open && !readReports().includes(r.id)) {
+        try { localStorage.setItem(`report-read-${r.id}`, "1"); } catch { /* depolama kapalı */ }
+        window.PREFS.push("reportsRead", readReports().slice(-60));
+    }
 });
 
 async function openNews() {

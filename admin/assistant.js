@@ -233,19 +233,57 @@
         setLog(false);
     }
 
+    const greeting = () => `Merhaba, ben ${S.name}. Altıgene basıp konuşabilir ya da yazabilirsin. Neler yapabildiğimi görmek için "Ne yapabilirsin?" de.`;
+
     function greet() {
-        if (!logEl.children.length) say(`Merhaba, ben ${S.name}. Altıgene basıp konuşabilir ya da yazabilirsin. Neler yapabildiğimi görmek için "Ne yapabilirsin?" de.`, false);
+        // Selamlama kayda girmez: merkezdeki konuşma gelince yerini ona bırakır
+        if (logEl.children.length) return;
+        renderLine("bot", greeting()).dataset.greet = "";
+        sfx("reply");
     }
 
-    function addLine(kind, text) {
+    // Ad değişince ekrandaki selamlama da yeni adla yazılır
+    function renameGreeting() {
+        const p = logEl.querySelector("[data-greet]");
+        if (!p) return;
+        const old = p.textContent;
+        p.textContent = greeting();
+        const h = history.find(x => x.text === old.slice(0, 400));
+        if (h) h.text = p.textContent.slice(0, 400);
+    }
+
+    // Konuşma kaydı merkezde tutulur (sync.js): Nova hangi cihazdan açılırsa açılsın kaldığı yerden devam eder
+    const LOG_MAX = 40;
+    let saved = []; // [{ k: "you" | "bot", t: metin }]
+
+    function renderLine(kind, text) {
         const p = document.createElement("p");
         p.className = kind;
         p.textContent = text;
         logEl.append(p);
-        logEl.scrollTop = logEl.scrollHeight;
         history.push({ role: kind === "you" ? "user" : "assistant", text: text.slice(0, 400) });
         if (history.length > 8) history.shift();
+        return p;
     }
+
+    function addLine(kind, text) {
+        renderLine(kind, text);
+        logEl.scrollTop = logEl.scrollHeight;
+        saved = [...saved, { k: kind, t: text.slice(0, 1000) }].slice(-LOG_MAX);
+        window.PREFS?.push("novaLog", saved);
+    }
+
+    window.PREFS?.register("novaLog", {
+        get: () => saved,
+        apply(remote) {
+            if (!Array.isArray(remote)) return;
+            saved = remote.filter(l => l && (l.k === "you" || l.k === "bot") && typeof l.t === "string").slice(-LOG_MAX);
+            logEl.replaceChildren();
+            history.length = 0;
+            for (const l of saved) renderLine(l.k, l.t);
+            logEl.scrollTop = logEl.scrollHeight;
+        },
+    });
 
     // Yanıtı yazar; `aloud` verilirse onu, verilmezse metnin kendisini seslendirir
     function say(text, aloud = text) {
@@ -642,6 +680,7 @@ Bunların dışındaki soruları yapay zekaya sorarım. Silme ve yayınlama işl
 
     window.addEventListener("hud:change", (event) => {
         readColor();
+        if ("name" in event.detail) renameGreeting();
         if ("wake" in event.detail || "name" in event.detail) { stopWake(); startWake(); }
         if ("speak" in event.detail && !S.speak) stopSpeaking();
         setState(state);

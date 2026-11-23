@@ -1,5 +1,6 @@
 // ONY Panel HUD: tema rengi, arayüz ayarları, durum şeridi ve açılış ekranı.
-// <head> içinde yüklenir; renk ilk boyamadan önce uygulanır. Ayarlar bu cihazda (localStorage) saklanır.
+// <head> içinde yüklenir; renk ilk boyamadan önce uygulanır. Ayarlar merkezde (sync.js → admin_prefs) tutulur,
+// localStorage bu cihazdaki önbellektir; ses seçimi ve uyandırma kelimesi cihaza özgüdür.
 (() => {
     const KEY = "hud.settings";
     const root = document.documentElement;
@@ -30,14 +31,37 @@
         root.classList.toggle("no-motion", !S.motion);
     }
 
-    function set(patch) {
-        if ("name" in patch) patch.name = String(patch.name || "").trim().slice(0, 24) || S.name;
+    // Cihazlar arasında ortak olan ayarlar. Ses (cihazda yüklü seslere bağlı) ve uyandırma kelimesi (mikrofon izni) cihazda kalır.
+    const SHARED = ["h", "l", "c", "name", "rate", "speak", "sfx", "motion"];
+    const shared = () => Object.fromEntries(SHARED.map(k => [k, S[k]]));
+
+    function commit(patch) {
         Object.assign(S, patch);
         try { localStorage.setItem(KEY, JSON.stringify(S)); } catch { /* depolama kapalı: ayar bu oturumda geçerli */ }
         applyTheme();
         syncUi();
         window.dispatchEvent(new CustomEvent("hud:change", { detail: patch }));
     }
+
+    function set(patch) {
+        if ("name" in patch) patch.name = String(patch.name || "").trim().slice(0, 24) || S.name;
+        commit(patch);
+        if (SHARED.some(k => k in patch)) window.PREFS?.push("hud", shared());
+    }
+
+    // Başka cihazda değişen ayarlar (merkezden): yalnızca bilinen ve türü doğru alanlar alınır, geri gönderilmez
+    window.PREFS?.register("hud", {
+        get: shared,
+        apply(remote) {
+            if (!remote || typeof remote !== "object") return;
+            const patch = {};
+            for (const k of SHARED) {
+                if (k in remote && typeof remote[k] === typeof DEFAULTS[k] && remote[k] !== S[k]) patch[k] = remote[k];
+            }
+            if ("name" in patch) patch.name = String(patch.name).trim().slice(0, 24) || S.name;
+            if (Object.keys(patch).length) commit(patch);
+        },
+    });
 
     // Hazır renk adı ("kirmizi") ya da 0-360 arası ton. Tanınmazsa null döner.
     function setColor(value) {

@@ -30,18 +30,20 @@
     // ===== Kayıt =====
     try { localStorage.removeItem("hud.space"); } catch { /* eski serbest yerleşim kaydı */ }
 
-    function load() {
-        try {
-            const d = JSON.parse(localStorage.getItem(KEY)) || {};
-            const order = Array.isArray(d.order) && d.order.length === N && VIEWS.every(v => d.order.includes(v)) ? d.order : [...VIEWS];
-            return { order, slim: d.slim === true };
-        } catch {
-            return { order: [...VIEWS], slim: false };
-        }
+    function parse(d) {
+        d = d && typeof d === "object" ? d : {};
+        const order = Array.isArray(d.order) && d.order.length === N && VIEWS.every(v => d.order.includes(v)) ? [...d.order] : [...VIEWS];
+        return { order, slim: d.slim === true };
     }
 
+    function load() {
+        try { return parse(JSON.parse(localStorage.getItem(KEY))); } catch { return parse(null); }
+    }
+
+    // Düzen merkezde tutulur (sync.js); localStorage bu cihazdaki önbellektir
     let store = load();
-    const save = () => { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch { /* depolama kapalı: düzen bu oturumda geçerli */ } };
+    const saveLocal = () => { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch { /* depolama kapalı: düzen bu oturumda geçerli */ } };
+    const save = () => { saveLocal(); window.PREFS?.push("cockpit", { order: [...store.order], slim: store.slim }); };
     const idx = (v) => store.order.indexOf(v);
 
     // ===== Ölçüler =====
@@ -438,6 +440,26 @@
     toggle.addEventListener("click", () => setSlim(!store.slim));
     toggle.setAttribute("aria-expanded", String(!store.slim));
     toggle.title = store.slim ? "Konsolu aç" : "Konsolu daralt";
+
+    // Başka cihazda değişen düzen (merkezden): uygulanır ama geri gönderilmez
+    window.PREFS?.register("cockpit", {
+        get: () => ({ order: [...store.order], slim: store.slim }),
+        apply(remote) {
+            const next = parse(remote);
+            const slimChanged = next.slim !== store.slim;
+            store = next;
+            saveLocal();
+            dock.classList.toggle("is-slim", store.slim);
+            toggle.setAttribute("aria-expanded", String(!store.slim));
+            toggle.title = store.slim ? "Konsolu aç" : "Konsolu daralt";
+            if (slimChanged && store.slim) dock.dispatchEvent(new CustomEvent("console:slim"));
+            if (!G || app.hidden) return;
+            layout();
+            if (front) ringPos = idx(front);
+            markState();
+            animateTo(Math.round(ringPos));
+        },
+    });
 
     // ===== Tıklama: kanattaki sayfa ya da kart ortaya gelir =====
     let dragEndAt = 0;

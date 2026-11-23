@@ -35,7 +35,14 @@ Sıralama puanı: `(ilgi + kaynak ağırlığı × 2 + ilan/fırsat bonusu 4) ×
 - Paneldeki sesli asistan bilinen komutları tarayıcıda çözer (`admin/assistant.js`); tanımadığı cümleleri `assistant` edge function'ına yollar.
 - Fonksiyon yalnızca yönetici oturumuyla çalışır, `send-push` ile aynı `GEMINI_API_KEY` anahtarını ve model sırasını kullanır, veritabanına yazmaz. Yanıtı söylenecek metin ve panelin uygulayacağı izinli eylemlerdir; silme ve yayınlama eylemi yoktur.
 - Yayına almak için: `supabase functions deploy assistant`. Deploy edilmeden önce asistan yalnızca sabit komutları anlar.
-- Asistanın adı, sesi ve arayüz rengi panelin sağ üstündeki ayarlardan değişir ve cihazda (`localStorage`) saklanır.
+- Asistanın adı, sesi ve arayüz rengi panelin sağ üstündeki ayarlardan değişir.
+
+## Tercih senkronu (tek merkez)
+
+- Panel tercihleri tek satırlık `admin_prefs` tablosunda tutulur (`admin/sync.js`); hangi cihazdan girilirse girilsin aynı panel açılır.
+- Senkronlananlar: Nova ayarları (ad, renk, konuşma hızı, sesli yanıt, efektler, hareket), kokpit düzeni (sayfa sırası, konsol daraltma), Nova konuşma kaydı (son 40 satır) ve okunan günlük raporlar.
+- Cihaza özgü kalanlar: seçilen ses (her cihazın yüklü sesleri farklı) ve "Hey Nova" uyandırma kelimesi (mikrofon izni cihaza bağlı).
+- Giriş yapılınca ve panele her dönüşte merkezden çekilir; değişiklik ~0,7 sn sonra `set_admin_pref` ile yalnız kendi anahtarına yazılır. `localStorage` önbellektir, merkeze ulaşılamazsa panel onunla açılır.
 
 ## Mobil bildirimler (Web Push)
 
